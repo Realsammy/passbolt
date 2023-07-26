@@ -1,0 +1,2026 @@
+-- MariaDB dump 10.19  Distrib 10.11.4-MariaDB, for debian-linux-gnu (x86_64)
+--
+-- Host: localhost    Database: passbolt
+-- ------------------------------------------------------
+-- Server version	10.11.4-MariaDB-1:10.11.4+maria~ubu2204
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `account_settings`
+--
+
+DROP TABLE IF EXISTS `account_settings`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account_settings` (
+  `id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `user_id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `property_id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `property` varchar(256) NOT NULL,
+  `value` text NOT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`,`property_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_settings`
+--
+
+LOCK TABLES `account_settings` WRITE;
+/*!40000 ALTER TABLE `account_settings` DISABLE KEYS */;
+INSERT INTO `account_settings` VALUES
+('f284dd34-d975-47ed-a923-1512f0046a5b','04100d80-3491-4df1-ad93-2b986fb85950','5a047a1d-8c40-587b-8f4a-31ec9fb4a3d1','locale','en-UK','2023-07-23 15:57:57','2023-07-23 15:57:57');
+/*!40000 ALTER TABLE `account_settings` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `action_logs`
+--
+
+DROP TABLE IF EXISTS `action_logs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `action_logs` (
+  `id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `user_id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci DEFAULT NULL,
+  `action_id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `context` varchar(255) NOT NULL,
+  `status` int(1) NOT NULL,
+  `created` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id` (`id`),
+  KEY `status` (`status`),
+  KEY `action_id_2` (`action_id`,`status`),
+  KEY `user_id_2` (`user_id`,`action_id`,`status`,`created`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `action_logs`
+--
+
+LOCK TABLES `action_logs` WRITE;
+/*!40000 ALTER TABLE `action_logs` DISABLE KEYS */;
+INSERT INTO `action_logs` VALUES
+('0015cd82-7692-41fe-85be-a4319de4b85b',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /class.py',0,'2023-07-24 00:26:13'),
+('0047ad42-0924-410d-b41b-6fecd1d3e984',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /debug-output.txt',0,'2023-07-24 00:26:24'),
+('005c57d0-c31e-41ba-96f5-207e1e4b927a',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /~cats/php/phpinfo',0,'2023-07-25 23:42:59'),
+('00760bcd-8d28-4df9-9449-cc9b80d0472f',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-26 07:03:37'),
+('01763898-8249-4d5f-9116-e903743e25b5',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /property.py',0,'2023-07-24 00:26:18'),
+('021d5949-91ea-474d-a443-5877fa5ff2f4',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.venv',0,'2023-07-25 23:45:47'),
+('025d8b71-dd9b-4b2f-af67-9bb58dc6c8a4',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /admin/',0,'2023-07-24 07:08:46'),
+('026507e3-bb02-4399-8d4c-1eaea4cf0382',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /config.inc.txt',0,'2023-07-24 00:26:20'),
+('0271d338-c0cd-40c5-9bd5-43e17aac8eed',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-25 08:46:10'),
+('031bcbbc-a189-40ba-ba32-0336bc7db932',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-26 07:43:22'),
+('03256ca4-1713-49d6-93f0-93d824882a23',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-25 20:02:37'),
+('0345bb95-99dc-49dd-ba86-6a88cba2f53c',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-25 04:43:10'),
+('038aa42b-735c-4807-9544-5dad58d91185','04100d80-3491-4df1-ad93-2b986fb85950','d7bc9044-a64e-5421-a4d7-7a94eaa39d37','GET /users.json',1,'2023-07-26 09:19:40'),
+('03e009b4-8718-44ce-8197-da1919af2e82','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 09:19:48'),
+('03f54088-e0d3-4e45-9acd-dc80c383106f',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.flaskenv',0,'2023-07-25 23:45:36'),
+('03f9be16-27a3-43a0-87ba-255b2e500efe',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /config.production.js',0,'2023-07-25 23:44:32'),
+('043d14f8-c8c3-4d47-aff4-b8ebcf5b7739',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /aws.js',0,'2023-07-25 23:43:40'),
+('04e60050-c8f4-4e5f-bc23-c4f616a8e4e7',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.docker/config.json',0,'2023-07-24 00:26:25'),
+('04f03d84-6a31-4a2d-a26d-0ca38248300e','04100d80-3491-4df1-ad93-2b986fb85950','881ab948-e40f-5a72-91aa-54b442270029','GET /users/04100d80-3491-4df1-ad93-2b986fb85950.json',1,'2023-07-24 18:01:27'),
+('05efdb42-060c-4328-872b-68155f436510',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-26 04:10:46'),
+('065c60f5-c949-4327-9d92-e3f45ef294f4',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /results/.env',0,'2023-07-25 23:45:10'),
+('0720aa3b-4eaa-45c5-a8d4-6f91f9115259',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-25 12:20:35'),
+('08053082-e201-46a0-9e7c-59375202b376',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /config.prod.js',0,'2023-07-25 23:44:11'),
+('083c3d78-a1fe-4b24-a16a-ea650f824be5',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-25 00:35:04'),
+('089bdc92-1931-4cf4-96cf-581c98a17fb8',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /geoserver/web/',0,'2023-07-26 09:44:40'),
+('09074948-6bb7-4b8b-b436-01624d84897c',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.docker/laravel/app/.env',0,'2023-07-24 00:26:10'),
+('092b4796-a740-4891-9982-5d63f5001f27',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.zshenv',0,'2023-07-25 23:45:25'),
+('094051dd-513d-435b-91b6-d2db45f4b78e','04100d80-3491-4df1-ad93-2b986fb85950','1035f824-fe76-5a69-b02c-9aa60a31858c','GET /',1,'2023-07-24 15:22:04'),
+('0945a49b-1cf4-430c-aeb7-db3e5c9afa97','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 11:36:33'),
+('0a5112a4-e860-48cb-a80f-959a2ce1e867','04100d80-3491-4df1-ad93-2b986fb85950','881ab948-e40f-5a72-91aa-54b442270029','GET /users/04100d80-3491-4df1-ad93-2b986fb85950.json',1,'2023-07-26 09:18:49'),
+('0a97a939-b186-4fff-8af2-38d0fd7ee0cd',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /api/src/.env',0,'2023-07-25 23:45:34'),
+('0ac58d09-9efd-4a50-9d9e-614c5c3bb251','04100d80-3491-4df1-ad93-2b986fb85950','881ab948-e40f-5a72-91aa-54b442270029','GET /users/04100d80-3491-4df1-ad93-2b986fb85950.json',1,'2023-07-24 15:22:14'),
+('0b920d76-58ff-4fbe-958d-49f039b1dcd1','04100d80-3491-4df1-ad93-2b986fb85950','d7bc9044-a64e-5421-a4d7-7a94eaa39d37','GET /users.json',1,'2023-07-23 15:58:42'),
+('0bbd68e8-2ea8-4dd5-baa9-52316609130c',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-24 18:18:18'),
+('0c093cd0-2164-47f8-a3be-495de6bf8d15',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /kyc/.env',0,'2023-07-25 23:45:44'),
+('0c7566f4-e012-41f0-aab9-d8f27757bcbd','04100d80-3491-4df1-ad93-2b986fb85950','881ab948-e40f-5a72-91aa-54b442270029','GET /users/04100d80-3491-4df1-ad93-2b986fb85950.json',1,'2023-07-24 15:22:13'),
+('0c871de9-7f17-45be-bdc7-b75819e84916',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /owa/auth/x.js',0,'2023-07-23 23:27:28'),
+('0c94ae14-d384-4acc-81cc-9ff10884a0ca','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-24 15:22:05'),
+('0cc38c3c-eee2-4d93-916a-e08a02352acf',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-25 12:20:35'),
+('0cfe8c93-1966-4ab6-97a8-b6dff35cbf71','04100d80-3491-4df1-ad93-2b986fb85950','53da54b1-9576-52ab-a11f-b2265b5aa455','GET /smtp/settings.json',1,'2023-07-23 15:59:27'),
+('0d33c386-3a47-4763-bd97-343cc8e9de3a',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /phpinfo.php4',0,'2023-07-25 23:42:39'),
+('0e76c576-255f-440a-846c-7c26d49f123d',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /bundle.js',0,'2023-07-25 23:43:04'),
+('0e7ccb7a-1796-408e-a304-0e2d721255fc',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /dashboard/phpinfo',0,'2023-07-25 23:42:59'),
+('0e82a0fa-099f-4f3c-a9d3-ff38bdd432a6',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /staging2/.env',0,'2023-07-25 23:45:48'),
+('0ec0136a-935e-4a0e-9491-5d1dfb23efc1','04100d80-3491-4df1-ad93-2b986fb85950','9caaba03-49d2-5273-8097-e278234e71e0','GET /settings/emails/notifications.json',1,'2023-07-23 16:01:51'),
+('0eca4d15-bd92-433d-8651-d6acb585b510',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /index.html',0,'2023-07-25 04:43:52'),
+('0ef67b03-2cb9-4262-9d2c-e0d6304ce28d',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /info',0,'2023-07-25 23:43:55'),
+('0fbb4fd8-cf58-407f-b801-537dd4c6cf7c',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-24 18:18:19'),
+('10025af1-6fb5-49f9-8a47-6fed0a728530','04100d80-3491-4df1-ad93-2b986fb85950','3cffe6ef-ea4c-5bc3-869b-945f26e2601a','GET /groups.json',1,'2023-07-26 09:19:38'),
+('107556ca-4b32-4253-9782-2aae001dd672',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /services/.env',0,'2023-07-25 23:45:27'),
+('10c1bd3b-33c4-4c22-956e-b71879c85fb6',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.hsenv',0,'2023-07-25 23:45:19'),
+('1104aff5-7ac2-4ecf-8aac-7dd31bb39a0b',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.envrc',0,'2023-07-25 23:45:43'),
+('1121d219-95cb-450a-968b-1555871c1d0c',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.htaccess_orig',0,'2023-07-24 00:26:16'),
+('1195a7e7-db12-442d-81c5-fd345ce9e9d5',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /boaform/admin/formLogin',0,'2023-07-23 19:56:38'),
+('1213758f-cf38-44b7-9dad-3e7cb1dfcbbb','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-23 15:58:04'),
+('125fa3ae-dbf9-4d3c-8e95-f2424c23cf6f',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-25 05:49:38'),
+('12f15565-8e96-43c2-8887-de3bfc602c64','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-23 18:23:15'),
+('1345ec1e-2eb8-485b-ac73-1690274444c5',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /core/.env',0,'2023-07-25 23:44:48'),
+('134e17c2-4421-4663-809a-2efaf6b8b1e3',NULL,'caea12fd-e0f8-5d68-aa19-d7b25119740e','GET /users/csrf-token.json',1,'2023-07-24 18:01:10'),
+('1376c553-6e21-4c8e-b48b-8eb374902136',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.htaccess-local',0,'2023-07-24 00:26:11'),
+('1391b931-fe73-4742-8e99-2d3474377109',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /dns-query',0,'2023-07-25 02:38:31'),
+('13aa7163-29f4-4fde-aa53-90feb1f933dc',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /owa/auth/logon.aspx',0,'2023-07-24 12:12:49'),
+('13f16a37-2ae1-4acb-ad69-a83b5e32e849',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-24 21:56:15'),
+('141613ec-b276-4436-ac12-ff3ea11bf571','04100d80-3491-4df1-ad93-2b986fb85950','bef9f3ca-86ef-5c6a-9b38-320e03ceb5df','GET /settings.json',1,'2023-07-26 09:53:04'),
+('142b55cf-154d-42e6-a899-46c3b2a332eb',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /docker-compose-dev.yml',0,'2023-07-24 00:26:21'),
+('14552f4b-e434-4edd-9d25-cd548c48c65e',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /manage/account/login',0,'2023-07-25 04:38:36'),
+('14bd1df6-f2fd-4178-a658-92c942d379cc',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /dashboard/admin/phpinfo',0,'2023-07-25 23:44:13'),
+('14d2bec7-5baf-48d0-abfb-3a1e8807ad12',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /home/.env',0,'2023-07-25 23:45:16'),
+('1510b8b5-140b-4e78-8630-79e636f5ce05',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.git/config',0,'2023-07-26 06:42:22'),
+('159530c8-d9fc-4e62-870b-98379bb7436b',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /config/aws.yml',0,'2023-07-24 00:26:23'),
+('16ec5a86-942e-4e33-aee1-bd3274c6218f','04100d80-3491-4df1-ad93-2b986fb85950','caea12fd-e0f8-5d68-aa19-d7b25119740e','GET /users/csrf-token.json',1,'2023-07-23 15:58:17'),
+('16ee2900-7e5d-45ba-8623-f86ce8a3f017',NULL,'50ca4a19-b782-5842-bd2b-f59e9ff4eef9','GET /setup/start/04100d80-3491-4df1-ad93-2b986fb85950/75a826d9-799c-4901-a24e-fcd9afc5963f.json',1,'2023-07-23 15:54:57'),
+('17320aff-37cc-42b3-acc8-27c9ca57ffa0',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.docker/.env',0,'2023-07-25 23:44:46'),
+('1753e312-a454-4732-8e32-83030d4c290c','04100d80-3491-4df1-ad93-2b986fb85950','3cffe6ef-ea4c-5bc3-869b-945f26e2601a','GET /groups.json',1,'2023-07-24 18:01:29'),
+('17dd9a65-9473-4216-93bd-5c9b9cc04bad',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /boaform/admin/formLogin',0,'2023-07-25 20:49:55'),
+('17f4c6c6-a1c0-4696-b610-2baaed017ad3',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-24 20:15:59'),
+('18361758-c2c5-460a-b3f3-ebfb6517a12a',NULL,'a3c19ad2-8920-5395-86d0-8567cb34f382','POST /auth/login.json',1,'2023-07-24 18:01:11'),
+('185aafff-e298-4812-936c-1bfeef621895',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-24 16:20:45'),
+('18bb6da3-5549-4036-8cf4-3bf5200a3fdb','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 11:34:14'),
+('19052c28-9126-4c51-8546-8b0c339c2202',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /t4',0,'2023-07-24 11:20:06'),
+('19782e4e-2e50-480c-bf84-1487df08c0fb','04100d80-3491-4df1-ad93-2b986fb85950','3cffe6ef-ea4c-5bc3-869b-945f26e2601a','GET /groups.json',1,'2023-07-23 18:22:42'),
+('198f4114-3396-4c31-b6b9-1a74bdaee9ce',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /v2/.env',0,'2023-07-25 23:45:42'),
+('1998b76e-7126-467a-ba28-94a8cc44ee40',NULL,'bef9f3ca-86ef-5c6a-9b38-320e03ceb5df','GET /settings.json',1,'2023-07-24 17:31:17'),
+('199e949e-a7d3-4606-ac70-d1974a20a838',NULL,'bef9f3ca-86ef-5c6a-9b38-320e03ceb5df','GET /settings.json',1,'2023-07-25 17:55:14'),
+('19c4410d-019d-449f-9adc-115e9c50a596','04100d80-3491-4df1-ad93-2b986fb85950','1035f824-fe76-5a69-b02c-9aa60a31858c','GET /',1,'2023-07-23 15:58:03'),
+('1a232430-624a-44d7-96d7-edf966d10dc2',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /aab8',0,'2023-07-24 12:31:41'),
+('1a86e2b2-82a2-4f2d-b24c-615cbcc28f2f',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /config.env',0,'2023-07-25 23:44:51'),
+('1a968512-f28c-4d91-9371-4a98810c1d6b',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /invoker/readonly',0,'2023-07-24 11:14:39'),
+('1a96ce6e-faee-4cdb-87cd-7be028bc1bc0',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.dockercfg',0,'2023-07-24 00:26:20'),
+('1c9624ac-84e7-4cbb-9b3b-9cacebcc11f0','04100d80-3491-4df1-ad93-2b986fb85950','30237a18-fd12-5935-b1be-1e2a62ccb71d','GET /roles.json',1,'2023-07-24 18:01:28'),
+('1ccec377-0d8e-4974-b2a6-67a82c3b22df',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /env.bak',0,'2023-07-25 23:45:50'),
+('1cedc9e3-d672-410d-9ebe-ef55fa6c9607',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /owa/auth/logon.aspx',0,'2023-07-24 06:58:05'),
+('1d613333-cc73-4121-81f2-8560eef1d188',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /configure.php.bak',0,'2023-07-25 23:43:12'),
+('1de81d49-f71f-49e8-a02d-f79cd06e2260',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /env.bak/',0,'2023-07-25 23:45:45'),
+('1e710720-3a04-4c4c-adf1-42d2fb273197',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /robots.txt',0,'2023-07-24 06:02:12'),
+('1f714efc-5d13-4446-bb8e-1f6364cf9903',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.htaccess_sc',0,'2023-07-24 00:26:20'),
+('1fc38b09-37e2-49ea-b877-a20c5639a33f',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /task.py',0,'2023-07-24 00:26:26'),
+('1ffa7132-daa3-4bb3-bb6e-a45c57737cda',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /htaccess.backup',0,'2023-07-24 00:26:16'),
+('201720ad-d4a9-47ba-9360-8544e43b62ce',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /owa/auth/logon.aspx',0,'2023-07-24 11:14:02'),
+('2043c304-c2f8-4898-b126-34db8891a587',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /envrc',0,'2023-07-25 23:45:22'),
+('205ee633-ad3e-4e85-9354-6be3f6e690b5',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.aws/credentials.js',0,'2023-07-24 00:26:21'),
+('211ea942-cf0b-48eb-bc8e-261fddd0160e','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 10:52:20'),
+('2122297b-6e56-4eba-92d1-cf44d8202580',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /config.php~',0,'2023-07-25 23:43:21'),
+('21b2c0cf-867c-45bc-8083-0f36d62ee522',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /owa/auth/logon.aspx',0,'2023-07-24 05:52:14'),
+('21ddbba7-3e0c-40dc-b948-7ffb61a9bcfa',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-24 16:20:46'),
+('22485d62-82cf-4766-8f16-bee3b8ed1566',NULL,'caea12fd-e0f8-5d68-aa19-d7b25119740e','GET /users/csrf-token.json',1,'2023-07-25 14:36:20'),
+('22e9ce8f-e487-4157-95f1-71b0a2661831','04100d80-3491-4df1-ad93-2b986fb85950','e2aa01a9-84ec-55f8-aaed-24ee23259339','GET /resource-types.json',1,'2023-07-24 15:22:05'),
+('230dca83-d12b-48f3-805d-c0d5eeeb6b11',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-26 12:12:12'),
+('233816fd-4f2c-4e09-a4a8-92418f29fc86',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /crm/.env.production',0,'2023-07-25 23:45:20'),
+('23618c7d-096d-4304-a292-2f48153707c8',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /content/.env',0,'2023-07-25 23:45:49'),
+('2386cd3a-c755-40d2-abe8-cf48c38c5fdb',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.htaccessOLD',0,'2023-07-24 00:26:15'),
+('23a25d19-977d-4840-ac12-afd01382c62c',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /settings.php.bak',0,'2023-07-25 23:44:04'),
+('23b9a72d-81ec-4579-a6f1-4419d322b165',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /staging/.env',0,'2023-07-25 23:45:02'),
+('23f20546-0bbe-425b-98b5-768f2fbeec7d','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 09:55:57'),
+('23ff41c8-6488-4b8b-9f14-0abb6a59f784','04100d80-3491-4df1-ad93-2b986fb85950','9b473b19-0e3e-5efb-be19-8a1719843762','GET /account/settings.json',1,'2023-07-26 09:18:48'),
+('24801712-2629-415a-b3e5-de63fa75d28c',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-26 00:23:57'),
+('24ac4894-ff10-43bd-82ad-fddaa698b6c3',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /actuator/health',0,'2023-07-25 11:15:03'),
+('2568cf13-06dc-491f-b98c-cdd5ac97e771','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-24 15:22:16'),
+('258e4f9a-41d5-40a6-8ade-94f29a735f03',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-25 10:31:50'),
+('259dbb81-472f-45c6-938b-f63ef193c790',NULL,'bef9f3ca-86ef-5c6a-9b38-320e03ceb5df','GET /settings.json',1,'2023-07-23 15:54:06'),
+('25b3e5ba-d7a1-4ceb-8911-c9b12f8d13fe',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /containers.py',0,'2023-07-24 00:26:19'),
+('260a3e25-2be2-4ac0-b558-7e9c365333a2',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.htaccess/',0,'2023-07-24 00:26:18'),
+('26455d72-1e67-41de-9a51-fccffe195c1a',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-25 06:04:05'),
+('26a35d2b-0c81-469c-bfde-807da75d6e56',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-26 00:23:58'),
+('2777d246-e7f3-4f56-b5de-b8211d153cbb','04100d80-3491-4df1-ad93-2b986fb85950','a1a15b91-72f6-5708-8d7f-6940e51d8595','POST /users.json',1,'2023-07-24 18:03:47'),
+('286d2d0e-e5ee-4999-8b91-97cec580a3b0',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /aaa9',0,'2023-07-24 10:40:11'),
+('289c4288-290e-41e9-a4eb-a896d9755c06',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /_static/.env',0,'2023-07-25 23:44:48'),
+('29024236-1339-469f-bb38-2e0dc49b7793','04100d80-3491-4df1-ad93-2b986fb85950','3cffe6ef-ea4c-5bc3-869b-945f26e2601a','GET /groups.json',1,'2023-07-26 09:19:39'),
+('2975ef17-a498-4345-a4a7-22f39d7824d4','04100d80-3491-4df1-ad93-2b986fb85950','caea12fd-e0f8-5d68-aa19-d7b25119740e','GET /users/csrf-token.json',1,'2023-07-24 18:01:26'),
+('29984bd3-5e88-4a97-b77b-f0d41bb23fc3',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /ab2h',0,'2023-07-25 10:45:35'),
+('29cc7acd-e608-4428-8c17-177b56af3b0b',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /metrics',0,'2023-07-24 06:19:02'),
+('29f34e8b-2bb4-472c-ae8c-78048877c5c0','04100d80-3491-4df1-ad93-2b986fb85950','881ab948-e40f-5a72-91aa-54b442270029','GET /users/me.json',1,'2023-07-23 15:59:10'),
+('2a793d5f-9d4e-42c9-93ad-f3cd7796b454',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /env/',0,'2023-07-25 23:45:32'),
+('2b0876a5-d665-4a39-aa32-d0ccf56cf8ea',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /portal/redlion',0,'2023-07-25 19:33:53'),
+('2bf98acc-9858-4a86-9b05-16f81ee77549',NULL,'bef9f3ca-86ef-5c6a-9b38-320e03ceb5df','GET /settings.json',1,'2023-07-24 16:02:13'),
+('2ccd2547-cf29-4811-900b-b730f386ecd7',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /manage/account/login',0,'2023-07-25 04:36:57'),
+('2ccf0a00-4f2a-4da3-9f54-6281d3e5ad91',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-23 16:16:49'),
+('2d2cfbd3-1a03-41ad-a2f8-eab3393c7a2a',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /dockerrun.aws.json',0,'2023-07-25 23:43:36'),
+('2d60f4ea-44c6-4593-b2eb-0c386cf4a962','04100d80-3491-4df1-ad93-2b986fb85950','bef9f3ca-86ef-5c6a-9b38-320e03ceb5df','GET /settings.json',1,'2023-07-23 15:59:11'),
+('2dabfa54-5b28-4a22-b330-f70b75ba0ff7',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env_old',0,'2023-07-25 23:45:24'),
+('2db0f18c-ef1c-47ef-9822-fec895ec12aa',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /_profiler/phpinfo',0,'2023-07-26 07:43:21'),
+('2dd7e39e-ce35-4e66-a618-d96602f15a36',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /env.js',0,'2023-07-25 23:42:45'),
+('2e0c6a77-ae3b-4d3c-b2b0-30bbaaaf2eda',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-24 13:30:16'),
+('2e7a716a-ef25-4214-bb6e-9f5f048f2d1e',NULL,'bef9f3ca-86ef-5c6a-9b38-320e03ceb5df','GET /settings.json',1,'2023-07-24 15:21:28'),
+('2eeb4fc6-6dd2-48e3-ae35-856ed850fc30','04100d80-3491-4df1-ad93-2b986fb85950','881ab948-e40f-5a72-91aa-54b442270029','GET /users/04100d80-3491-4df1-ad93-2b986fb85950.json',1,'2023-07-26 09:53:04'),
+('2f0f1e18-91e3-4e71-aea7-b4faaffef27b',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /cgi-bin/authLogin.cgi',0,'2023-07-24 07:10:10'),
+('2f1bad9f-f10e-4aff-8820-c09fb9575048',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-24 21:56:15'),
+('2f1f12f5-c131-4930-a845-0faa5530b0cf',NULL,'bef9f3ca-86ef-5c6a-9b38-320e03ceb5df','GET /settings.json',1,'2023-07-23 20:25:52'),
+('2f21253c-7544-4856-9f39-8b8b052b4684',NULL,'caea12fd-e0f8-5d68-aa19-d7b25119740e','GET /users/csrf-token.json',1,'2023-07-24 15:22:01'),
+('2f22671e-73c7-4370-b411-47084921cdb6',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.htaccess.inc',0,'2023-07-24 00:26:17'),
+('2f58266f-7515-457a-aeb2-9997797232c2',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /php.ini',0,'2023-07-25 23:43:07'),
+('2fd4e478-5648-43f1-b924-76faef45947f','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 09:45:36'),
+('306786e9-39a5-4618-97f2-d80bd6cc1e6a',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /environment.rb',0,'2023-07-25 23:45:05'),
+('3082f1f7-90b7-4cc7-a1ff-b6b58239e753',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /cgi-bin/printenv',0,'2023-07-25 23:45:21'),
+('3088090a-d217-40b3-82da-6d0fd3136274',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /src/.env',0,'2023-07-25 23:45:43'),
+('30ec0838-08f0-4b0e-832f-fce49aa0a83d',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /security.py',0,'2023-07-24 00:26:21'),
+('30f3c1a7-31a0-4835-945c-320be1b550b1',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-24 10:59:10'),
+('31bda796-992a-42da-a221-6732dff616ae',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-25 23:28:41'),
+('3210bd3f-3d52-41e3-9476-218349d5dae8','04100d80-3491-4df1-ad93-2b986fb85950','31f74e04-d9bb-592b-aa45-ba6682d3316d','GET /password-generator/settings.json',1,'2023-07-26 09:18:50'),
+('32cf4724-5315-467f-bec1-88aabdcc8b0e',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-24 21:03:57'),
+('32d1db1b-ecb1-4a0e-95de-3f8381ee548b',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /dashboard.py',0,'2023-07-24 00:26:19'),
+('3307ec73-3429-431f-a49b-aea34b1b050f',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.htaccess.sample',0,'2023-07-24 00:26:23'),
+('331272f4-f16d-454e-93b3-bf3b1c1e0ceb',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-26 03:56:39'),
+('334b7783-bfc6-450b-b9f1-9eb03a87da3b',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /phpsysinfo',0,'2023-07-25 23:43:30'),
+('3392248e-fe32-4a92-92c5-7c7a51cf4ba6',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.htaccess.txt',0,'2023-07-24 00:26:23'),
+('33af39c2-4bc6-45d9-9d1a-3c1c10cbcd14',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-25 08:46:48'),
+('33b28944-3d78-4703-a015-543d1b53590a',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /owa/',0,'2023-07-24 07:10:00'),
+('33f1bbad-c8a3-4dd4-9101-61008e536810',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-25 15:25:36'),
+('34788d2a-39ad-489b-a7a4-4df38d46aca8',NULL,'bef9f3ca-86ef-5c6a-9b38-320e03ceb5df','GET /settings.json',1,'2023-07-24 16:02:07'),
+('34a066e8-2068-4694-b53d-a5a53a563ec9',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /jenkins/login',0,'2023-07-24 11:14:42'),
+('34af2c60-d796-46d8-acbe-4a0fdaf4296a',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env.dev.local',0,'2023-07-25 23:45:23'),
+('34e27974-44f0-4910-a5b6-2be67939b3ce',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /demo/.env',0,'2023-07-25 23:45:07'),
+('34f96e7d-4302-4052-8f7c-4911f81746a1',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /document.py',0,'2023-07-24 00:26:14'),
+('352a0d58-5854-40f4-8269-b9e4696e13de',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /dns-query',0,'2023-07-25 02:51:36'),
+('355c9e5c-e5a0-4768-9e68-18db6b521f0b',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-23 17:43:37'),
+('356f402e-a37e-4b4e-8439-1801efd5fe11',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-24 12:33:29'),
+('3578be69-8a6f-4046-b27e-53a9571d1d82','04100d80-3491-4df1-ad93-2b986fb85950','a04f2607-8cb6-56c6-a9cb-6b9c7603bacd','GET /rbacs/me.json',1,'2023-07-24 18:01:28'),
+('363b75a1-27fe-4994-a60c-7fcfadf80e7a','04100d80-3491-4df1-ad93-2b986fb85950','caea12fd-e0f8-5d68-aa19-d7b25119740e','GET /users/csrf-token.json',1,'2023-07-24 15:22:13'),
+('367ff32a-10d2-44ab-b368-fcd835df7a65',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.config',0,'2023-07-24 00:26:22'),
+('36e5b2d7-2e38-4d05-ac10-6c1b8f350557',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-24 20:51:55'),
+('370e5f23-9772-49da-88ee-9df55abf1c53','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 12:06:33'),
+('372e64ec-b547-4adf-8bc4-baff138324db',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-25 07:06:31'),
+('37caa764-025d-4233-9a60-52af11b20071',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /phpinfo.php5',0,'2023-07-25 23:44:26'),
+('387279f0-2c3f-49e7-b128-2f82fa272850',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /configure.php.orig',0,'2023-07-25 23:44:40'),
+('39d8cfe6-fb8b-48b5-b3bb-2810be3043ac',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-24 16:44:12'),
+('3a2385c0-a5dc-4273-85a2-d3957414b2db',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /dashboard.js',0,'2023-07-24 00:26:20'),
+('3a780868-0a8c-4b10-aeb0-42532d24c79a',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env.save',0,'2023-07-25 23:45:35'),
+('3ab61c62-e667-4c84-8be0-e0d889b756b7','04100d80-3491-4df1-ad93-2b986fb85950','caea12fd-e0f8-5d68-aa19-d7b25119740e','GET /users/csrf-token.json',1,'2023-07-24 18:07:26'),
+('3b0838d0-50f6-4d34-a235-cf7d6f1a692d',NULL,'caea12fd-e0f8-5d68-aa19-d7b25119740e','GET /users/csrf-token.json',1,'2023-07-23 20:26:19'),
+('3b30571b-909d-4394-a5aa-03257ca438d8',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /bundle.js',0,'2023-07-24 02:33:48'),
+('3b4f3ef2-45d8-40ab-b142-4513b8bde2fd','04100d80-3491-4df1-ad93-2b986fb85950','a3c19ad2-8920-5395-86d0-8567cb34f382','POST /auth/login.json',1,'2023-07-26 09:18:39'),
+('3b62cf00-6475-4b89-9c6d-2a12f55479c8',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.well-known/security.txt',0,'2023-07-24 11:57:08'),
+('3b6a8866-0420-4fcf-ba6a-ad71cd7189c4',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-24 13:30:16'),
+('3c7ec706-3ff2-443a-a05f-9c0ff003bee7',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-24 15:44:40'),
+('3c901707-0639-4d93-8682-d5c25659c495',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env.dist',0,'2023-07-25 23:45:44'),
+('3ca02115-b232-4f7e-b0e5-aa83b6739191',NULL,'a3c19ad2-8920-5395-86d0-8567cb34f382','POST /auth/verify.json',1,'2023-07-25 15:24:06'),
+('3d1053f6-6967-4d6e-879d-686c34340e1f','04100d80-3491-4df1-ad93-2b986fb85950','1c717cd7-d236-55c4-a068-b9a0923b1927','POST /users/recover.json',1,'2023-07-24 18:06:30'),
+('3d74a9a5-4b04-46bd-8dd2-a6ad306d90d1',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /composer.json',0,'2023-07-25 23:44:10'),
+('3d9b1658-7ee5-4678-a520-fd530af6e1eb','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 10:52:32'),
+('3dbcf1fb-14b2-46d9-95df-022c002501f4','04100d80-3491-4df1-ad93-2b986fb85950','881ab948-e40f-5a72-91aa-54b442270029','GET /users/04100d80-3491-4df1-ad93-2b986fb85950.json',1,'2023-07-24 18:01:28'),
+('3e30323b-7268-41a5-8d04-528a63037ca8',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env.sample',0,'2023-07-25 23:45:03'),
+('3e68a499-546a-4635-965d-561797532b75',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /env.prod.js',0,'2023-07-25 23:45:50'),
+('3e7b5ba3-c097-4898-819d-9bfab307a609',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env.txt',0,'2023-07-25 23:45:33'),
+('3e7e6017-c649-4337-a3bc-ad5674a0c194',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-25 23:44:44'),
+('3eefdf8f-1a76-477a-b056-e863f98cf045','04100d80-3491-4df1-ad93-2b986fb85950','30237a18-fd12-5935-b1be-1e2a62ccb71d','GET /roles.json',1,'2023-07-26 09:53:05'),
+('3f1e4b70-bc50-44fb-aaec-04918b6e9448','04100d80-3491-4df1-ad93-2b986fb85950','30237a18-fd12-5935-b1be-1e2a62ccb71d','GET /roles.json',1,'2023-07-24 15:22:14'),
+('3f5c1930-f094-4dc0-ba22-fddc2603ebb8',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /laravel/.env',0,'2023-07-25 23:44:43'),
+('3f80da23-457d-4536-be83-ec18f7dd8716',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /+CSCOE+/logon.html',0,'2023-07-25 04:45:06'),
+('400a34a4-f73c-4a33-8346-9636188f52e6',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.git/config',0,'2023-07-25 11:06:25'),
+('402d43c1-38b5-49f8-8f27-2b9f4c4c8b66',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-25 06:16:51'),
+('40429d66-0c47-4f83-883f-4d132014e061',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /content.py',0,'2023-07-24 00:26:11'),
+('40c52057-5662-4e92-afa1-2dce27bd15ea',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /iam.py',0,'2023-07-24 00:26:21'),
+('412daf04-a2fb-4a0d-b698-f10f641ed4d1',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /env.list',0,'2023-07-25 23:45:14'),
+('415c7892-dc64-48b8-9377-166e59b1e55a',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /boaform/admin/formLogin',0,'2023-07-25 18:23:20'),
+('42a78949-588c-4906-a688-1ac0ce1814ae',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /local.js',0,'2023-07-24 00:26:26'),
+('42c20f48-73b7-405b-9227-b9d9d7f582e7','04100d80-3491-4df1-ad93-2b986fb85950','a3c19ad2-8920-5395-86d0-8567cb34f382','POST /auth/login.json',1,'2023-07-24 18:01:11'),
+('43089001-dfe4-44b9-b8a7-16bd0d4bd6bc',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /index.js',0,'2023-07-25 23:43:22'),
+('4354e179-4d63-49b1-a229-18b4e5ec30b0',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /config.json.bak',0,'2023-07-25 23:42:55'),
+('435922cf-aa97-4df9-8623-91a2f055c3ec',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-24 08:31:07'),
+('43f6cb07-24b2-43f7-afd2-ec89fd027f66',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /prod/.env',0,'2023-07-25 23:45:29'),
+('442a18a1-9aff-4b4d-924d-952e1e69fb17',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /_Dockerfile',0,'2023-07-24 00:26:22'),
+('44b208f1-0dbb-4c8b-bdd2-8610de833988','04100d80-3491-4df1-ad93-2b986fb85950','d7bc9044-a64e-5421-a4d7-7a94eaa39d37','GET /users.json',1,'2023-07-26 09:19:48'),
+('44f0f98d-d3b6-42bb-88d7-dd127f988875','04100d80-3491-4df1-ad93-2b986fb85950','e2aa01a9-84ec-55f8-aaed-24ee23259339','GET /resource-types.json',1,'2023-07-23 15:58:03'),
+('450b6d52-e4b1-47a0-b59f-a7f73f9ad04a',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /secrets.env',0,'2023-07-25 23:45:11'),
+('451b2417-d8f4-4cff-ae75-a9e5afb855c5',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /base.py',0,'2023-07-24 00:26:26'),
+('45a6465b-42a1-4399-9663-1a43f604b04a',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /phinx.yml',0,'2023-07-24 00:26:16'),
+('45befe7d-8896-4cf1-9423-54c5e4e1f068',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /sitemap.xml',0,'2023-07-25 22:59:27'),
+('45efa627-0d7d-488f-a11d-9c261222352a',NULL,'a3c19ad2-8920-5395-86d0-8567cb34f382','POST /auth/login.json',1,'2023-07-23 18:22:16'),
+('46e62b3c-7f6b-490e-b670-cd7695565403',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /env',0,'2023-07-25 23:45:13'),
+('473a2144-7193-442a-b1a3-84390a69442b',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /phpinfo.txt',0,'2023-07-25 23:44:30'),
+('477e3ec4-1c07-423f-8a14-04e0445281f9','04100d80-3491-4df1-ad93-2b986fb85950','a04f2607-8cb6-56c6-a9cb-6b9c7603bacd','GET /rbacs/me.json',1,'2023-07-24 15:22:15'),
+('47bd52ab-1f47-4c1c-8a31-f33a401c91cf','04100d80-3491-4df1-ad93-2b986fb85950','d7bc9044-a64e-5421-a4d7-7a94eaa39d37','GET /users.json',1,'2023-07-23 18:22:42'),
+('480248d0-8be0-44ed-8a77-0d792874d304','04100d80-3491-4df1-ad93-2b986fb85950','d7bc9044-a64e-5421-a4d7-7a94eaa39d37','GET /users.json',1,'2023-07-24 18:02:57'),
+('4829fc58-ad54-42f4-afbb-c4248f9db5b1','04100d80-3491-4df1-ad93-2b986fb85950','a3c19ad2-8920-5395-86d0-8567cb34f382','POST /auth/login.json',1,'2023-07-23 18:22:17'),
+('48325957-742a-40f5-ac69-cbe32fce6da2',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /boaform/admin/formLogin',0,'2023-07-26 07:20:09'),
+('485ae220-af9d-4d0b-8514-504252f83099','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 11:36:35'),
+('48f1040e-7641-4f02-a07d-0b47886493de',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /configuration.php-dist',0,'2023-07-25 23:43:04'),
+('492068c4-8772-4b2c-8329-811c98fec25e',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /phpdetails',0,'2023-07-25 23:43:29'),
+('49254e36-95ff-4781-9c1f-40703d9a4a1d',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /app_dev.php/_profiler/phpinfo',0,'2023-07-25 23:44:13'),
+('4945f50b-e4d6-4051-a074-57fccddc4e5f',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /database.json',0,'2023-07-25 23:42:58'),
+('4960bcc1-3b91-4521-a15b-cba89aac5359',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env~',0,'2023-07-25 23:45:49'),
+('4a3be355-cb24-4828-b885-f29529c223b6',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-26 06:12:50'),
+('4a7125ff-9770-4e33-be98-b9ea9069ca77',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET s=/Index/%5Cthink%5Capp/invokefunction&function=call_user_func_array&vars%5B0%5D=md5&vars%5B1%5D%5B%5D=HelloThinkPHP21',0,'2023-07-24 21:35:48'),
+('4a7c6264-32b6-4121-a8ea-ae95a2deae6a',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-24 06:18:59'),
+('4b8389b6-7560-4c4f-a51d-3e343f1c6618',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /uploads/.env',0,'2023-07-25 23:45:27'),
+('4b8ea172-a0c8-406e-a44a-bdc58289641a',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-25 05:49:39'),
+('4b987062-166f-498e-9499-fd34de0db56d',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /export/.env',0,'2023-07-25 23:45:05'),
+('4bccfe72-71e6-40fd-baeb-a337e1532eb0',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /symfony.py',0,'2023-07-24 00:26:15'),
+('4c21e005-e67e-4538-bb00-2c016a9795fb',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-25 01:23:20'),
+('4c2a9c8a-9a02-42b3-849b-f67158fed620',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /icons/.env',0,'2023-07-25 23:44:57'),
+('4c5145cb-b55c-46a6-b0a4-abd6ff5ce001',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /geoip/',0,'2023-07-23 20:32:19'),
+('4c6df892-e038-4b40-96ce-6d0c1f253a29','04100d80-3491-4df1-ad93-2b986fb85950','9b473b19-0e3e-5efb-be19-8a1719843762','GET /account/settings.json',1,'2023-07-23 18:22:33'),
+('4c7b2124-2295-4a63-afb5-e1d85f1ae20a',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.git/config',0,'2023-07-24 06:18:58'),
+('4d374757-cfdc-4a4c-8fed-2061a04ba700',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /test.js',0,'2023-07-25 23:44:07'),
+('4da9ac68-b428-40e9-b872-b88943ccbc14',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /files/.env',0,'2023-07-25 23:45:17'),
+('4ebf89aa-e731-4b23-b454-a1ff478a36aa',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-24 23:32:32'),
+('5016acd9-5ca5-4a44-a4bb-03f56576f6a5',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /dqgqoeCXckuwPtxov',0,'2023-07-25 02:45:41'),
+('502bbd67-ec7b-452a-9cf5-cf15bd6620ae',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /info.json',0,'2023-07-25 23:42:47'),
+('50583cd8-9364-4921-987f-8737a0069e37',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /view.js',0,'2023-07-24 00:26:25'),
+('5086f703-4d63-4bc5-869e-9ca6f15c70b5',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /owa/auth/logon.aspx',0,'2023-07-24 14:14:20'),
+('5211039e-0e59-47d9-8edf-7ac1c13920b6',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /owa/auth/logon.aspx',0,'2023-07-24 20:08:01'),
+('5225611f-f4f9-42db-ac85-561aa8377f45',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-24 15:44:39'),
+('524763e5-39e4-4bd6-bce7-7fe09041749e',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /owa/auth/logon.aspx',0,'2023-07-24 16:24:54'),
+('52c53df3-90c2-4a9b-9c2e-cbf088075e32','04100d80-3491-4df1-ad93-2b986fb85950','caea12fd-e0f8-5d68-aa19-d7b25119740e','GET /users/csrf-token.json',1,'2023-07-26 09:53:04'),
+('52e0723b-db8f-4d1e-b2fd-6fe09565ccd1',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /d/.env',0,'2023-07-25 23:45:37'),
+('530762f7-c1fb-4a7e-a64e-1bf2edae0932','04100d80-3491-4df1-ad93-2b986fb85950','30237a18-fd12-5935-b1be-1e2a62ccb71d','GET /roles.json',1,'2023-07-23 15:58:19'),
+('537f0d83-bd71-4721-81e9-174d867d9aff',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /actuator/env',0,'2023-07-25 23:45:37'),
+('53f27675-06f5-48c0-936d-ba0c38783f6c',NULL,'bef9f3ca-86ef-5c6a-9b38-320e03ceb5df','GET /settings.json',1,'2023-07-26 09:17:21'),
+('54511b78-1a64-436a-8365-761922f5aa4c',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /robots.txt',0,'2023-07-24 11:57:07'),
+('54c80739-a0b2-42cc-9344-ed879632cd58',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /configure.php~',0,'2023-07-25 23:43:59'),
+('54e9c83c-e064-4a0e-86ab-28a9d06ee227',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /sendgrid.env',0,'2023-07-25 23:45:35'),
+('558ff873-9136-4d75-8f96-b57c21548811',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-25 15:25:36'),
+('55aab98a-b897-420d-9b85-8be11564ea79',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /geoserver/web/',0,'2023-07-25 09:34:51'),
+('55bbc949-4838-42df-ad27-1989501177fa',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env.backup',0,'2023-07-25 23:44:44'),
+('55dcbf53-c9e8-4375-bf04-1022a8ecc67a','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 10:24:34'),
+('56244c91-e262-4826-b24b-47f38b639e7a',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /%21.htaccess',0,'2023-07-24 00:26:24'),
+('5625d0c6-acf9-4df1-9d5b-416a05d2ad6b',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /1.htaccess',0,'2023-07-24 00:26:12'),
+('5630eddb-7940-44d8-aa8f-b2c13d86708d',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /images/.env',0,'2023-07-25 23:45:41'),
+('56576a8f-6d71-4d14-9bec-ed7baa0061ad',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env.prod',0,'2023-07-25 23:45:08'),
+('566e5d26-01a1-4651-b4e1-372e7c370597',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /phpinformation',0,'2023-07-25 23:43:02'),
+('569623b9-cef8-4d71-87eb-b3a531d3abe8',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /kernel.py',0,'2023-07-24 00:26:24'),
+('570505d7-78e1-492a-a44b-caca64f36087',NULL,'bef9f3ca-86ef-5c6a-9b38-320e03ceb5df','GET /settings.json',1,'2023-07-24 17:31:05'),
+('57c16aff-25f9-423e-82c3-8243a8326ecc',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /config/config.json',0,'2023-07-25 23:43:09'),
+('57efccf4-372f-412f-ab23-165b27209456',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /storage.py',0,'2023-07-24 00:26:14'),
+('57fda2f8-cfcc-4066-87da-b0f6fe4d0b60',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-23 18:55:18'),
+('58183e45-60d4-4b40-b635-4123d07c6d71','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 10:52:19'),
+('583e822b-3275-4187-88d0-91358f2e2eca',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /htaccess.txt',0,'2023-07-24 00:26:18'),
+('58563205-1781-4dfe-8a8a-21dde5df0171',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-25 15:09:21'),
+('588986d2-4b74-4de0-9c21-1a5ba62f2ee0',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /mailer/.env',0,'2023-07-25 23:45:41'),
+('58918da7-811d-4004-b27f-f17aad195d8d',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /druid/index.html',0,'2023-07-25 00:16:58'),
+('5892ba43-ac17-46af-9c7f-3749656c0f18',NULL,'bef9f3ca-86ef-5c6a-9b38-320e03ceb5df','GET /settings.json',1,'2023-07-23 19:26:19'),
+('59058b76-8ded-4d5b-9146-64fd0aae8aec',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-23 19:35:03'),
+('592158cf-4ca5-4340-ad0d-fd7369b3ac5b',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env.bak',0,'2023-07-25 23:44:43'),
+('5936f01b-766c-48c6-82ac-90f2b030d49a',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /file/php/phpinfo',0,'2023-07-25 23:42:41'),
+('59afa658-cc7e-4505-9f15-751a6cac10d6','04100d80-3491-4df1-ad93-2b986fb85950','3cffe6ef-ea4c-5bc3-869b-945f26e2601a','GET /groups.json',1,'2023-07-23 18:22:42'),
+('59c94a58-20f7-4914-959f-e57c934b3042',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-25 04:43:10'),
+('5a79fb96-d10c-4a63-a3de-90b2e56eced4',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /config.yml',0,'2023-07-24 00:26:17'),
+('5b153914-39d6-42e0-832a-13b006c4d92e',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /aws_config.js',0,'2023-07-25 23:44:33'),
+('5b507a4c-1301-4220-8b02-a7a290dc7610',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /printenv',0,'2023-07-25 23:45:18'),
+('5b6eba61-d567-434d-b559-d4015f405f12',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /apis/.env',0,'2023-07-25 23:44:53'),
+('5bb7b950-91f9-429c-adc6-b5e6d60df2f7',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /admin/.env',0,'2023-07-25 23:44:42'),
+('5c2a1cb3-9d50-4823-b8e9-b0d11f859564',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env.stage',0,'2023-07-25 23:44:50'),
+('5c3cbfaa-1876-4cd1-9157-d72a6f18e772',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-26 10:26:57'),
+('5c7c3bdd-c37c-4df5-8c11-23eddb986872','04100d80-3491-4df1-ad93-2b986fb85950','1cd53591-cb6b-5b03-b0be-05a54644263d','GET /folders.json',1,'2023-07-24 15:22:16'),
+('5cabedcf-1510-4b72-935b-583a22d22b8c',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.pam_environment',0,'2023-07-25 23:44:51'),
+('5d4a540a-5738-427c-9411-0a456a3b30e1',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /config/getuser',0,'2023-07-25 01:05:06'),
+('5e223cf0-40b4-4c03-89fa-e08eb5a206bf',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env.test',0,'2023-07-25 23:45:11'),
+('5e3d2596-3669-4a32-ab51-267bc56aea3b',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /Telerik.Web.UI.WebResource.axd',0,'2023-07-24 07:09:22'),
+('5e7563cf-a795-417e-8cf3-8eb76867494c',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /docker.yml',0,'2023-07-24 00:26:15'),
+('5ee44d57-458c-4499-9abf-b1e5910fc6bb',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.htaccess.bak1',0,'2023-07-24 00:26:19'),
+('5ef44b29-90ab-4d1c-b5ba-902c6230b75a',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-24 17:32:27'),
+('5f3ab2e5-0cba-4121-9e3c-aee95bf7f97c','04100d80-3491-4df1-ad93-2b986fb85950','d7bc9044-a64e-5421-a4d7-7a94eaa39d37','GET /users.json',1,'2023-07-23 15:58:42'),
+('5f525f92-cbb2-4a16-8046-74e7e1ef252f',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-24 22:21:58'),
+('60f6c60b-8a81-46c9-bb81-0ffeaa04db13','04100d80-3491-4df1-ad93-2b986fb85950','1035f824-fe76-5a69-b02c-9aa60a31858c','GET /app/passwords',1,'2023-07-24 18:01:12'),
+('6166e7a5-87cc-4e1b-9395-b3a4e02f3e24',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /security.js',0,'2023-07-24 00:26:13'),
+('616ed705-a2e4-48e0-a917-2309dad985a8','04100d80-3491-4df1-ad93-2b986fb85950','bef9f3ca-86ef-5c6a-9b38-320e03ceb5df','GET /settings.json',1,'2023-07-23 15:58:18'),
+('61a02815-24c2-4a2e-951e-5ac3a91c7798','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 10:52:30'),
+('61c24550-3830-4067-8afb-55b26c7801da',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-24 23:32:31'),
+('62780676-c710-43e1-b469-098330cc50bb',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /ab2g',0,'2023-07-26 00:43:02'),
+('62c31c6d-258c-45e1-aab8-773aba992cfd','04100d80-3491-4df1-ad93-2b986fb85950','3cffe6ef-ea4c-5bc3-869b-945f26e2601a','GET /groups.json',1,'2023-07-23 15:58:20'),
+('62cdeec3-5ea2-4558-8ac3-8591d07023c8',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-25 10:29:29'),
+('62cf30fa-1fe4-476a-8fef-a5c18dfd72e7',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /monitor.py',0,'2023-07-24 00:26:10'),
+('62d64d87-eb4e-4ae3-8b27-c71849d22e7c',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /owa/auth/logon.aspx',0,'2023-07-24 02:34:08'),
+('634748ab-941f-4dd8-b971-5d28cff9915b',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /appsettings.json',0,'2023-07-25 23:43:43'),
+('639bd6a0-6f91-4ef7-a06f-d2106b99d96b',NULL,'caea12fd-e0f8-5d68-aa19-d7b25119740e','GET /users/csrf-token.json',1,'2023-07-23 20:26:18'),
+('641770a1-45e4-4973-bbae-d7cdace090c7',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.htaccess',0,'2023-07-24 00:26:24'),
+('6417ba95-d107-4c86-bba7-d1b743956507',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /package-lock.json',0,'2023-07-24 00:26:14'),
+('6424549c-f33f-4ecf-8a79-b3d830c13bf8',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /htaccess.old',0,'2023-07-24 00:26:13'),
+('64804255-8c65-4854-abde-068057c07173',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /_ignition/execute-solution',0,'2023-07-24 11:14:39'),
+('64829fb2-aa27-4ae0-9612-6bcd05ebf87b',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.environment',0,'2023-07-25 23:44:52'),
+('64a6ab46-1242-46fe-8d5f-07b1271175dc','04100d80-3491-4df1-ad93-2b986fb85950','1035f824-fe76-5a69-b02c-9aa60a31858c','GET /app/passwords',1,'2023-07-26 09:18:39'),
+('64a83276-478d-4284-ac9a-59a7fac4be68','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-23 15:58:20'),
+('64d99a44-4dc2-4c7b-b15a-7ba269165cf7',NULL,'bef9f3ca-86ef-5c6a-9b38-320e03ceb5df','GET /settings.json',1,'2023-07-23 15:54:50'),
+('64f861e7-0ace-4480-8dd7-205a3bbeb425',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /docs/.env',0,'2023-07-25 23:45:42'),
+('650e9961-e477-471f-a02e-f93b7d5ac300','04100d80-3491-4df1-ad93-2b986fb85950','1cd53591-cb6b-5b03-b0be-05a54644263d','GET /folders.json',1,'2023-07-23 18:23:15'),
+('6538f209-3d23-48d8-bb19-3d5a44c5b55b','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-24 18:01:29'),
+('65496a45-b034-4ee7-9a7c-80a15b732c8b','04100d80-3491-4df1-ad93-2b986fb85950','d7bc9044-a64e-5421-a4d7-7a94eaa39d37','GET /users.json',1,'2023-07-24 15:22:16'),
+('65719184-c04a-4d72-9465-80db19fc3f28',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /config.php.default',0,'2023-07-25 23:44:12'),
+('65771067-01fa-40a8-bcd4-521f982ff65c','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-24 15:22:16'),
+('657b18e8-d937-41a4-9a16-5714df412123',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /console/',0,'2023-07-24 19:24:06'),
+('6581931e-a563-4c07-b746-fa2f1aa27117',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-26 06:12:51'),
+('6593c31f-3a59-443a-bd9c-cfda07e2f69c',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-25 06:04:09'),
+('6695a5cb-d5e3-4887-938d-3f1b6ce3e106','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 11:34:41'),
+('671ad667-ac83-4988-be53-610d17f1cdcf',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /wp-config.php.txt',0,'2023-07-24 00:26:18'),
+('67b1ada6-102c-4b82-8611-14aa4737f6cf',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.aws/credentials.py',0,'2023-07-24 00:26:11'),
+('67d93d0a-7e80-47dd-a618-678aafb39120','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 12:01:07'),
+('68471810-7879-4c98-9f98-52edb13052d4',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-26 03:56:39'),
+('689a47e5-6d05-4c38-a9f2-c477d7d0920b','04100d80-3491-4df1-ad93-2b986fb85950','3cffe6ef-ea4c-5bc3-869b-945f26e2601a','GET /groups.json',1,'2023-07-23 15:58:42'),
+('68a879f1-20b7-4063-a083-00feed0fd603','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 11:02:50'),
+('68d52f40-a453-492c-b37d-8dd5d7642ee7',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /hudson',0,'2023-07-24 23:21:09'),
+('6944cc44-67d1-42af-8df6-baecb5d5e1f3',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /phpinfo.html',0,'2023-07-25 23:44:17'),
+('697d9c76-0cdc-42f0-9467-2c6ccd7cea1d',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /system/.env',0,'2023-07-25 23:45:39'),
+('698dcc5e-f04b-4991-9ea1-65fb50edc3ac','04100d80-3491-4df1-ad93-2b986fb85950','6d616537-c449-589d-bebe-b2d5883e9d35','GET /mfa/settings.json',1,'2023-07-23 15:59:14'),
+('6a7e49a4-2037-4520-95de-ded0b8103ed1',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /sendgrid/.env',0,'2023-07-25 23:44:49'),
+('6a888263-c939-4710-9980-d83f2f629932',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /symfony/public/_profiler/phpinfo',0,'2023-07-25 23:43:50'),
+('6a8a3b23-ca14-4992-b013-31e7a209b309',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.gitlab-ci/.env',0,'2023-07-25 23:44:52'),
+('6b0fdbf6-e7e4-47b7-bd59-896f322a76f7',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /server/s3.js',0,'2023-07-25 23:43:53'),
+('6b4c92cb-9e93-4dbb-8b94-1700e199e447',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-24 21:03:57'),
+('6c6d63db-a8bc-4055-8bae-0e08a1b06558',NULL,'a3c19ad2-8920-5395-86d0-8567cb34f382','POST /auth/verify.json',1,'2023-07-23 18:19:49'),
+('6ccc3ca1-6629-4fd2-9731-d172107925a3',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /bundle.js',0,'2023-07-24 14:18:01'),
+('6cf3afbf-6a7a-4478-b926-ac3f5e2aeb1e',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.vscode/sftp.json',0,'2023-07-25 23:44:03'),
+('6d41d48f-36ee-4051-a9d4-1efe06ea92e9',NULL,'caea12fd-e0f8-5d68-aa19-d7b25119740e','GET /users/csrf-token.json',1,'2023-07-23 15:58:01'),
+('6d4e1a74-36cf-4019-bf6d-d31b939081a9',NULL,'a3c19ad2-8920-5395-86d0-8567cb34f382','POST /auth/verify.json',1,'2023-07-24 17:31:20'),
+('6d5da236-5704-423e-8b0a-cfe0ef282dc1',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-24 18:33:17'),
+('6da2d2c9-0846-41a4-8329-a8e05ad6c820',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /robots.txt',0,'2023-07-24 00:26:17'),
+('6e64c039-39f0-482b-9851-50b43ffcdc1b',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /controller.py',0,'2023-07-24 00:26:22'),
+('6e6d48d8-5fad-40f9-984a-2ce72f55c0c6','04100d80-3491-4df1-ad93-2b986fb85950','d7bc9044-a64e-5421-a4d7-7a94eaa39d37','GET /users.json',1,'2023-07-24 18:01:29'),
+('6e992ad0-19ae-44e4-9ea2-42e4f9e56b0f',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /ab2g',0,'2023-07-24 23:01:21'),
+('6f9c6658-0da6-40da-b7e1-77b3851321b5','04100d80-3491-4df1-ad93-2b986fb85950','3cffe6ef-ea4c-5bc3-869b-945f26e2601a','GET /groups.json',1,'2023-07-24 15:22:16'),
+('7044ec08-1a2c-447d-8b58-45fc53ae6f93','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 09:41:12'),
+('70524c8b-ff04-432e-9623-2d5c50097d58',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /owa/auth/logon.aspx',0,'2023-07-24 15:22:08'),
+('705c326b-025d-4268-9e07-ec04f45e7c3d',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /deploy.env',0,'2023-07-25 23:44:57'),
+('70665fe1-dc40-48c1-84e8-94864e287e99',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env.development.sample',0,'2023-07-25 23:45:25'),
+('708ae775-863e-4c1b-ac2d-dec0486579b4',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /owa/auth/logon.aspx',0,'2023-07-23 23:20:30'),
+('709f28f2-7996-4506-8e80-a828d747e82b','04100d80-3491-4df1-ad93-2b986fb85950','9b473b19-0e3e-5efb-be19-8a1719843762','GET /account/settings.json',1,'2023-07-23 15:59:12'),
+('70c32231-268d-4c3a-b371-a48ef74f299d',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /client.py',0,'2023-07-24 00:26:12'),
+('71572ebc-a759-482a-a53b-3c4cfa9a7399',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-25 10:37:52'),
+('722a2fde-8a13-48c1-8f29-2f22a9e103f0',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env_bak',0,'2023-07-25 23:45:04'),
+('72320144-71d6-46a8-a256-c5c0ca470086',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /index.html',0,'2023-07-25 21:53:55'),
+('7241ed3b-5f46-4754-a6b1-94acb7cdeac7',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /tools/phpinfo',0,'2023-07-25 23:44:36'),
+('7247e2f0-439d-4ba1-b391-368c19728093',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-23 22:12:09'),
+('724ac7de-e985-48d5-adb5-b8888d5b5c56','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 10:30:58'),
+('726442c2-175a-4e8a-80ff-23735b53a8e0',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-25 07:06:31'),
+('7270c61e-b1c7-4859-bc76-98757e0881d0',NULL,'caea12fd-e0f8-5d68-aa19-d7b25119740e','GET /users/csrf-token.json',1,'2023-07-23 18:22:16'),
+('73556149-9f9c-438f-a588-bbf3eff83500',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /site/.env',0,'2023-07-25 23:45:46'),
+('73956320-a039-4695-82cf-feaa3d33e5ad',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-24 05:43:35'),
+('7397e0c6-01c2-49bc-9ecc-bd31f6cbfbe1',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env.production.local',0,'2023-07-25 23:44:57'),
+('74034d0d-1dad-4d58-8e25-f7cb9d8bf3fd',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-24 05:22:26'),
+('741a25fb-ffcf-4982-a7fb-32569f9d7634','04100d80-3491-4df1-ad93-2b986fb85950','9b473b19-0e3e-5efb-be19-8a1719843762','GET /account/settings.json',1,'2023-07-24 18:07:26'),
+('755902bc-295c-4e58-a566-959d0edf3563',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /script/.env',0,'2023-07-25 23:45:40'),
+('7589141c-6653-40ae-b3b5-efcbed38dc3a',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env.2',0,'2023-07-25 23:45:31'),
+('7716f7e5-0d04-43ea-899c-7ca462ea4834',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-25 20:02:36'),
+('771d2c1c-b8ba-4ee4-92c6-26cf7f196fa2',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /client/get_targets',0,'2023-07-23 20:32:18'),
+('77559fca-0c5c-4203-8ec2-fcb8c700ce25',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env.development.local',0,'2023-07-25 23:45:05'),
+('77877b0b-8d6b-41a3-82e0-7689c146d2d6','04100d80-3491-4df1-ad93-2b986fb85950','881ab948-e40f-5a72-91aa-54b442270029','GET /users/04100d80-3491-4df1-ad93-2b986fb85950.json',1,'2023-07-23 15:58:18'),
+('7810486e-0bcf-4a00-ba9d-517460ef45ea',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /php-info',0,'2023-07-25 23:42:35'),
+('78231930-b35b-482a-97c4-5c3d42ec9791',NULL,'50ca4a19-b782-5842-bd2b-f59e9ff4eef9','GET /setup/start/04100d80-3491-4df1-ad93-2b986fb85950/75a826d9-799c-4901-a24e-fcd9afc5963f',1,'2023-07-23 15:53:56'),
+('78611324-a476-4ec8-a944-1a1be1b61d2e',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /aab8',0,'2023-07-24 10:40:20'),
+('791480ae-8fa9-4a5e-97b6-94a24d9c9594',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /amazon.py',0,'2023-07-24 00:26:20'),
+('7941a8fa-e62f-41ae-b2a2-7331b2cf665d',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /config.js',0,'2023-07-25 23:42:38'),
+('799d8050-209c-4dab-be33-76b763cdabd6','04100d80-3491-4df1-ad93-2b986fb85950','1035f824-fe76-5a69-b02c-9aa60a31858c','GET /app/users',1,'2023-07-26 09:52:53'),
+('79ce5cea-2f5e-46f4-9354-a3d6a217cbd9',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-25 02:13:03'),
+('79d3d9f8-4fbf-40f0-9218-135c5934769e',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /api/.env',0,'2023-07-25 23:44:44'),
+('7a1f3090-4ee5-45ac-9433-37216f57423d','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 09:44:26'),
+('7a9119f7-f48c-4e8c-8b14-1d0e283322c3','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-24 18:01:12'),
+('7ac27951-2a88-4612-9087-0058859c4700','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 09:55:56'),
+('7b87004a-2d69-46b3-a7d6-46b38e7f3995','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 10:29:29'),
+('7bfac6ef-84a7-4b7a-8904-44d2b5fe2de9',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /env/.env',0,'2023-07-25 23:45:24'),
+('7c19b81f-3bdc-4739-8c0d-a217d379c55d',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.wp-cli/config.yml',0,'2023-07-24 00:26:17'),
+('7c2502c0-2f6b-4199-815d-593cb5eedd88','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 12:06:33'),
+('7cd479bc-3e1c-4d31-9c07-b8aa80574792',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /default.js',0,'2023-07-25 23:43:40'),
+('7cfe8ea5-d995-4181-84b6-45a629a9db49',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.htaccess.old',0,'2023-07-24 00:26:13'),
+('7d45c652-2c5e-4e88-bd94-5b0ee2fcd997',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /actuator/health',0,'2023-07-23 22:13:01'),
+('7d87d506-b9d2-47a0-b8db-99b0e1be11be',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /administrator/.htaccess',0,'2023-07-24 00:26:13'),
+('7dc20cf6-ef66-463d-889d-41cb982e2b68','04100d80-3491-4df1-ad93-2b986fb85950','a3c19ad2-8920-5395-86d0-8567cb34f382','POST /auth/login.json',1,'2023-07-24 15:22:04'),
+('7dc38bd7-ac5e-40ed-b814-982b6082104b',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /_ignition/execute-solution',0,'2023-07-24 17:55:14'),
+('7dd213ca-1163-45a0-8320-7add0b530a64',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-24 22:21:57'),
+('7e50bfad-5351-4458-a53b-5f372d8f58ef','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-23 15:58:20'),
+('7ec4d264-8e19-4bbc-8292-1ac955f36b31','04100d80-3491-4df1-ad93-2b986fb85950','881ab948-e40f-5a72-91aa-54b442270029','GET /users/04100d80-3491-4df1-ad93-2b986fb85950.json',1,'2023-07-24 18:07:27'),
+('7ef45b7e-3280-43e0-8e08-079fcc704f41',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /geoserver/web/',0,'2023-07-24 02:24:56'),
+('7f3ee4d6-a807-4fb2-a5c9-89799aafa19a','04100d80-3491-4df1-ad93-2b986fb85950','3cffe6ef-ea4c-5bc3-869b-945f26e2601a','GET /groups.json',1,'2023-07-23 18:23:16'),
+('7f47d586-8f89-4616-8845-9f839d1c5ce4',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /ab2g',0,'2023-07-24 17:11:58'),
+('7f563948-0fc1-467e-9a3c-3043a1ec275d',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /docker-compose.yml',0,'2023-07-24 00:26:13'),
+('7fa4faba-6e5f-4920-9e84-60db63b80099',NULL,'bef9f3ca-86ef-5c6a-9b38-320e03ceb5df','GET /settings.json',1,'2023-07-25 15:24:03'),
+('7fdad23a-dd6e-453c-a07a-6a30d829f1ef','04100d80-3491-4df1-ad93-2b986fb85950','d7bc9044-a64e-5421-a4d7-7a94eaa39d37','GET /users.json',1,'2023-07-23 18:23:16'),
+('7ffff91c-f924-42b0-85f9-eec4660ad0e1',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /t4',0,'2023-07-23 17:28:25'),
+('80dcd727-f291-4376-aab2-79d8e0d3e498',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.robots.txt',0,'2023-07-24 00:26:17'),
+('80ee7b14-cd26-4fe1-8099-9bcb735cbf4f',NULL,'a3c19ad2-8920-5395-86d0-8567cb34f382','POST /auth/verify.json',1,'2023-07-24 16:02:15'),
+('81268fe9-56b6-4e59-97c7-112c11c5b1b1',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-25 06:16:51'),
+('819a93c1-878f-4e8e-81cb-8625047dfb2a',NULL,'bef9f3ca-86ef-5c6a-9b38-320e03ceb5df','GET /settings.json',1,'2023-07-26 09:16:50'),
+('81b7b654-4dbd-443e-ae0e-81a3acba17d4',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /env/phpinfo',0,'2023-07-25 23:43:18'),
+('81e2bda2-9416-4650-baea-48e1d4963594',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.htaccess.BAK',0,'2023-07-24 00:26:10'),
+('81e5c552-a71b-44e7-8709-98fb8bcc1c89',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-25 03:02:22'),
+('8255749a-906e-4716-9527-22de8f96a14b',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /ecp/Current/exporttool/microsoft.exchange.ediscovery.exporttool.application',0,'2023-07-23 23:21:38'),
+('82920449-8ee6-4399-934e-affadcf73b7a',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /vpn/themes/insight-new-min.js',0,'2023-07-25 12:01:55'),
+('82b8667c-1a75-4602-a483-f5b6624b1c4a',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /frontend_dev.php/$',0,'2023-07-25 23:42:56'),
+('840448e3-6aef-43a2-aee9-e6496ab3321e',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /owa/auth/logon.aspx',0,'2023-07-23 17:02:04'),
+('84ef2314-4716-42d7-a5f0-09f34a5183a1',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /autodiscover/autodiscover.json',0,'2023-07-25 20:09:40'),
+('84f76a32-ccba-471e-b680-187f61cd8a7e',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /backup/.env',0,'2023-07-25 23:45:18'),
+('8504321c-23ea-454d-8aae-7b16e46882fb','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 10:20:24'),
+('8522ee5c-dbd0-4ec7-a7aa-cc8b6cf7ff14',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /api/index.php/v1/config/application',0,'2023-07-25 23:42:34'),
+('855c94ab-a86a-42cc-b8ad-2660d05760bf',NULL,'a3c19ad2-8920-5395-86d0-8567cb34f382','POST /auth/verify.json',1,'2023-07-25 17:55:01'),
+('857520f2-18d3-451b-a770-71b0412c10a4',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /owa/auth/logon.aspx',0,'2023-07-24 09:53:43'),
+('85bd1dd3-2d8b-4978-a512-059010096914',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /info/phpinfo',0,'2023-07-25 23:43:29'),
+('85ff6baa-c0a7-4b40-88dd-0b54f1677396',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /ab2h',0,'2023-07-24 17:11:59'),
+('8602d423-df6a-46a5-8f16-24c9898d9436',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-23 20:50:48'),
+('863dd232-e922-4d02-8a7b-258b6eb0624a',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-25 19:32:04'),
+('8743d02b-ee52-4743-b675-87605ad11f8e',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-24 04:47:05'),
+('87adbbd2-473d-4c08-92e4-6091d20a2da6','04100d80-3491-4df1-ad93-2b986fb85950','3cffe6ef-ea4c-5bc3-869b-945f26e2601a','GET /groups.json',1,'2023-07-24 18:02:57'),
+('87d50b5b-bd9c-4608-86d4-874bb1ae2dd4','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 11:07:16'),
+('88a52ee8-e829-4878-b208-43bcf2b88392',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /public/.env',0,'2023-07-25 23:45:15'),
+('88fcaf35-5db5-4433-901a-898b817dfecc',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /v1/.env',0,'2023-07-25 23:44:50'),
+('89304030-2a3e-4002-918e-d7e56eb91e00','04100d80-3491-4df1-ad93-2b986fb85950','bef9f3ca-86ef-5c6a-9b38-320e03ceb5df','GET /settings.json',1,'2023-07-26 09:41:32'),
+('893667bd-b7d0-4309-9fdd-35dbb2d1ae6f',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /token.py',0,'2023-07-24 00:26:16'),
+('8963aa02-5eba-4046-964d-42f6c39c7f3f',NULL,'bef9f3ca-86ef-5c6a-9b38-320e03ceb5df','GET /settings.json',1,'2023-07-25 08:12:10'),
+('898d4bcc-feae-42d0-aa4b-6c4a38234bf9',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /lib/.env',0,'2023-07-25 23:45:20'),
+('89c6306f-9b98-4b16-946b-4b20ed637846',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /config/app.yml',0,'2023-07-24 00:26:16'),
+('8a5f0f6b-6fe4-40d5-a3c9-812d97e948ef',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-25 10:29:33'),
+('8a69b21e-dd37-4a3e-92f6-4a95aa7394cf',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.htaccessOLD2',0,'2023-07-24 00:26:21'),
+('8b476395-9648-4f1e-ae48-ede2fb191437',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /global.json',0,'2023-07-25 23:43:28'),
+('8ba34109-4b21-40e1-9f4e-7ca1458eaa47',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /config.json',0,'2023-07-25 23:42:46'),
+('8bdcb77b-6232-42c8-be70-09f5c5be6254',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-24 18:33:17'),
+('8c7fcacf-b803-4013-95b0-2afa7d8d704b',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env.travis',0,'2023-07-25 23:45:29'),
+('8ce0b223-70d8-4592-b057-799dd94e3d96','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-24 18:01:19'),
+('8cee42b7-6e12-4cc4-98a8-70ac71c77aca',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.git/config',0,'2023-07-25 11:00:36'),
+('8d395a8d-b2b3-44e7-b5aa-49fc1d37502a','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 11:00:32'),
+('8d843f25-8493-49f4-b556-b1af63f6c8da',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /config.dev.js',0,'2023-07-25 23:43:56'),
+('8d874224-230e-42ed-9fce-5532c38aae02',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /config.txt',0,'2023-07-24 00:26:15'),
+('8d951dc1-8d93-43c1-ab96-e2f542de8d62','04100d80-3491-4df1-ad93-2b986fb85950','31f74e04-d9bb-592b-aa45-ba6682d3316d','GET /password-generator/settings.json',1,'2023-07-24 18:01:29'),
+('8dd39402-0c6a-4c07-a376-fcf22c5066d1','04100d80-3491-4df1-ad93-2b986fb85950','30237a18-fd12-5935-b1be-1e2a62ccb71d','GET /roles.json',1,'2023-07-26 09:18:49'),
+('8edc47fa-d0b8-4d5b-8fc5-23220b3ec109',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /environment.json',0,'2023-07-25 23:43:11'),
+('8f45e8c0-ff10-4519-a543-1c3af0ea04e9',NULL,'bef9f3ca-86ef-5c6a-9b38-320e03ceb5df','GET /settings.json',1,'2023-07-24 15:21:06'),
+('8f60d6fe-c3aa-4b42-89d0-53eb4d208ef1','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 09:18:50'),
+('8f832f22-c876-4a30-bbee-43c4d9aedeaa',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-26 02:52:41'),
+('8fd03bcc-94f5-493b-ad9c-3bb8ea5eba01',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-26 07:03:36'),
+('8fd82e3d-df85-4dac-91fd-fa431ed26615',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /application.py',0,'2023-07-24 00:26:26'),
+('9012249a-64c3-47b7-ac7b-525e9b2ddf7a',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /index.php/phpinfo',0,'2023-07-25 23:43:45'),
+('90564877-5dfb-46da-9a5f-fb2fa76154a4',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-24 00:26:27'),
+('91a4bd58-77cb-433c-8e30-1a2058ee3eaf','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 11:34:14'),
+('92785262-c984-4fd5-ac8f-15bb3acf6cbe',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env.old',0,'2023-07-25 23:44:45'),
+('9298e8f8-5ae0-47cb-8a06-34f94c48f203','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 12:09:19'),
+('92e411b0-f99f-4d32-967d-9529d6da1f86',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-25 01:25:56'),
+('930cc5a8-5be5-4ee4-a00a-f74bc75727ae',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /dispatch.js',0,'2023-07-24 00:26:21'),
+('930ed178-5317-4375-bcdc-b640996bdf95','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 09:52:54'),
+('9326fd94-9d4f-4dc9-a9f7-913d8cf6f7ac',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /config/.env',0,'2023-07-25 23:45:33'),
+('936215c5-15fa-4ad2-946c-ab134dc93681',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /autodiscover/autodiscover.json',0,'2023-07-26 01:59:59'),
+('93c89f32-9b19-4b67-b3a1-9610c767db13',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /+CSCOE+/logon.html',0,'2023-07-25 04:20:42'),
+('93f47bad-05e2-438f-9f24-7dd4778637be',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-25 23:45:51'),
+('93f8e595-d5d1-4474-a289-b0c294371e09',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /env.test.js',0,'2023-07-25 23:45:50'),
+('94842e2d-55e6-4972-88e9-a3c962c3fafd',NULL,'bef9f3ca-86ef-5c6a-9b38-320e03ceb5df','GET /settings.json',1,'2023-07-25 15:23:47'),
+('948f55d5-13d4-4bdc-8dce-df04cd9b2c15',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /configs/s3_config.json',0,'2023-07-25 23:42:52'),
+('94cbc7a1-ae42-4ffc-a42c-6fd14d9620ab',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /admin-app/.env',0,'2023-07-25 23:45:06'),
+('9534a6d1-e9c9-4d09-b327-354db519d1f3',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /Public/home/js/check.js',0,'2023-07-23 20:13:43'),
+('95c1378d-933e-470d-9261-131302c78f68',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /webdav/phpinfo',0,'2023-07-25 23:43:10'),
+('95c70085-7b93-46b2-9677-4d10f1a18174',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /twitter/.env',0,'2023-07-25 23:44:55'),
+('95e4be3f-4011-4e4a-8923-53305b84c560','04100d80-3491-4df1-ad93-2b986fb85950','31f74e04-d9bb-592b-aa45-ba6682d3316d','GET /password-generator/settings.json',1,'2023-07-24 15:22:16'),
+('95fef4b2-4849-47c2-a681-1988b170c826',NULL,'bef9f3ca-86ef-5c6a-9b38-320e03ceb5df','GET /settings.json',1,'2023-07-24 12:46:15'),
+('96268314-9194-4ac8-a6a9-15cf558e4ce5',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /component.yml',0,'2023-07-24 00:26:11'),
+('96615bdf-5d07-4734-9f17-8b69cbb5a4ca',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /client/get_targets',0,'2023-07-25 01:59:13'),
+('96bfc53a-68fb-47fe-b5cd-21082ecdd192',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /dqgqoeCXckuwPtxov',0,'2023-07-25 02:45:42'),
+('96dbde8b-74fd-4af5-83b1-be733a85f2e7',NULL,'bef9f3ca-86ef-5c6a-9b38-320e03ceb5df','GET /settings.json',1,'2023-07-25 17:54:59'),
+('9711f7df-c02c-433c-8850-83196fab3c65',NULL,'a3c19ad2-8920-5395-86d0-8567cb34f382','POST /auth/login.json',1,'2023-07-23 15:58:01'),
+('97edde03-121b-499c-a320-223d46d44b90',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-24 10:59:10'),
+('982812db-4bd7-40ed-a81e-eebb282cde92',NULL,'bef9f3ca-86ef-5c6a-9b38-320e03ceb5df','GET /settings.json',1,'2023-07-23 15:59:14'),
+('989e4a83-5d94-49ee-ac79-d308f65b3d6e',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env.dev',0,'2023-07-25 23:44:47'),
+('9931a131-e7fc-412b-b434-b19886116a8a','04100d80-3491-4df1-ad93-2b986fb85950','3cffe6ef-ea4c-5bc3-869b-945f26e2601a','GET /groups.json',1,'2023-07-24 18:07:29'),
+('99574a7b-39b2-4af2-a69e-8494364380bc',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /agency.py',0,'2023-07-24 00:26:09'),
+('997484e5-ee2c-402e-b0dd-772c9134910e',NULL,'bef9f3ca-86ef-5c6a-9b38-320e03ceb5df','GET /settings.json',1,'2023-07-23 18:18:49'),
+('99a38b4a-41e4-4992-aa8f-8a8baefb040a',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.htaccess-dev',0,'2023-07-24 00:26:11'),
+('9a62060a-5884-46ae-90ee-9476f5e7d250',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /web/.env',0,'2023-07-25 23:45:16'),
+('9b2d6493-61a3-4246-a829-85e7ce820b8b',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /server/.env',0,'2023-07-25 23:44:53'),
+('9c608cf9-4e79-4cb0-a082-c7eaa7a3decf',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /manage/account/login',0,'2023-07-25 21:51:27'),
+('9cc3e28f-95e3-4491-a6d2-2086d1c1bb00',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /storage/.env',0,'2023-07-25 23:44:59'),
+('9ce5b247-3a41-4a80-972d-cf03f22338b2',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /_profiler/info',0,'2023-07-25 23:44:10'),
+('9ce75831-6aae-4dba-8311-2b72f6c655b9',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.s3.yml',0,'2023-07-24 00:26:19'),
+('9cee36cb-ede2-4997-891d-5b9b1a562314',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.ghc.environment',0,'2023-07-25 23:45:14'),
+('9d24fd06-01cc-430e-8679-cfd1c446f5a4',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /_profiler/phpinfo',0,'2023-07-25 23:42:35'),
+('9d2613f6-cb85-40a5-9e23-c234987123d7',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /scripts/phpinfo',0,'2023-07-25 23:43:57'),
+('9d92dafc-634d-4c60-8dcd-35b3b1e8b2a8',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /config.cfg',0,'2023-07-24 00:26:18'),
+('9daf0667-16b8-45d7-8475-fe248e0e3927',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /cluster.py',0,'2023-07-24 00:26:14'),
+('9db4a16f-ce8d-4484-89d9-e3485aa5b5d7',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /phpinfo.php3',0,'2023-07-25 23:42:55'),
+('9dee553f-4b4e-4079-9147-f7f1607b0b0e',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /upload.js',0,'2023-07-25 23:44:14'),
+('9e2d5467-1371-4d38-9135-4353e4c5309c','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 10:22:51'),
+('9e690514-4927-4991-9f08-5cf9869ed229',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /index.html',0,'2023-07-25 04:19:22'),
+('9ee49a5f-f3b8-42b3-964f-c0f315794ab6',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /awsconfig.json',0,'2023-07-25 23:44:04'),
+('9f3cbc41-4ac1-4464-9422-b7d02169942b',NULL,'a3c19ad2-8920-5395-86d0-8567cb34f382','POST /auth/login.json',1,'2023-07-26 09:18:38'),
+('9f5871d0-1f19-4ac6-ac19-723658c54a5b',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /view.py',0,'2023-07-24 00:26:15'),
+('9fed5e0b-3123-4a55-9768-2def09584708',NULL,'a3c19ad2-8920-5395-86d0-8567cb34f382','POST /auth/verify.json',1,'2023-07-24 15:21:34'),
+('9ff7d08e-ea22-46b3-986c-f87acfa78b7e','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 09:18:40'),
+('a01b73a2-c76d-4f00-8f7f-259084a49a3a',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-24 04:47:05'),
+('a07bf545-035b-4f77-a168-b3aaf49f33fe',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /manager/html',0,'2023-07-24 11:14:42'),
+('a0ec8457-bbd5-4ca3-98a2-ffc02955179c','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 09:47:38'),
+('a10d5876-5b93-4c77-a4a5-980b9a2c7628',NULL,'caea12fd-e0f8-5d68-aa19-d7b25119740e','GET /users/csrf-token.json',1,'2023-07-24 08:39:03'),
+('a17c7138-2f95-4364-baaf-50924b6f1d25',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /admin/.htaccess',0,'2023-07-24 00:26:15'),
+('a218e2c7-0284-4fd5-99eb-16ff6dcce8b0',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /script',0,'2023-07-24 11:14:41'),
+('a2881f72-1602-4359-9869-8db5b0765eb1',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /environment.ts',0,'2023-07-25 23:45:23'),
+('a2d1784e-7685-46f4-91d8-6cd2e32f08b8','04100d80-3491-4df1-ad93-2b986fb85950','e2aa01a9-84ec-55f8-aaed-24ee23259339','GET /resource-types.json',1,'2023-07-26 09:18:40'),
+('a2d58f9a-512c-4fb0-98e0-fc6a6b237159',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /webfig/',0,'2023-07-24 07:09:52'),
+('a442c548-85c7-4c4f-be90-236676604156','04100d80-3491-4df1-ad93-2b986fb85950','d7bc9044-a64e-5421-a4d7-7a94eaa39d37','GET /users.json',1,'2023-07-26 09:19:38'),
+('a4ec8e09-af60-4e1e-9431-5abe4255448a','04100d80-3491-4df1-ad93-2b986fb85950','bef9f3ca-86ef-5c6a-9b38-320e03ceb5df','GET /settings.json',1,'2023-07-24 15:22:14'),
+('a53b2c12-7627-4b6f-afee-5b36105bae02',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /login/.env',0,'2023-07-25 23:44:56'),
+('a55beb95-39bf-48a0-a06c-deea6890c825',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /manual/.env',0,'2023-07-25 23:45:37'),
+('a5f6c96b-0e2f-481d-86e0-e178e4c9be27',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-25 01:25:56'),
+('a6104665-5830-4988-9a8a-ffbbb78b3dc3',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /blog/.env',0,'2023-07-25 23:45:10'),
+('a63a0ed7-c4f8-484d-ae70-d669b82eb1e6',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /debug.txt',0,'2023-07-24 00:26:22'),
+('a68961f5-1fb1-43ad-b903-5d3f7b125be4',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /client/get_targets',0,'2023-07-26 09:07:49'),
+('a6978286-7477-478d-916f-bb759dd67313','04100d80-3491-4df1-ad93-2b986fb85950','1cd53591-cb6b-5b03-b0be-05a54644263d','GET /folders.json',1,'2023-07-23 15:58:20'),
+('a6f5ba87-9e42-490f-b0b6-746071528beb',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /beta/.env',0,'2023-07-25 23:45:10'),
+('a75ebd6c-0ab6-4457-af65-a0bb16d0cba9',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /php-info/phpinfo',0,'2023-07-25 23:43:20'),
+('a7f78e34-e327-4623-99b6-a412be27f5f2','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 09:56:43'),
+('a8c8f42a-5336-4b5f-940f-e956da872f01',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /local.py',0,'2023-07-24 00:26:14'),
+('a923e9f4-cc29-441a-9886-a370b5c76ea5',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-25 04:21:30'),
+('a93e4c21-33c3-4560-9838-bd5392bc66d0',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /bootstrap/.env',0,'2023-07-25 23:45:38'),
+('a9645ebb-9aca-49e9-80b1-2a0ada02b28a','04100d80-3491-4df1-ad93-2b986fb85950','e2aa01a9-84ec-55f8-aaed-24ee23259339','GET /resource-types.json',1,'2023-07-26 09:41:13'),
+('a978407d-1f69-4ecb-a099-6c5f1cbe5321',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /manage/account/login',0,'2023-07-25 04:16:54'),
+('a9cf084c-a5b2-4c4b-b175-4b3c0f0989ad','04100d80-3491-4df1-ad93-2b986fb85950','d7bc9044-a64e-5421-a4d7-7a94eaa39d37','GET /users.json',1,'2023-07-26 09:53:06'),
+('aa0b4c7a-e6a0-40e4-869b-13988e8a2177',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /dashboard.json',0,'2023-07-24 00:26:19'),
+('aa4cbf2c-9167-4077-9ec4-61824c61d6f7','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 10:20:57'),
+('aa7fe620-c0e8-48b0-a4fa-40a23f33ee50','04100d80-3491-4df1-ad93-2b986fb85950','881ab948-e40f-5a72-91aa-54b442270029','GET /users/04100d80-3491-4df1-ad93-2b986fb85950.json',1,'2023-07-26 09:53:04'),
+('aa9680bf-3dd6-4dee-88a2-b25e4bebce06',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /core.py',0,'2023-07-24 00:26:22'),
+('aabe8fe4-2c87-4774-b786-3b5e803e43b6',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /env.js',0,'2023-07-25 23:44:58'),
+('aac85b73-cfcb-4e94-abfa-fe19eff5c3bb',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /agency.js',0,'2023-07-24 00:26:18'),
+('ab3cc042-5809-4a96-aea7-524531663674',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /mifs/.;/services/LogService',0,'2023-07-24 20:07:21'),
+('ab40b1f2-1670-4148-a12c-bcf393d334f9','04100d80-3491-4df1-ad93-2b986fb85950','881ab948-e40f-5a72-91aa-54b442270029','GET /users/04100d80-3491-4df1-ad93-2b986fb85950.json',1,'2023-07-23 18:22:33'),
+('ac725ff8-fc33-43b9-be98-ce09f6aa0e3e',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /cgi-bin/printenv.pl',0,'2023-07-25 23:45:15'),
+('ac733d2e-110f-434f-9968-90d3fc7ec9a9',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /autodiscover/autodiscover.json',0,'2023-07-24 07:10:01'),
+('ac9a3329-9e1c-4231-aa2d-bfed41d75105','04100d80-3491-4df1-ad93-2b986fb85950','1035f824-fe76-5a69-b02c-9aa60a31858c','GET /app/users/view/77bc0450-c784-4636-a333-6117e784d1df',1,'2023-07-24 18:07:18'),
+('ae2ac5ef-d3ad-45a3-adb9-aaaa1112de47',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /GponForm/diag_Form',0,'2023-07-25 21:35:59'),
+('ae458866-09ca-4556-9d6b-5b1bf88b36f3',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-24 12:33:29'),
+('ae8b0615-cfb9-4e60-b4e9-6197820fe4df',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-25 02:13:03'),
+('ae8e0b1f-ddd7-4678-a1fa-7d37edd21137','04100d80-3491-4df1-ad93-2b986fb85950','53da54b1-9576-52ab-a11f-b2265b5aa455','GET /smtp/settings.json',1,'2023-07-23 16:02:13'),
+('af7446e9-d1dd-49c4-a7d1-37aac3f408cf',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /secrets.json',0,'2023-07-25 23:43:29'),
+('afb02cf9-05a6-4d08-a9af-b7e98189472a','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 09:19:38'),
+('affa0e5d-5af5-4145-a6ac-7ea6550718d8',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /en/.env',0,'2023-07-25 23:45:32'),
+('b03a7311-0cf3-40dc-b639-92f30d9790d6',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-24 23:59:27'),
+('b042bda7-0301-4285-94c2-a45e368646ec',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /old.htaccess',0,'2023-07-24 00:26:25'),
+('b10abfce-88a7-4c40-903b-b32d58414e7a','04100d80-3491-4df1-ad93-2b986fb85950','d7bc9044-a64e-5421-a4d7-7a94eaa39d37','GET /users.json',1,'2023-07-23 15:58:20'),
+('b13ee674-05c9-4bb3-bb8d-43eaa4b40a3a',NULL,'bef9f3ca-86ef-5c6a-9b38-320e03ceb5df','GET /settings.json',1,'2023-07-23 18:19:45'),
+('b16edfac-60a3-4b2f-aa79-b189fbb508ce',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /htaccess.txt',0,'2023-07-24 00:26:12'),
+('b19267fa-2c51-458f-a1c3-d0ad55995017',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-25 12:42:43'),
+('b218ee17-950a-4759-8a14-29425b2f5c2b',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /docs.txt',0,'2023-07-24 00:26:12'),
+('b23a8693-5c6c-417f-a79b-ed8d853eda27',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /version',0,'2023-07-25 09:29:56'),
+('b25ee772-bc1f-4d14-9cd7-4f4e248fc034','04100d80-3491-4df1-ad93-2b986fb85950','bef9f3ca-86ef-5c6a-9b38-320e03ceb5df','GET /settings.json',1,'2023-07-26 09:18:49'),
+('b267ab63-602d-4b26-b8c0-dc671d374c78',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /admin/index.html',0,'2023-07-25 04:41:31'),
+('b2b34982-0294-42cd-8964-bcf5c0473e8a',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /aaa9',0,'2023-07-24 12:31:31'),
+('b2cd4893-3c18-4105-b080-2e8b20893286',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.htaccessBAK',0,'2023-07-24 00:26:16'),
+('b2d4cbdb-68c6-4347-b508-dcf058ec5a39',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /agency.json',0,'2023-07-24 00:26:13'),
+('b3029cdc-74a0-4e8e-92c9-59e671197530',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-25 03:02:23'),
+('b3311c12-7d7e-484d-bad1-968e5fde6147',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /invoice.py',0,'2023-07-24 00:26:26'),
+('b3493f15-39b2-47fd-b62b-3010f8d5fbb8','04100d80-3491-4df1-ad93-2b986fb85950','9b473b19-0e3e-5efb-be19-8a1719843762','GET /account/settings.json',1,'2023-07-24 15:22:12'),
+('b3680d96-2096-4e0a-b593-158353d5730d',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /owa/auth/logon.aspx',0,'2023-07-23 15:38:03'),
+('b3710acf-8962-4028-a522-c65fc50ff930',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /aws.json',0,'2023-07-25 23:44:23'),
+('b3972081-b269-422a-a766-04dd1baf6742',NULL,'a3c19ad2-8920-5395-86d0-8567cb34f382','POST /auth/verify.json',1,'2023-07-23 20:26:24'),
+('b3b8ff7b-5f01-4a67-ba24-9bf255e59ffa',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env.www',0,'2023-07-25 23:44:46'),
+('b3de98d4-5ae4-4ff6-9e69-bcc4316d3c15',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.powenv',0,'2023-07-25 23:44:58'),
+('b43721f4-a57b-4fff-a803-a4f4e69b9a5b',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /php_details',0,'2023-07-25 23:44:15'),
+('b4e21d41-3580-44fc-af90-98fcbb2f7a92',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /component.json',0,'2023-07-24 00:26:26'),
+('b4f73f9f-f190-4138-a3fe-87d5e711feaf',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /download/.env',0,'2023-07-25 23:44:56'),
+('b4fb05bc-3022-4bff-9ef8-95fda16037f8','04100d80-3491-4df1-ad93-2b986fb85950','3cffe6ef-ea4c-5bc3-869b-945f26e2601a','GET /groups.json',1,'2023-07-26 09:53:06'),
+('b553b572-a784-40fa-af4a-c6dd81a125c8',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /img/.env',0,'2023-07-25 23:44:54'),
+('b55e0866-d0b4-4751-b56a-4a6f0c7c30c2',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /symfony/_profiler/phpinfo',0,'2023-07-25 23:44:18'),
+('b5c6685f-7aa3-4319-9a51-c8ab9cc425c9',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /apps/.env',0,'2023-07-25 23:45:22'),
+('b5d3e7d0-1da9-45a4-b876-de9612cacef7',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /component.py',0,'2023-07-24 00:26:12'),
+('b63a4bb0-05ce-491e-82e4-9bbdd8daaef8',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-25 15:09:21'),
+('b686798b-f125-4b2e-bf46-b41771387a61',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /dispatch.py',0,'2023-07-24 00:26:10'),
+('b6e79412-a716-499e-81a9-de893295a30f',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /live/.env.staging',0,'2023-07-25 23:45:00'),
+('b723586f-f8c3-403f-92e1-67b098cda269','04100d80-3491-4df1-ad93-2b986fb85950','a04f2607-8cb6-56c6-a9cb-6b9c7603bacd','GET /rbacs/me.json',1,'2023-07-23 15:59:11'),
+('b7326cfd-3e4c-4c77-8fdd-6a5c17d31106',NULL,'bef9f3ca-86ef-5c6a-9b38-320e03ceb5df','GET /settings.json',1,'2023-07-23 15:54:51'),
+('b7757ad1-ad0c-45fc-94ee-3ecad26c2967',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-25 18:56:00'),
+('b7a763e5-e678-4cde-88a3-c107e587b307','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 11:45:45'),
+('b7be3cfa-3ec0-439c-a647-7f0f6dadf586',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /static/admin/javascript/hetong.js',0,'2023-07-23 20:13:44'),
+('b7e00d7d-ce09-4bb5-91f7-ff3270c9d6d1',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /secrets.json.enc',0,'2023-07-25 23:44:00'),
+('b80fcfe9-8811-48cd-8069-1cebe2a20521',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /finance.py',0,'2023-07-24 00:26:23'),
+('b81f22cb-2017-4338-a990-d34a9a188817',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /phpinfo',0,'2023-07-25 23:43:48'),
+('b81fecbf-4ee4-4424-bbde-5d2795cc4f6f',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /shell',0,'2023-07-24 03:18:21'),
+('b834e5cd-2996-45d1-9b4e-fed849318906','04100d80-3491-4df1-ad93-2b986fb85950','1cd53591-cb6b-5b03-b0be-05a54644263d','GET /folders.json',1,'2023-07-26 09:18:50'),
+('b8922f2f-f1df-457d-9231-79fe180334f1',NULL,'bef9f3ca-86ef-5c6a-9b38-320e03ceb5df','GET /settings.json',1,'2023-07-25 23:43:30'),
+('b8959ce7-9ee9-41e2-bf7a-c55a3d4e5e1b',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.server.js',0,'2023-07-25 23:42:49'),
+('b8e1fe1d-42fa-4363-8889-3780a5e8bb40',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /root/infophp',0,'2023-07-25 23:44:25'),
+('b9fbefa7-c7ce-41a9-9d8f-d7190576b3a9','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 09:52:54'),
+('ba28b21f-5a3b-4c82-8ff2-f7c24aa1a0b9','04100d80-3491-4df1-ad93-2b986fb85950','dad1db3f-4fbc-5b3a-9db2-b7413885c30c','GET /app/administration/mfa',1,'2023-07-23 15:59:07'),
+('ba85f842-2267-405a-baff-a6eb79d7df48',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env.docker.dev',0,'2023-07-25 23:45:09'),
+('ba9578ef-a5ca-4b67-89ec-1cb425808b2f',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /config.php.original',0,'2023-07-25 23:44:24'),
+('bac2b13a-3ccf-4353-8780-72c566e2d3a5','04100d80-3491-4df1-ad93-2b986fb85950','d7bc9044-a64e-5421-a4d7-7a94eaa39d37','GET /users.json',1,'2023-07-26 09:19:39'),
+('bae2d462-2b47-4aee-a84b-3288edfe4d23',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /robots.txt',0,'2023-07-25 22:59:26'),
+('bb302927-b488-4794-b91e-3392169eb5d3',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /env.json',0,'2023-07-25 23:42:57'),
+('bb432ad4-05d0-4e6d-9e52-c1ba10dcb6f0',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /finance.json',0,'2023-07-24 00:26:27'),
+('bba330f7-01d9-4503-8d9b-c9685e5d38cf','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-24 18:01:13'),
+('bd63faec-28c7-439e-b759-26e466c68dff','04100d80-3491-4df1-ad93-2b986fb85950','3cffe6ef-ea4c-5bc3-869b-945f26e2601a','GET /groups.json',1,'2023-07-26 09:19:40'),
+('bd84b620-3b1b-4e9d-878b-707901d54047',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env.local',0,'2023-07-25 23:45:32'),
+('bdc6b9c9-1e13-4477-9eb7-fa9fe0c4ed81',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-24 16:44:11'),
+('bdf0fbd0-8cd7-4ddc-97ca-1165ba2c696d',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /geoserver/web/',0,'2023-07-26 06:41:12'),
+('bdf12f74-c4f5-4a95-b3b8-001cc62c3dc5',NULL,'a3c19ad2-8920-5395-86d0-8567cb34f382','POST /auth/verify.json',1,'2023-07-26 09:17:32'),
+('be20ea47-d0e2-4183-9378-08df42e40714',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /docs.py',0,'2023-07-24 00:26:19'),
+('be2483b6-d5a7-4f6f-b8e6-cad8a6a2d5c7',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-26 05:44:37'),
+('be2784fe-2ddd-4ca5-a630-e3e6999b2432',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.phpinfo',0,'2023-07-25 23:43:42'),
+('be728496-4408-4015-9bd4-ee48665085e1',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-26 05:44:36'),
+('be95f54c-d5f3-4c0b-b769-b244cbe6c493',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env.production',0,'2023-07-25 23:44:55'),
+('bea03dfe-9c3c-4cd3-a703-b6db6da294ee',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /WEB-INF/jetty-env.xml',0,'2023-07-25 23:44:54'),
+('bee44978-10d3-4822-b4f8-cd93b3e479d8','04100d80-3491-4df1-ad93-2b986fb85950','9b473b19-0e3e-5efb-be19-8a1719843762','GET /account/settings.json',1,'2023-07-24 18:01:26'),
+('bee69d35-5eaa-48a1-b6a8-f0d6b7816b99',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /env.bak',0,'2023-07-24 00:26:27'),
+('bf87ba58-748c-4aa8-9c94-54b8cd9d007f','04100d80-3491-4df1-ad93-2b986fb85950','1cd53591-cb6b-5b03-b0be-05a54644263d','GET /folders.json',1,'2023-07-26 09:19:48'),
+('bfb40d35-71e2-462d-bb71-90c40e1beb99','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-24 15:22:04'),
+('c000a52c-696f-49d7-b29b-ef60b2654496','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 11:45:46'),
+('c0191aab-f320-4214-bec0-53e0a80a88de',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /solr/',0,'2023-07-24 07:08:14'),
+('c14cbd67-a671-4e0f-99dd-8f84f7787ee9','04100d80-3491-4df1-ad93-2b986fb85950','d7bc9044-a64e-5421-a4d7-7a94eaa39d37','GET /users.json',1,'2023-07-24 18:02:56'),
+('c1e4951d-30a0-40c4-8d5a-ee2a4c5b42f3','04100d80-3491-4df1-ad93-2b986fb85950','d7bc9044-a64e-5421-a4d7-7a94eaa39d37','GET /users.json',1,'2023-07-24 18:07:29'),
+('c1f93965-6f3f-4f33-8c6d-76dd53a90dc6',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /credentials.txt',0,'2023-07-24 00:26:11'),
+('c2166503-7d43-4afb-ab93-e1dcdd1341f0','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 11:37:37'),
+('c2435748-e0ef-4ac6-ac07-9dfae117ba29',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /local.json',0,'2023-07-25 23:43:50'),
+('c285d0ee-0ff4-4c3c-9c8a-a7dc6fb99514','04100d80-3491-4df1-ad93-2b986fb85950','caea12fd-e0f8-5d68-aa19-d7b25119740e','GET /users/csrf-token.json',1,'2023-07-23 18:22:33'),
+('c2a136ed-cc20-4991-a891-1bb46bfc26c4','04100d80-3491-4df1-ad93-2b986fb85950','6f53faec-0c9e-5321-ac78-543e1001f7b1','POST /setup/complete/04100d80-3491-4df1-ad93-2b986fb85950',1,'2023-07-23 15:57:57'),
+('c31bc3c3-2d5b-4f33-aa83-e4c0b39657b3',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /admin/index.html',0,'2023-07-25 04:40:08'),
+('c331b829-5050-4e05-bc94-c2865894b26b',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /cgi-bin/login.cgi',0,'2023-07-25 04:21:56'),
+('c365ff44-b01c-451a-8de1-3c46ef5200e8',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-25 08:46:10'),
+('c38c8bde-c39c-42ee-a6f0-2e815e84f554','04100d80-3491-4df1-ad93-2b986fb85950','9b473b19-0e3e-5efb-be19-8a1719843762','GET /account/settings.json',1,'2023-07-26 09:53:03'),
+('c3c54c24-6e7c-4980-9560-cba3429a1ca7',NULL,'bef9f3ca-86ef-5c6a-9b38-320e03ceb5df','GET /settings.json',1,'2023-07-23 20:26:18'),
+('c4495d25-fe7d-4187-8611-810e1f18f631',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /reports.txt',0,'2023-07-24 00:26:25'),
+('c4733c17-29fb-4dab-b20f-35cc83a3fb1c',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /ab2h',0,'2023-07-24 23:01:22'),
+('c4a2e680-c4b0-47d7-97c3-3090f3d13d7c',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /cgi-bin/login.cgi',0,'2023-07-25 21:56:29'),
+('c4cf88a8-717e-407e-958c-868611bd2a00','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 09:18:40'),
+('c4d6adeb-d221-4885-822d-1e42a09398dd',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /server.js',0,'2023-07-25 23:43:26'),
+('c5518dad-168d-43de-b278-f14571fbe5b7',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.htaccess-marco',0,'2023-07-24 00:26:10'),
+('c5aaaa9a-d8e0-423a-8280-0eeb3ab84592','04100d80-3491-4df1-ad93-2b986fb85950','6d616537-c449-589d-bebe-b2d5883e9d35','GET /mfa/settings.json',1,'2023-07-23 16:02:07'),
+('c5fb1f42-51ce-432e-ae04-b2fec519b019',NULL,'caea12fd-e0f8-5d68-aa19-d7b25119740e','GET /users/csrf-token.json',1,'2023-07-23 15:54:47'),
+('c5fb5505-ad4e-4834-a87d-f0ba71056e3f',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.envs',0,'2023-07-25 23:45:01'),
+('c6759764-a479-4a7a-84e1-6b3949426b8b','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 12:10:56'),
+('c68eb753-41fa-4c25-b7a3-5af71e78ad40',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /env.json',0,'2023-07-25 23:45:21'),
+('c6becc4f-346a-4ed8-8c6b-92b9e54d4432',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /private/.env',0,'2023-07-25 23:45:17'),
+('c6d16a13-2dba-40f6-9fbd-ca9fa3d87118',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /+CSCOE+/logon.html',0,'2023-07-25 04:46:14'),
+('c6d1a1c8-e608-42ef-aec9-7564bf79072f',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /actuators/env',0,'2023-07-25 23:45:30'),
+('c6d98ace-96ef-41e6-afa7-1771e5196a70',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /phpinfo',0,'2023-07-25 14:43:02'),
+('c6e14b8b-3551-4b25-83c3-ac044498b08e',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-25 19:32:05'),
+('c7079c99-2f8f-4004-b516-28a41e121e42',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env_1',0,'2023-07-25 23:44:49'),
+('c7232229-87f2-4d6c-a18c-311ba15ce30a','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 09:53:12'),
+('c78d0eae-2b16-44fc-82e8-6fa9fbfed628',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /cgi-bin/login.cgi',0,'2023-07-25 04:48:26'),
+('c79f12c3-b582-48f6-a9da-eed041ab2deb',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.jenv-version',0,'2023-07-25 23:45:39'),
+('c7b17637-a4d3-4d22-b909-fedb03eea0d6','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 12:10:56'),
+('c85ca2a2-f63e-4c3c-9434-fd2711a9d145',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /shared/.env',0,'2023-07-25 23:45:00'),
+('c89af4e4-f801-4006-a716-75bc8055da06',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /env.txt',0,'2023-07-25 23:45:14'),
+('c8b67a3a-ec22-4c0b-a48b-35207b13026d',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /js/config.js',0,'2023-07-25 23:43:39'),
+('c8d31cb4-d44b-4764-b307-32484ff2ac03',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /index.html',0,'2023-07-25 04:42:36'),
+('c90f10ac-4dbc-4c9e-a133-4d4ee3e565a5',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /scripts/.env',0,'2023-07-25 23:45:48'),
+('c96391ac-e0e8-4288-8c01-11ab1af85ab4',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.rbenv-gemsets',0,'2023-07-25 23:44:59'),
+('ca34a1f6-6c16-44a8-96e0-df81da6661ed',NULL,'bef9f3ca-86ef-5c6a-9b38-320e03ceb5df','GET /settings.json',1,'2023-07-23 19:26:18'),
+('ca884ba3-1c01-46c4-9577-8fca45e6dedb',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /c2Mz',0,'2023-07-24 14:24:16'),
+('ca91624d-2fbf-4e9e-9481-6432b6a841c0','04100d80-3491-4df1-ad93-2b986fb85950','d7bc9044-a64e-5421-a4d7-7a94eaa39d37','GET /users.json',1,'2023-07-23 18:22:43'),
+('cb33dd67-3bad-4b6a-b12b-6a2d09309d79',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /external.json',0,'2023-07-24 00:26:25'),
+('cb7cf987-5d92-4dec-b934-82c025ba0867',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env.test.sample',0,'2023-07-25 23:45:30'),
+('cb8879d3-52ba-4311-b38f-95788b88e0c6',NULL,'a3c19ad2-8920-5395-86d0-8567cb34f382','POST /auth/verify.json',1,'2023-07-23 20:26:24'),
+('cba57401-b3e6-44d0-ba4b-c9254c5eeb1e',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /sugar_version.json',0,'2023-07-24 07:08:47'),
+('cbaf4a3f-002c-42c6-8536-6b16b5fe552c',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /Dockerrun.aws.json',0,'2023-07-24 00:26:10'),
+('cbbb8083-645c-4d96-a47e-9a7c17f2e2c4',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /static/.env',0,'2023-07-25 23:45:01'),
+('cbe35cfa-2022-4b0c-b887-398b70ed23e3',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /bower.json',0,'2023-07-25 23:44:37'),
+('cbe4ad3a-dacd-4c55-8771-46da8dcc75c9',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.htaccess.orig',0,'2023-07-24 00:26:14'),
+('cc727d4b-ce41-4437-936a-eef7ac02a958',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /owa/',0,'2023-07-25 20:09:24'),
+('cca2c81f-63be-473c-91a8-e05a82960846',NULL,'50ca4a19-b782-5842-bd2b-f59e9ff4eef9','GET /setup/install/04100d80-3491-4df1-ad93-2b986fb85950/75a826d9-799c-4901-a24e-fcd9afc5963f.json',1,'2023-07-23 15:54:22'),
+('cca53881-fe01-4837-a191-098015ace284',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /owa/auth/logon.aspx',0,'2023-07-23 21:25:32'),
+('ccc6514f-2086-4d08-8950-649ec7449ddf','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 12:00:56'),
+('cd12fcfd-366a-47c5-98d5-6665464ae6b0','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 11:03:58'),
+('cdb3ac10-a288-44f2-9073-84b89c811372',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /pi.php5',0,'2023-07-25 23:43:15'),
+('cdd68b13-b0a2-4dab-a966-e46d29a74312','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 10:23:48'),
+('cdeb863d-2531-4581-baca-f3b946462adf','04100d80-3491-4df1-ad93-2b986fb85950','bef9f3ca-86ef-5c6a-9b38-320e03ceb5df','GET /settings.json',1,'2023-07-24 18:07:27'),
+('cdf013cf-d0dc-48e6-8fb6-f13fd711078b',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /sitemap.xml',0,'2023-07-24 06:02:13'),
+('ceb84df3-0b19-49d9-9852-931eafe20ad6','04100d80-3491-4df1-ad93-2b986fb85950','3cffe6ef-ea4c-5bc3-869b-945f26e2601a','GET /groups.json',1,'2023-07-26 09:18:50'),
+('cf1bfe80-9dee-420d-9fd4-a3d65bba726c',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /Dockerfile',0,'2023-07-24 00:26:24'),
+('d131775d-f376-46f3-b01e-792da45cf71d',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-26 04:10:46'),
+('d1457277-c09e-4ce6-9407-ad75e68b0f4e','04100d80-3491-4df1-ad93-2b986fb85950','caea12fd-e0f8-5d68-aa19-d7b25119740e','GET /users/csrf-token.json',1,'2023-07-26 09:18:48'),
+('d14b3b10-28a1-4c2a-8b29-f7e5a94961e4',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /symfony.js',0,'2023-07-24 00:26:15'),
+('d16ac55a-c0c5-45e6-9137-e37260ffcf42','04100d80-3491-4df1-ad93-2b986fb85950','e2aa01a9-84ec-55f8-aaed-24ee23259339','GET /resource-types.json',1,'2023-07-24 18:01:12'),
+('d180dab3-73b9-4429-9728-a2440c660024','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 10:24:44'),
+('d2519814-a9e7-4d88-b462-43d6b224cfb1','04100d80-3491-4df1-ad93-2b986fb85950','881ab948-e40f-5a72-91aa-54b442270029','GET /users/04100d80-3491-4df1-ad93-2b986fb85950.json',1,'2023-07-23 15:58:18'),
+('d2dc00a7-3188-429c-8af0-8a2a70ebf2ee',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /assets/.env',0,'2023-07-25 23:45:26'),
+('d35aac6a-6297-4c42-b8d2-2ed46df672ab',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env.example',0,'2023-07-25 23:44:48'),
+('d46fffce-baaa-4347-a09d-64b658ad679d',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /reports.py',0,'2023-07-24 00:26:20'),
+('d4c4ac33-866d-4f99-9327-c738108943dc',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env.prod.local',0,'2023-07-25 23:45:28'),
+('d4ef3fe9-ccbe-4827-985e-16c188e38d89',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /media/.env',0,'2023-07-25 23:45:13'),
+('d5235c38-f55e-4cfc-b23b-17d18c35288d','04100d80-3491-4df1-ad93-2b986fb85950','bef9f3ca-86ef-5c6a-9b38-320e03ceb5df','GET /settings.json',1,'2023-07-23 18:22:39'),
+('d52684c3-35d2-4588-a2a3-f399fb72a139',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.htaccess~',0,'2023-07-24 00:26:19'),
+('d5dcc126-dd89-4d99-82c9-2c15af4d43b3',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-25 18:55:59'),
+('d5fca2f0-3295-4395-b80e-435e3215467b',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-26 10:26:57'),
+('d60aa3b8-4e17-4a40-bdbf-2c09de165333',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /client/.env',0,'2023-07-25 23:45:01'),
+('d60f74ed-3943-4d0f-89af-c50b5413e1a6',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-25 08:46:49'),
+('d613bf2b-865c-404f-aa73-2964527c868b',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /alpha/.env',0,'2023-07-25 23:44:52'),
+('d684ba28-af10-488c-a5de-c4af1cd5ace5',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.htaccess.bak',0,'2023-07-24 00:26:23'),
+('d689916f-d865-49b3-bbdb-8ba7f88e90d1',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-26 07:43:22'),
+('d6a4825a-ebd7-4327-a7c3-3817dfb03525','04100d80-3491-4df1-ad93-2b986fb85950','a04f2607-8cb6-56c6-a9cb-6b9c7603bacd','GET /rbacs/me.json',1,'2023-07-23 15:58:19'),
+('d6b045e2-a72e-43c9-870b-cea99eec9520',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.docker/.env',0,'2023-07-24 00:26:25'),
+('d6f21873-2072-4830-832c-7e14af3f9b47',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /personal.txt',0,'2023-07-24 00:26:22'),
+('d7065cc2-2f75-420d-b3be-cfa6d64b6bdb',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /back/.env',0,'2023-07-25 23:45:28'),
+('d76a7c5d-9f96-4cba-b0e9-f71d7d32a1cd',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-25 12:42:43'),
+('d783afad-9c48-4e58-b32e-29d05985392d',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /config.ini.txt',0,'2023-07-24 00:26:25'),
+('d79c9cbd-e017-4e30-8bbc-2c6a6b1187d7',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-26 06:58:10'),
+('d7a49f94-3907-44fd-ba51-baa5cd1b6d8c',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /s3.js',0,'2023-07-25 23:44:30'),
+('d7c103a6-9823-4f01-90d3-f53e3090f8fa',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /management/env',0,'2023-07-25 23:45:41'),
+('d7c930a5-dbc0-4e0a-a74d-6fbcdf3abd45',NULL,'bef9f3ca-86ef-5c6a-9b38-320e03ceb5df','GET /settings.json',1,'2023-07-24 07:29:31'),
+('d7e0e4a0-427f-4aab-83c4-636a5c951f16',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /cgi-bin/config.exp',0,'2023-07-24 07:09:33'),
+('d7eff793-f9fe-486f-9718-a9fb1a8eee52',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-25 00:35:04'),
+('d8f299dd-dc5f-4d9c-bf75-3fdc7d045c74',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /remote/login',0,'2023-07-24 07:09:52'),
+('d924f7d7-72c3-4f9f-bff8-e6764164524d',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /config.inc.php.txt',0,'2023-07-24 00:26:16'),
+('d94e232b-ab77-44a0-bda9-6bcdaba83787','04100d80-3491-4df1-ad93-2b986fb85950','a3c19ad2-8920-5395-86d0-8567cb34f382','POST /auth/login.json',1,'2023-07-23 15:58:02'),
+('d9714f76-aee0-4596-a2e8-0308fd373f05','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 10:29:53'),
+('d9a6876e-e6a8-4ca3-8306-ad27ba942211',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /owa/auth/logon.aspx',0,'2023-07-23 18:09:20'),
+('d9f0dbda-dfd3-477a-8d6a-330615f6842a',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env.docker',0,'2023-07-24 00:26:23'),
+('da33314b-d832-4138-8539-c860e7d4d2e1',NULL,'a3c19ad2-8920-5395-86d0-8567cb34f382','POST /auth/login.json',1,'2023-07-24 15:22:02'),
+('daf9069a-b2fc-4d18-a0ca-561a4a69df66',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /package.json',0,'2023-07-24 00:26:12'),
+('dafd46a9-ba37-46cb-a8ac-b640454ffe62',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /owa/auth/logon.aspx',0,'2023-07-23 22:55:42'),
+('dc0c0b46-4ee2-4eea-b57e-45af766c8618',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-25 23:28:41'),
+('dc312850-89b5-4fa8-a2a4-1ad27dda06dc','04100d80-3491-4df1-ad93-2b986fb85950','9b473b19-0e3e-5efb-be19-8a1719843762','GET /account/settings.json',1,'2023-07-23 15:58:17'),
+('dc4ecde7-f4f7-4acd-96fd-a566c74b710f',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env-example',0,'2023-07-25 23:45:06'),
+('dd035359-25be-49be-a2a3-fbd97a6c4072',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /web.config.txt',0,'2023-07-24 00:26:17'),
+('dd0a51fa-c08d-44d0-8658-a4c4aea897dd',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /admin/phpinfo',0,'2023-07-25 23:43:16'),
+('dd3a789b-f651-4baa-b1a8-173dce7ca683',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /owa/auth/logon.aspx',0,'2023-07-24 18:43:38'),
+('dd5d0f0c-c2ae-4ea8-a893-7d4dfec04bf7','04100d80-3491-4df1-ad93-2b986fb85950','3cffe6ef-ea4c-5bc3-869b-945f26e2601a','GET /groups.json',1,'2023-07-26 09:19:48'),
+('ddc2956f-9ca5-4bf0-a416-bae08af5fe85',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /awsconfig.js',0,'2023-07-25 23:44:02'),
+('dde1c155-9024-41bd-aa2c-d646c5f737ce','04100d80-3491-4df1-ad93-2b986fb85950','881ab948-e40f-5a72-91aa-54b442270029','GET /users/04100d80-3491-4df1-ad93-2b986fb85950.json',1,'2023-07-26 09:18:48'),
+('de36e9c3-0c71-470f-b6ff-d5219f5fb2c0',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /admin/dashboard/phpinfo',0,'2023-07-25 23:43:16'),
+('de775025-2135-4070-b646-c96c311f68fd',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /owa/auth/logon.aspx',0,'2023-07-24 00:05:15'),
+('decb8a08-38cd-4e08-a052-1c52c497b8f3','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 12:03:13'),
+('dfcdb062-6387-46e7-ad7d-bd8fa8d8c7ad',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env.docker.dev',0,'2023-07-24 00:26:11'),
+('dfece75c-28f8-4d03-9f78-e22f5f91ed40',NULL,'caea12fd-e0f8-5d68-aa19-d7b25119740e','GET /users/csrf-token.json',1,'2023-07-24 12:48:49'),
+('e00ad47a-c18f-4098-9307-764552c45cf1',NULL,'bef9f3ca-86ef-5c6a-9b38-320e03ceb5df','GET /settings.json',1,'2023-07-23 18:19:12'),
+('e00fc244-7e0f-433e-83d8-467ce777112d',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-23 16:16:45'),
+('e089e4f4-3b18-471c-9d6f-35a7941cfe26',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-24 20:15:59'),
+('e0b5d22a-7409-4fda-a753-23f93e5d4ccb',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-24 17:32:27'),
+('e0b7f54f-59e9-4039-80c4-afa1ebfcd715',NULL,'bef9f3ca-86ef-5c6a-9b38-320e03ceb5df','GET /settings.json',1,'2023-07-23 20:26:17'),
+('e1034341-ec0a-4fb2-bb96-9c33e5d4014c',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /vWKD',0,'2023-07-25 14:13:06'),
+('e17df54f-076c-45e2-8f18-c23e83d2063f','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 11:56:37'),
+('e189ecc5-9dc6-4f02-bf0a-0c506234568b',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /vendor/.env',0,'2023-07-25 23:44:47'),
+('e1a503d2-a4b3-4288-8387-f948549d7826',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /development/.env',0,'2023-07-25 23:45:40'),
+('e1c9a704-8f42-460f-99d0-20f40f5f3a26','04100d80-3491-4df1-ad93-2b986fb85950','d7bc9044-a64e-5421-a4d7-7a94eaa39d37','GET /users.json',1,'2023-07-26 09:18:50'),
+('e2372751-e843-416f-aaf0-0fa03e591659',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /sitemap.xml',0,'2023-07-24 11:57:08'),
+('e252ce49-eee3-4dc2-b1f3-41dcda94e49b',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env-sample',0,'2023-07-25 23:45:27'),
+('e2722b8a-2969-4f1f-8b66-f46bedfae432',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /admin/index.html',0,'2023-07-25 04:18:08'),
+('e3d67e8f-4088-4347-8b28-f57b3ab91437',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-26 12:12:13'),
+('e3faf702-5475-4351-902b-07984f68f269',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env.test.local',0,'2023-07-25 23:45:38'),
+('e410c8eb-a461-4058-b173-9de4fff07bfa','04100d80-3491-4df1-ad93-2b986fb85950','caea12fd-e0f8-5d68-aa19-d7b25119740e','GET /users/csrf-token.json',1,'2023-07-26 09:41:12'),
+('e43493c6-6d96-4ffd-8b31-5a0166608667',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-25 03:49:09'),
+('e4f3e347-88f8-454b-a3b3-c341123b124f',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-24 05:43:38'),
+('e515be5a-3f61-4c36-bf79-c9505a32c332','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 11:02:11'),
+('e51f5e68-6da7-41a2-b7bf-c21e2c2f0026',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.well-known/security.txt',0,'2023-07-24 06:02:14'),
+('e545a107-0915-4dae-ad06-7513e1ac647c',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /config.js.bak',0,'2023-07-25 23:43:53'),
+('e546ab12-40e9-4207-bb72-df79006bc75f',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.docker/laravel/app/.env',0,'2023-07-25 23:45:47'),
+('e552d932-20c3-44e2-b58a-8606f1f90e86',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /connectionstrings.json',0,'2023-07-25 23:43:57'),
+('e5c6e095-c27a-41ee-bb74-7729034ff277',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /autodiscover/autodiscover.json',0,'2023-07-25 06:55:36'),
+('e616128b-cf84-453c-9cd8-c51e865fcc1e',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /backend/.env',0,'2023-07-25 23:45:45'),
+('e6c8c5b2-fc7f-4667-a374-6b2ee893f57d','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 09:56:45'),
+('e6cf2b97-26f9-4d98-8779-9645f9d0f7cc','04100d80-3491-4df1-ad93-2b986fb85950','1cd53591-cb6b-5b03-b0be-05a54644263d','GET /folders.json',1,'2023-07-24 18:01:28'),
+('e6e67307-9710-4e7c-b3a5-7018288591d9','04100d80-3491-4df1-ad93-2b986fb85950','1035f824-fe76-5a69-b02c-9aa60a31858c','GET /app/users',1,'2023-07-23 18:22:18'),
+('e6fa243f-7ca8-46af-a91f-36595bde765f','04100d80-3491-4df1-ad93-2b986fb85950','e2aa01a9-84ec-55f8-aaed-24ee23259339','GET /resource-types.json',1,'2023-07-26 09:18:40'),
+('e7041e6c-feac-4493-888a-8138c84769f6','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 09:44:29'),
+('e8031d6b-e742-4017-ace6-edbb4f2c0f34',NULL,'bef9f3ca-86ef-5c6a-9b38-320e03ceb5df','GET /settings.json',1,'2023-07-23 19:26:42'),
+('e84e7264-873e-4cc0-9301-0037becd4ac3',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-26 06:58:10'),
+('e85cc1b3-922e-4a49-a92a-a80f7b17e5eb',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env.docker',0,'2023-07-25 23:45:02'),
+('e895bda5-c671-4a0f-a1e1-259324ec2803',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /ab2g',0,'2023-07-25 10:45:35'),
+('e8a87d16-2a11-4a7f-a05b-b31ea805a63b',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /htaccess.dist',0,'2023-07-24 00:26:10'),
+('e95bde5b-9ebc-46ad-903d-b5b7bf7c7013',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-26 02:52:41'),
+('e973dc97-8de8-4db7-8a08-f5eac2a0f7d1',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env_sample',0,'2023-07-25 23:44:45'),
+('e9ea0369-21f4-49d3-a365-23cd66caa3a0',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-25 10:37:52'),
+('ea280a81-20d5-4fb3-9682-c7e0da2b1c39',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /api/.env',0,'2023-07-24 00:26:27'),
+('ea58de07-2e01-44f9-a83d-c119debc31d1',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-26 09:38:09'),
+('eacc048f-f147-49f0-a513-3e4b1857844e',NULL,'caea12fd-e0f8-5d68-aa19-d7b25119740e','GET /users/csrf-token.json',1,'2023-07-26 09:18:38'),
+('eaf05e9b-cef5-432a-ba5e-542f7e1df92c',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-25 03:49:08'),
+('ec3cdacc-a749-42ee-bea5-a21dacb56730',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /shell',0,'2023-07-25 02:32:42'),
+('ed64c069-b621-4261-b6e8-dd352b2de974',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /config.php.txt',0,'2023-07-24 00:26:12'),
+('edccabac-9020-47a9-ba90-c0a3fa16c828',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /laravel/core/.env',0,'2023-07-25 23:45:09'),
+('edea1c0f-4dd0-4682-8690-b532c46e8c36',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /geoserver/web/',0,'2023-07-25 11:05:59'),
+('ee60b6a1-9471-45c7-af3b-75015c5c63d1',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /vpn/index.html',0,'2023-07-26 06:38:22'),
+('ef00ed0f-1cf8-4483-b36c-fc668d1d08fb','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 10:40:33'),
+('efae225b-85a8-45fc-9586-6e248d8320a4',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-23 17:43:38'),
+('efba3f26-0bfd-4539-9e9e-1a92572fb8be',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /cgi-bin/login.cgi',0,'2023-07-25 04:47:21'),
+('efc1aa20-b673-4135-b06a-daa1b6e1ec99','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-23 15:58:03'),
+('efe166bf-0f4d-427e-bdcb-9450371b1b33',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /v2/',0,'2023-07-24 06:18:56'),
+('f00106da-905e-470f-8f0d-df2ca0e58efd',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /local/.env',0,'2023-07-25 23:45:12'),
+('f026c82f-dba7-47af-9704-43594963a269',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.vscode/.env',0,'2023-07-25 23:45:31'),
+('f04b80d0-8c75-4529-9b55-4e6c3729c8bc',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-23 19:35:04'),
+('f064183e-1dff-4b7a-822c-b1991a136e3d',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /admin/index.html',0,'2023-07-25 21:52:41'),
+('f075503e-7e7e-4c13-8497-b14cfbdbf6dc',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /test/.env',0,'2023-07-25 23:45:12'),
+('f116793d-4369-463b-bb62-f09a358e304f','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 12:09:12'),
+('f11b6c22-d665-4bc7-93e0-0d8871be43c6','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 10:33:01'),
+('f199569c-0a2c-44bc-989c-123b59effc47','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 12:11:44'),
+('f20e0d70-6540-45c3-a0f5-1dce08f9b591',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /helpers/utility.js',0,'2023-07-25 23:43:24'),
+('f26a62d4-1aff-47da-b419-000b50f400a2',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /owa/auth/logon.aspx',0,'2023-07-24 08:55:04'),
+('f28da519-4fe0-4312-b310-f0edecc978c7',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /environment',0,'2023-07-25 23:45:19'),
+('f2e86339-80fb-4762-a38d-4c33d43e5fa2',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /composer.json',0,'2023-07-24 00:26:17'),
+('f2fbb906-4a40-456b-92a3-76d4cf19c222','04100d80-3491-4df1-ad93-2b986fb85950','bef9f3ca-86ef-5c6a-9b38-320e03ceb5df','GET /settings.json',1,'2023-07-24 18:01:27'),
+('f30ce96d-c93d-4363-8b61-11bce5478a12',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.rbenv-version',0,'2023-07-25 23:45:26'),
+('f344cc1b-4086-4833-95e8-f1f4928718ec',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /+CSCOE+/logon.html',0,'2023-07-25 21:55:15'),
+('f3648fc8-c372-4568-b797-93f39cb083af',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.htaccess_extra',0,'2023-07-24 00:26:18'),
+('f372c099-8f63-4e02-a881-a725a673a1aa',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-25 01:23:19'),
+('f38807e2-dd53-48d7-8b30-e0cd8153734a',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /node.js',0,'2023-07-24 00:26:23'),
+('f3a53a6d-4311-41da-a4ba-a2942b691ca7',NULL,'bef9f3ca-86ef-5c6a-9b38-320e03ceb5df','GET /settings.json',1,'2023-07-25 17:54:49'),
+('f3ae8ab7-0116-4870-b92c-add87d5d919f',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /bundle.js',0,'2023-07-23 20:32:21'),
+('f450876d-ab31-4e5b-a68b-f3ca4c67ed37','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 11:00:33'),
+('f47f31ba-11cd-4320-95f4-80b6d05160d5',NULL,'748dcd10-7d15-5498-9aa6-d26de348ff02','GET /auth/verify.json',1,'2023-07-23 15:54:55'),
+('f4e33905-b833-4e49-a673-8556522db5ca',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /cp/.env',0,'2023-07-25 23:45:23'),
+('f4ece803-5de2-48a1-badb-0be53d2d14cd','04100d80-3491-4df1-ad93-2b986fb85950','31f74e04-d9bb-592b-aa45-ba6682d3316d','GET /password-generator/settings.json',1,'2023-07-23 15:58:20'),
+('f5b1ad72-818e-44d9-863b-cb3a39e600b9',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /config.php.bak',0,'2023-07-25 23:44:30'),
+('f5cd2ecc-489c-4623-b989-88006607bb65',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /application.py.js',0,'2023-07-24 00:26:24'),
+('f5dc6b9a-9ee6-4f5a-ad54-4e9862f55059',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /owa/auth/logon.aspx',0,'2023-07-24 04:35:24'),
+('f6171c7f-5bf8-4e01-a64e-6ab7d972607e',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /owa/auth/logon.aspx',0,'2023-07-24 22:25:44'),
+('f646a826-d9e4-479d-badd-808fda05544c','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 10:26:30'),
+('f67dbd98-19cd-4ca5-8874-da4b89f78490',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-26 09:38:09'),
+('f6856421-6b7b-4aef-a630-19d2077a2f1b','04100d80-3491-4df1-ad93-2b986fb85950','1cd53591-cb6b-5b03-b0be-05a54644263d','GET /folders.json',1,'2023-07-26 09:19:38'),
+('f696c431-e04d-4c29-8648-7b4d1b4e261a',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-23 22:12:08'),
+('f69bad9f-ac3a-4cfb-946f-33eb3a891985',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /htaccess.bak',0,'2023-07-24 00:26:21'),
+('f6cdf457-40f1-46b2-a0b5-d08e9d74a0c3',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-25 05:48:54'),
+('f6e0ad86-0bd4-45b9-a7bd-35a842a8ba81',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /package.json',0,'2023-07-25 23:43:39'),
+('f6f38fc7-06b8-48cd-9f94-efec0bbf3e09',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /dev/.env',0,'2023-07-25 23:45:03'),
+('f73de8e2-fe72-447b-8e77-41552a8ccf81',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /owa/auth/logon.aspx',0,'2023-07-24 17:29:07'),
+('f7c32ec1-1d76-420d-a553-047bccf08760','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 12:04:10'),
+('f824d1ad-67c4-454a-8793-a08f26a6cc2d',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /GponForm/diag_Form',0,'2023-07-24 20:47:33'),
+('f8298f08-dbed-4cc7-93f7-ef0a253f40ed','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 12:10:19'),
+('f86504cc-831a-48b9-8666-af9d40da79b9',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-24 23:59:27'),
+('f88bd87a-5641-4e4f-8164-dd4d283bf55b',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env1',0,'2023-07-25 23:45:46'),
+('f976e06c-c42e-4c1d-8bfd-70c2324ec27c',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-25 15:05:05'),
+('fa5bf695-7821-4768-a78d-6582bccf0263','04100d80-3491-4df1-ad93-2b986fb85950','c506210f-7866-5691-8fc1-58772e8f49f1','GET /resources.json',1,'2023-07-26 11:27:22'),
+('fa86a94e-ddce-42a7-94f7-a70cbe05e2e5',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /owa/auth/logon.aspx',0,'2023-07-25 06:14:04'),
+('faa236d0-aa74-4bd7-a402-823dcaa2d33a',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-24 15:50:35'),
+('fac01c8d-9cdd-4524-843e-7a0233ec52f9','04100d80-3491-4df1-ad93-2b986fb85950','3cffe6ef-ea4c-5bc3-869b-945f26e2601a','GET /groups.json',1,'2023-07-23 15:58:42'),
+('fad8d8c6-6ae2-4c69-a7fc-48445ea504a0',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-24 20:51:55'),
+('fb7ccf10-ef3d-4c59-838a-1109b8c5d624',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /testphpinfo',0,'2023-07-25 23:43:49'),
+('fbc06722-c9c8-4dcc-ba28-9dae302e861f',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /external.py',0,'2023-07-24 00:26:26'),
+('fc009b10-4305-4fd4-a0aa-b430e2dcd720',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /owa/auth/logon.aspx',0,'2023-07-24 03:36:05'),
+('fd9d9865-3c02-45b7-923a-5ed405a649c2',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /app.json',0,'2023-07-25 23:44:25'),
+('fdef8ca1-e16f-4f3f-b17a-ec87a21a15d8',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /dashboardadmin/phpinfo',0,'2023-07-25 23:42:50'),
+('fe184321-6ad4-438f-9426-6ae1ad3c8a28',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /yuuki',0,'2023-07-26 07:43:22'),
+('fe64fda0-3d60-4dcc-8138-704e4f6ad0d9',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /files/',0,'2023-07-24 02:33:48'),
+('feca9405-14e2-4d07-9cfa-24d16c0ddb1c',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.htaccess.save',0,'2023-07-24 00:26:24'),
+('fede898d-e00f-4c9b-8ad2-b0457b24ca1f',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /.env',0,'2023-07-24 08:31:06'),
+('ff7214b0-9d01-4aff-9e0d-9b137f98d89d',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','POST /',0,'2023-07-24 15:50:35'),
+('ff81f7bd-5b02-44f6-bead-f99c60e35eb5','04100d80-3491-4df1-ad93-2b986fb85950','3cffe6ef-ea4c-5bc3-869b-945f26e2601a','GET /groups.json',1,'2023-07-24 18:02:57'),
+('ffd51de9-c4ea-45d3-bc80-8567a57e6968',NULL,'17b8a54b-8069-586a-8ca2-7e7569b28e08','GET /printenv.tmp',0,'2023-07-25 23:45:36');
+/*!40000 ALTER TABLE `action_logs` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `actions`
+--
+
+DROP TABLE IF EXISTS `actions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `actions` (
+  `id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `name` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`),
+  KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `actions`
+--
+
+LOCK TABLES `actions` WRITE;
+/*!40000 ALTER TABLE `actions` DISABLE KEYS */;
+INSERT INTO `actions` VALUES
+('9b473b19-0e3e-5efb-be19-8a1719843762','AccountSettingsIndex.index'),
+('a3c19ad2-8920-5395-86d0-8567cb34f382','AuthLogin.loginPost'),
+('748dcd10-7d15-5498-9aa6-d26de348ff02','AuthVerify.verifyGet'),
+('17b8a54b-8069-586a-8ca2-7e7569b28e08','Error.error'),
+('1cd53591-cb6b-5b03-b0be-05a54644263d','FoldersIndex.index'),
+('caea12fd-e0f8-5d68-aa19-d7b25119740e','GetCsrfToken.get'),
+('3cffe6ef-ea4c-5bc3-869b-945f26e2601a','GroupsIndex.index'),
+('dad1db3f-4fbc-5b3a-9db2-b7413885c30c','Home.apiApp'),
+('1035f824-fe76-5a69-b02c-9aa60a31858c','Home.apiExtApp'),
+('6d616537-c449-589d-bebe-b2d5883e9d35','MfaOrgSettingsGet.get'),
+('9caaba03-49d2-5273-8097-e278234e71e0','NotificationOrgSettingsGet.get'),
+('31f74e04-d9bb-592b-aa45-ba6682d3316d','PasswordGeneratorSettings.index'),
+('a04f2607-8cb6-56c6-a9cb-6b9c7603bacd','RbacsView.viewForCurrentRole'),
+('c506210f-7866-5691-8fc1-58772e8f49f1','ResourcesIndex.index'),
+('e2aa01a9-84ec-55f8-aaed-24ee23259339','ResourceTypesIndex.index'),
+('30237a18-fd12-5935-b1be-1e2a62ccb71d','RolesIndex.index'),
+('bef9f3ca-86ef-5c6a-9b38-320e03ceb5df','SettingsIndex.index'),
+('6f53faec-0c9e-5321-ac78-543e1001f7b1','SetupComplete.complete'),
+('50ca4a19-b782-5842-bd2b-f59e9ff4eef9','SetupStart.start'),
+('53da54b1-9576-52ab-a11f-b2265b5aa455','SmtpSettingsGet.get'),
+('a1a15b91-72f6-5708-8d7f-6940e51d8595','UsersAdd.addPost'),
+('d7bc9044-a64e-5421-a4d7-7a94eaa39d37','UsersIndex.index'),
+('1c717cd7-d236-55c4-a068-b9a0923b1927','UsersRecover.recoverPost'),
+('881ab948-e40f-5a72-91aa-54b442270029','UsersView.view');
+/*!40000 ALTER TABLE `actions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `authentication_tokens`
+--
+
+DROP TABLE IF EXISTS `authentication_tokens`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `authentication_tokens` (
+  `id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `token` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `user_id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 1,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  `type` varchar(16) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `data` text DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `authentication_tokens`
+--
+
+LOCK TABLES `authentication_tokens` WRITE;
+/*!40000 ALTER TABLE `authentication_tokens` DISABLE KEYS */;
+INSERT INTO `authentication_tokens` VALUES
+('0c1a1cef-407c-4541-bd0c-ad987e0573e1','f6426608-dd67-47bb-bb0a-aec17285f454','04100d80-3491-4df1-ad93-2b986fb85950',0,'2023-07-24 15:22:02','2023-07-24 15:22:03','login',NULL),
+('39a1bb90-17fc-420f-8c57-eef9566c480f','364e2290-7e92-4859-8850-dae848bb3d46','0a0e3a7e-1c9b-4ca8-9777-efffe81ac3af',1,'2023-07-23 15:21:05','2023-07-23 15:21:05','register',NULL),
+('6a4ddea5-cc20-4ee9-8213-b29894bf73a3','6eaf44c5-596a-47e6-ae0f-36113aedfc5c','04100d80-3491-4df1-ad93-2b986fb85950',0,'2023-07-23 18:22:16','2023-07-23 18:22:17','login',NULL),
+('7f7e67f1-06c3-4e49-bdb9-a1d232342ce9','cba90a90-1a98-44ef-964a-912138dab129','77bc0450-c784-4636-a333-6117e784d1df',1,'2023-07-24 18:03:47','2023-07-24 18:03:47','register',NULL),
+('8a8c3f21-9071-4c70-ae60-76a315cac0bb','369f1d0d-d64c-4852-8455-1970571ddf6d','04100d80-3491-4df1-ad93-2b986fb85950',0,'2023-07-24 18:01:11','2023-07-24 18:01:11','login',NULL),
+('9617feb7-f115-4d18-8e29-291d249a8078','e76ec9b8-da41-4aad-a7fd-be3fc32c465b','04100d80-3491-4df1-ad93-2b986fb85950',0,'2023-07-26 09:18:38','2023-07-26 09:18:39','login',NULL),
+('e1596bde-0e05-4a6b-8c04-838c7387fb44','75a826d9-799c-4901-a24e-fcd9afc5963f','04100d80-3491-4df1-ad93-2b986fb85950',0,'2023-07-23 15:53:28','2023-07-23 15:57:57','register',NULL),
+('e3c9419c-4a10-4f6c-ad75-8b66ae2848c2','39fc4697-8e63-400c-835e-49c2f78cb837','77bc0450-c784-4636-a333-6117e784d1df',1,'2023-07-24 18:06:30','2023-07-24 18:06:30','register',NULL),
+('e4387f89-cfcb-4d61-8a21-545d5c03a193','3f7019ca-0f66-4fd1-bb04-62f3a55a7183','04100d80-3491-4df1-ad93-2b986fb85950',0,'2023-07-23 15:58:01','2023-07-23 15:58:02','login',NULL);
+/*!40000 ALTER TABLE `authentication_tokens` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `avatars`
+--
+
+DROP TABLE IF EXISTS `avatars`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `avatars` (
+  `id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `data` blob DEFAULT NULL,
+  `profile_id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `profile_id` (`profile_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `avatars`
+--
+
+LOCK TABLES `avatars` WRITE;
+/*!40000 ALTER TABLE `avatars` DISABLE KEYS */;
+/*!40000 ALTER TABLE `avatars` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `comments`
+--
+
+DROP TABLE IF EXISTS `comments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `comments` (
+  `id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `parent_id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci DEFAULT NULL,
+  `foreign_key` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `foreign_model` varchar(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `content` varchar(256) NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  `created_by` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `modified_by` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `user_id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `comments`
+--
+
+LOCK TABLES `comments` WRITE;
+/*!40000 ALTER TABLE `comments` DISABLE KEYS */;
+/*!40000 ALTER TABLE `comments` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `email_queue`
+--
+
+DROP TABLE IF EXISTS `email_queue`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `email_queue` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(129) NOT NULL,
+  `from_name` varchar(255) DEFAULT NULL,
+  `from_email` varchar(255) DEFAULT NULL,
+  `subject` varchar(255) NOT NULL,
+  `config` varchar(30) NOT NULL,
+  `template` varchar(100) NOT NULL,
+  `layout` varchar(50) NOT NULL,
+  `theme` varchar(50) NOT NULL,
+  `format` varchar(5) NOT NULL,
+  `template_vars` longtext NOT NULL,
+  `headers` text DEFAULT NULL,
+  `sent` tinyint(1) NOT NULL DEFAULT 0,
+  `locked` tinyint(1) NOT NULL DEFAULT 0,
+  `send_tries` int(2) NOT NULL DEFAULT 0,
+  `send_at` datetime DEFAULT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime DEFAULT NULL,
+  `attachments` text DEFAULT NULL,
+  `error` text DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `email_queue`
+--
+
+LOCK TABLES `email_queue` WRITE;
+/*!40000 ALTER TABLE `email_queue` DISABLE KEYS */;
+INSERT INTO `email_queue` VALUES
+(1,'realsammy86@gmail.com',NULL,NULL,'Welcome to passbolt, Samuel!','default','AN/user_register_self','default','','html','{\"body\":{\"user\":{\"id\":\"0a0e3a7e-1c9b-4ca8-9777-efffe81ac3af\",\"role_id\":\"95c0e1d1-7dc0-45e3-b8ed-8aa78b60218f\",\"username\":\"realsammy86@gmail.com\",\"active\":false,\"deleted\":false,\"created\":\"2023-07-23T15:21:05+00:00\",\"modified\":\"2023-07-23T15:21:05+00:00\",\"role\":{\"id\":\"95c0e1d1-7dc0-45e3-b8ed-8aa78b60218f\",\"name\":\"admin\",\"description\":\"Organization administrator\",\"created\":\"2012-07-04T13:39:25+00:00\",\"modified\":\"2012-07-04T13:39:25+00:00\"},\"profile\":{\"id\":\"6d393b5d-43f3-487d-80e7-196fec62d16f\",\"user_id\":\"0a0e3a7e-1c9b-4ca8-9777-efffe81ac3af\",\"first_name\":\"Samuel\",\"last_name\":\"Ekele\",\"created\":\"2023-07-23T15:21:05+00:00\",\"modified\":\"2023-07-23T15:21:05+00:00\",\"avatar\":{\"url\":{\"medium\":\"https:\\/\\/passbolt.local\\/img\\/avatar\\/user_medium.png\",\"small\":\"https:\\/\\/passbolt.local\\/img\\/avatar\\/user.png\"}}},\"locale\":\"en-UK\",\"last_logged_in\":null},\"token\":{\"user_id\":\"0a0e3a7e-1c9b-4ca8-9777-efffe81ac3af\",\"token\":\"364e2290-7e92-4859-8850-dae848bb3d46\",\"active\":true,\"type\":\"register\",\"data\":null,\"created\":\"2023-07-23T15:21:05+00:00\",\"modified\":\"2023-07-23T15:21:05+00:00\",\"id\":\"39a1bb90-17fc-420f-8c57-eef9566c480f\"},\"fullBaseUrl\":\"https:\\/\\/passbolt.local\"},\"title\":\"Welcome to passbolt, Samuel!\",\"locale\":\"en-UK\"}','{\"Auto-Submitted\":\"auto-generated\"}',0,0,4,'2023-07-23 15:21:05','2023-07-23 15:21:05','2023-07-23 15:21:05','[]','stream_socket_client(): Unable to connect to tcp://localhost:25 (Cannot assign requested address)'),
+(2,'samuelekele.bincom@gmail.com',NULL,NULL,'Welcome to passbolt, Sammy!','default','AN/user_register_self','default','','html','{\"body\":{\"user\":{\"id\":\"04100d80-3491-4df1-ad93-2b986fb85950\",\"role_id\":\"95c0e1d1-7dc0-45e3-b8ed-8aa78b60218f\",\"username\":\"samuelekele.bincom@gmail.com\",\"active\":false,\"deleted\":false,\"created\":\"2023-07-23T15:53:28+00:00\",\"modified\":\"2023-07-23T15:53:28+00:00\",\"role\":{\"id\":\"95c0e1d1-7dc0-45e3-b8ed-8aa78b60218f\",\"name\":\"admin\",\"description\":\"Organization administrator\",\"created\":\"2012-07-04T13:39:25+00:00\",\"modified\":\"2012-07-04T13:39:25+00:00\"},\"profile\":{\"id\":\"c9141a1e-5334-4326-a258-923653be4542\",\"user_id\":\"04100d80-3491-4df1-ad93-2b986fb85950\",\"first_name\":\"Sammy\",\"last_name\":\"Ekele\",\"created\":\"2023-07-23T15:53:28+00:00\",\"modified\":\"2023-07-23T15:53:28+00:00\",\"avatar\":{\"url\":{\"medium\":\"http:\\/\\/44.202.133.229\\/img\\/avatar\\/user_medium.png\",\"small\":\"http:\\/\\/44.202.133.229\\/img\\/avatar\\/user.png\"}}},\"locale\":\"en-UK\",\"last_logged_in\":null},\"token\":{\"user_id\":\"04100d80-3491-4df1-ad93-2b986fb85950\",\"token\":\"75a826d9-799c-4901-a24e-fcd9afc5963f\",\"active\":true,\"type\":\"register\",\"data\":null,\"created\":\"2023-07-23T15:53:28+00:00\",\"modified\":\"2023-07-23T15:53:28+00:00\",\"id\":\"e1596bde-0e05-4a6b-8c04-838c7387fb44\"},\"fullBaseUrl\":\"http:\\/\\/44.202.133.229\"},\"title\":\"Welcome to passbolt, Sammy!\",\"locale\":\"en-UK\"}','{\"Auto-Submitted\":\"auto-generated\"}',0,0,4,'2023-07-23 15:53:28','2023-07-23 15:53:28','2023-07-23 15:53:28','[]','stream_socket_client(): Unable to connect to tcp://localhost:25 (Cannot assign requested address)'),
+(3,'samuelekele.bincom@gmail.com',NULL,NULL,'Sammy just activated their account on passbolt','default','LU/user_setup_complete','default','','html','{\"title\":\"Sammy just activated their account on passbolt\",\"body\":{\"user\":{\"id\":\"04100d80-3491-4df1-ad93-2b986fb85950\",\"role_id\":\"95c0e1d1-7dc0-45e3-b8ed-8aa78b60218f\",\"username\":\"samuelekele.bincom@gmail.com\",\"active\":true,\"deleted\":false,\"created\":\"2023-07-23T15:53:28+00:00\",\"modified\":\"2023-07-23T15:57:57+00:00\",\"profile\":{\"id\":\"c9141a1e-5334-4326-a258-923653be4542\",\"user_id\":\"04100d80-3491-4df1-ad93-2b986fb85950\",\"first_name\":\"Sammy\",\"last_name\":\"Ekele\",\"created\":\"2023-07-23T15:53:28+00:00\",\"modified\":\"2023-07-23T15:53:28+00:00\"},\"role\":{\"id\":\"95c0e1d1-7dc0-45e3-b8ed-8aa78b60218f\",\"name\":\"admin\",\"description\":\"Organization administrator\",\"created\":\"2012-07-04T13:39:25+00:00\",\"modified\":\"2012-07-04T13:39:25+00:00\"},\"locale\":\"en-UK\",\"authentication_tokens\":[{\"id\":\"e1596bde-0e05-4a6b-8c04-838c7387fb44\",\"token\":\"75a826d9-799c-4901-a24e-fcd9afc5963f\",\"user_id\":\"04100d80-3491-4df1-ad93-2b986fb85950\",\"active\":false,\"created\":\"2023-07-23T15:53:28+00:00\",\"modified\":\"2023-07-23T15:57:57+00:00\",\"type\":\"register\",\"data\":null}],\"gpgkey\":{\"user_id\":\"04100d80-3491-4df1-ad93-2b986fb85950\",\"fingerprint\":\"2D125894C2630EEBB49F6ACB38E1109FE304C39F\",\"bits\":3072,\"type\":\"RSA\",\"key_id\":\"38E1109FE304C39F\",\"uid\":\"Sammy Ekele <samuelekele.bincom@gmail.com>\",\"armored_key\":\"-----BEGIN PGP PUBLIC KEY BLOCK-----\\n\\nxsDNBGS9TXcBDACWWz0yNjW93MApl3cTFma8ZaNwkIYvkhSqqP+amiu5m0RP\\nZrlfsMmQ+B+q4fW8plmSVY8L8Lwm1UpCEEZVWvNU7zE+X90s6jYvf+XZteDQ\\nsLhTwYKjYcJfS0kHP+9eLnS4xdqE+u3GgKAdx+3TNOeX1S+3GPRoQ7N+0ET1\\nhXGZ7dmvsb5a5LhkM71LurLjzWsQRlab1cqPMLb0JffcCvnJC1uFYqY3l3QJ\\nZJAX7692VOGPSq4GAhZZcI3rRpf9bFNG1PYlqW6fc0cbTQPdX6FkuWHJ\\/UA2\\nDQBQxM20E07L9NB8KfCvQscLhGKzyOn5AXiYuvJToJSYa5YHqUoa+a+VfEiP\\ngvzi3w9MtOhCnxjlQUzSP3IIYCV+ViNicg2xUGoKCc7W\\/FG\\/3dI0feJo8IWf\\nVl2Vs20poeDE2looZmU\\/\\/E8109aCsAo86t65P70vHqN2jwbuzPauw\\/CCwymd\\ntMghDxC6kRfW1ZQuLF4dGvFbIxU9IE\\/WGX3zcjrVpH6QbaMAEQEAAc0qU2Ft\\nbXkgRWtlbGUgPHNhbXVlbGVrZWxlLmJpbmNvbUBnbWFpbC5jb20+wsEKBBAB\\nCAAdBQJkvU13BAsJBwgDFQgKBBYAAgECGQECGwMCHgEAIQkQOOEQn+MEw58W\\nIQQtEliUwmMO67Sfass44RCf4wTDnz07C\\/0eEXaG0kAZIxR5jcPgi5Hz426l\\nbssdl99ZEqGyELxDC4DKDaZ3XCLJQ1fgTfJAkwNhJ5FMbPIJnJPyvayf1ZbX\\n3Z9mW9nj8fQ5wR6m+02xy3kVBp4CBGeG1JnORaCIaEcxxClwPlXXpHqSu\\/PT\\nOkt1iosLklzdW0M0ax7Enp9Dp2hxCcDwVVeh81LwtO6diqZ83rE1QHw2U1Vp\\nZcMaK4IDAKM+2MGZWQYP7auE\\/4IOXkRHrooAYliKCebIwn7BbCVMUG6b\\/+9O\\nUU\\/FS4O\\/FxSWdlnJRpnz0Rzjhu0uoX1+IIkEU5vzXwLRIQ3fpOlw8KwC6KQR\\njXHw+eGceq7Lnse5hiAM0MrsWq6XMI04Z8I8Fu84HlUurrE5cPL9Tkf7m2pN\\nrQDUQVucwbTq1OWCZpOK9Vu4JKgP7xv2FhIYxJDkAR\\/MAHxxe8t76VGjIanW\\noP6cZrnb+qRLTlQ8G4ceYS8UdSxO0qQuy\\/k19VqkowF6BRRvuhCETNMZbfM9\\nmEmA5PfOwM0EZL1NdwEMANWEb2VK5L2Cxw8OCbbkHncpxL0asrhiu8gf3xm1\\nRQiTMs0nmL51o5cQMIVeh8DhE8oC0jTA3ptcDCAafEZa7SFL7G9nPCk2GCLB\\nB0GApV\\/URLMRUeHqfAwXazZYQtnDOtENZg3fbn6KZHqljawZfUMPMyNeCknq\\nqW1L6BW\\/r\\/tr+CE8x8rDe75HKnCMMIxMreOLBtKCMIMFWgUXOZjZj8ONROaD\\nXquMskIp8bJlvmsafT5wcQWKqFwOK3EwlkVuNd+UbS+JBb+f4pF67a79kxqq\\nEN\\/HKdt8E6+00QCshhZOPEO3DGiWAeyNwHDIh0RSZUH5xncisOaufmJBX6tT\\nVXNMo1JzHs92wYayTLAhHviI6PkcrEFb3jVaL6+8kXNZToJXzKhEWMtRGu3i\\nHvAmLgDets1nCA+9Nc\\/ICMis9Ae5sqVVnL5qPzACYdTapFMDpZRFC1McwlgL\\nk5Am3LseiNBh4uvXKxzm3OagXymZGhobD9AIW\\/RhudlDzlaBWwwSdwARAQAB\\nwsD2BBgBCAAJBQJkvU13AhsMACEJEDjhEJ\\/jBMOfFiEELRJYlMJjDuu0n2rL\\nOOEQn+MEw5++4wwAle4NJwpFrgAQ5KvVakS8S3XxlqZ5MevqDmv3PLPwr+ru\\napbyjntYYy1US8\\/CxDQ6RST446CK\\/52vaXbr8jiknnFFVSy2+H9EC6rT6S17\\nhYwhUTyrnsYhbOhzI2WbYQxRtKS8l+\\/qol9H6gc0aH6S\\/NrEbsVNywMEq1zc\\nkwq2HAOWWro9ZNODkQqEl+oPZfnioIMAyLG6Nd841irADLfOkGam7L+UlU0d\\nbCI9ULpyXJ01V82ezgl+qzX7ThTjKkUUo1mnLwb1KA3p0dtevLtGAQU9ZFE0\\n1paz\\/aO5QwNVRjSwzQ+9XbzITG3Ejp2Wtpwep\\/8W\\/w4mHysHTsCtDhBSqWdu\\n30\\/p8I8qLz8opGHe8Loyo8FnnBFWUuQsaYM65eSwecAbLV7GxnTUNiqcydq8\\n17MsZLd61PjsRxcQhrhxMwlOTJNCG6smzTklZGeyjFjn5yx0mum\\/TyVz2KTR\\n91uhk4mGCaaj8IBA+4dWlLnkM8bPgSHGJHTjsOlMVtT9Bdio\\n=\\/pIk\\n-----END PGP PUBLIC KEY BLOCK-----\\n\",\"deleted\":false,\"key_created\":\"2023-07-23T15:55:35+00:00\",\"expires\":null,\"created\":\"2023-07-23T15:57:57+00:00\",\"modified\":\"2023-07-23T15:57:57+00:00\",\"id\":\"679222dd-4d46-4fa8-bd4e-8f2319252d0d\"},\"entities_history\":[],\"last_logged_in\":null},\"admin\":{\"id\":\"04100d80-3491-4df1-ad93-2b986fb85950\",\"role_id\":\"95c0e1d1-7dc0-45e3-b8ed-8aa78b60218f\",\"username\":\"samuelekele.bincom@gmail.com\",\"active\":true,\"deleted\":false,\"created\":\"2023-07-23T15:53:28+00:00\",\"modified\":\"2023-07-23T15:57:57+00:00\",\"locale\":\"en-UK\",\"role\":{\"id\":\"95c0e1d1-7dc0-45e3-b8ed-8aa78b60218f\",\"name\":\"admin\",\"description\":\"Organization administrator\",\"created\":\"2012-07-04T13:39:25+00:00\",\"modified\":\"2012-07-04T13:39:25+00:00\"},\"last_logged_in\":null},\"invitedBy\":{\"id\":\"04100d80-3491-4df1-ad93-2b986fb85950\",\"role_id\":\"95c0e1d1-7dc0-45e3-b8ed-8aa78b60218f\",\"username\":\"samuelekele.bincom@gmail.com\",\"active\":true,\"deleted\":false,\"created\":\"2023-07-23T15:53:28+00:00\",\"modified\":\"2023-07-23T15:57:57+00:00\",\"profile\":{\"id\":\"c9141a1e-5334-4326-a258-923653be4542\",\"user_id\":\"04100d80-3491-4df1-ad93-2b986fb85950\",\"first_name\":\"Sammy\",\"last_name\":\"Ekele\",\"created\":\"2023-07-23T15:53:28+00:00\",\"modified\":\"2023-07-23T15:53:28+00:00\"},\"role\":{\"id\":\"95c0e1d1-7dc0-45e3-b8ed-8aa78b60218f\",\"name\":\"admin\",\"description\":\"Organization administrator\",\"created\":\"2012-07-04T13:39:25+00:00\",\"modified\":\"2012-07-04T13:39:25+00:00\"},\"locale\":\"en-UK\",\"authentication_tokens\":[{\"id\":\"e1596bde-0e05-4a6b-8c04-838c7387fb44\",\"token\":\"75a826d9-799c-4901-a24e-fcd9afc5963f\",\"user_id\":\"04100d80-3491-4df1-ad93-2b986fb85950\",\"active\":false,\"created\":\"2023-07-23T15:53:28+00:00\",\"modified\":\"2023-07-23T15:57:57+00:00\",\"type\":\"register\",\"data\":null}],\"gpgkey\":{\"user_id\":\"04100d80-3491-4df1-ad93-2b986fb85950\",\"fingerprint\":\"2D125894C2630EEBB49F6ACB38E1109FE304C39F\",\"bits\":3072,\"type\":\"RSA\",\"key_id\":\"38E1109FE304C39F\",\"uid\":\"Sammy Ekele <samuelekele.bincom@gmail.com>\",\"armored_key\":\"-----BEGIN PGP PUBLIC KEY BLOCK-----\\n\\nxsDNBGS9TXcBDACWWz0yNjW93MApl3cTFma8ZaNwkIYvkhSqqP+amiu5m0RP\\nZrlfsMmQ+B+q4fW8plmSVY8L8Lwm1UpCEEZVWvNU7zE+X90s6jYvf+XZteDQ\\nsLhTwYKjYcJfS0kHP+9eLnS4xdqE+u3GgKAdx+3TNOeX1S+3GPRoQ7N+0ET1\\nhXGZ7dmvsb5a5LhkM71LurLjzWsQRlab1cqPMLb0JffcCvnJC1uFYqY3l3QJ\\nZJAX7692VOGPSq4GAhZZcI3rRpf9bFNG1PYlqW6fc0cbTQPdX6FkuWHJ\\/UA2\\nDQBQxM20E07L9NB8KfCvQscLhGKzyOn5AXiYuvJToJSYa5YHqUoa+a+VfEiP\\ngvzi3w9MtOhCnxjlQUzSP3IIYCV+ViNicg2xUGoKCc7W\\/FG\\/3dI0feJo8IWf\\nVl2Vs20poeDE2looZmU\\/\\/E8109aCsAo86t65P70vHqN2jwbuzPauw\\/CCwymd\\ntMghDxC6kRfW1ZQuLF4dGvFbIxU9IE\\/WGX3zcjrVpH6QbaMAEQEAAc0qU2Ft\\nbXkgRWtlbGUgPHNhbXVlbGVrZWxlLmJpbmNvbUBnbWFpbC5jb20+wsEKBBAB\\nCAAdBQJkvU13BAsJBwgDFQgKBBYAAgECGQECGwMCHgEAIQkQOOEQn+MEw58W\\nIQQtEliUwmMO67Sfass44RCf4wTDnz07C\\/0eEXaG0kAZIxR5jcPgi5Hz426l\\nbssdl99ZEqGyELxDC4DKDaZ3XCLJQ1fgTfJAkwNhJ5FMbPIJnJPyvayf1ZbX\\n3Z9mW9nj8fQ5wR6m+02xy3kVBp4CBGeG1JnORaCIaEcxxClwPlXXpHqSu\\/PT\\nOkt1iosLklzdW0M0ax7Enp9Dp2hxCcDwVVeh81LwtO6diqZ83rE1QHw2U1Vp\\nZcMaK4IDAKM+2MGZWQYP7auE\\/4IOXkRHrooAYliKCebIwn7BbCVMUG6b\\/+9O\\nUU\\/FS4O\\/FxSWdlnJRpnz0Rzjhu0uoX1+IIkEU5vzXwLRIQ3fpOlw8KwC6KQR\\njXHw+eGceq7Lnse5hiAM0MrsWq6XMI04Z8I8Fu84HlUurrE5cPL9Tkf7m2pN\\nrQDUQVucwbTq1OWCZpOK9Vu4JKgP7xv2FhIYxJDkAR\\/MAHxxe8t76VGjIanW\\noP6cZrnb+qRLTlQ8G4ceYS8UdSxO0qQuy\\/k19VqkowF6BRRvuhCETNMZbfM9\\nmEmA5PfOwM0EZL1NdwEMANWEb2VK5L2Cxw8OCbbkHncpxL0asrhiu8gf3xm1\\nRQiTMs0nmL51o5cQMIVeh8DhE8oC0jTA3ptcDCAafEZa7SFL7G9nPCk2GCLB\\nB0GApV\\/URLMRUeHqfAwXazZYQtnDOtENZg3fbn6KZHqljawZfUMPMyNeCknq\\nqW1L6BW\\/r\\/tr+CE8x8rDe75HKnCMMIxMreOLBtKCMIMFWgUXOZjZj8ONROaD\\nXquMskIp8bJlvmsafT5wcQWKqFwOK3EwlkVuNd+UbS+JBb+f4pF67a79kxqq\\nEN\\/HKdt8E6+00QCshhZOPEO3DGiWAeyNwHDIh0RSZUH5xncisOaufmJBX6tT\\nVXNMo1JzHs92wYayTLAhHviI6PkcrEFb3jVaL6+8kXNZToJXzKhEWMtRGu3i\\nHvAmLgDets1nCA+9Nc\\/ICMis9Ae5sqVVnL5qPzACYdTapFMDpZRFC1McwlgL\\nk5Am3LseiNBh4uvXKxzm3OagXymZGhobD9AIW\\/RhudlDzlaBWwwSdwARAQAB\\nwsD2BBgBCAAJBQJkvU13AhsMACEJEDjhEJ\\/jBMOfFiEELRJYlMJjDuu0n2rL\\nOOEQn+MEw5++4wwAle4NJwpFrgAQ5KvVakS8S3XxlqZ5MevqDmv3PLPwr+ru\\napbyjntYYy1US8\\/CxDQ6RST446CK\\/52vaXbr8jiknnFFVSy2+H9EC6rT6S17\\nhYwhUTyrnsYhbOhzI2WbYQxRtKS8l+\\/qol9H6gc0aH6S\\/NrEbsVNywMEq1zc\\nkwq2HAOWWro9ZNODkQqEl+oPZfnioIMAyLG6Nd841irADLfOkGam7L+UlU0d\\nbCI9ULpyXJ01V82ezgl+qzX7ThTjKkUUo1mnLwb1KA3p0dtevLtGAQU9ZFE0\\n1paz\\/aO5QwNVRjSwzQ+9XbzITG3Ejp2Wtpwep\\/8W\\/w4mHysHTsCtDhBSqWdu\\n30\\/p8I8qLz8opGHe8Loyo8FnnBFWUuQsaYM65eSwecAbLV7GxnTUNiqcydq8\\n17MsZLd61PjsRxcQhrhxMwlOTJNCG6smzTklZGeyjFjn5yx0mum\\/TyVz2KTR\\n91uhk4mGCaaj8IBA+4dWlLnkM8bPgSHGJHTjsOlMVtT9Bdio\\n=\\/pIk\\n-----END PGP PUBLIC KEY BLOCK-----\\n\",\"deleted\":false,\"key_created\":\"2023-07-23T15:55:35+00:00\",\"expires\":null,\"created\":\"2023-07-23T15:57:57+00:00\",\"modified\":\"2023-07-23T15:57:57+00:00\",\"id\":\"679222dd-4d46-4fa8-bd4e-8f2319252d0d\"},\"entities_history\":[],\"last_logged_in\":null},\"invitedWhen\":\"just now\",\"invitedByYou\":true,\"fullBaseUrl\":\"http:\\/\\/44.202.133.229\"},\"locale\":\"en-UK\"}','{\"Auto-Submitted\":\"auto-generated\"}',0,0,4,'2023-07-23 15:57:57','2023-07-23 15:57:57','2023-07-23 15:57:57','[]','stream_socket_client(): Unable to connect to tcp://localhost:25 (Cannot assign requested address)'),
+(4,'oshopayng@gmail.com',NULL,NULL,'Welcome to passbolt, John !','default','AN/user_register_admin','default','','html','{\"body\":{\"user\":{\"id\":\"77bc0450-c784-4636-a333-6117e784d1df\",\"role_id\":\"abfbf114-5190-4d39-a968-3a0147e31897\",\"username\":\"oshopayng@gmail.com\",\"active\":false,\"deleted\":false,\"created\":\"2023-07-24T18:03:47+00:00\",\"modified\":\"2023-07-24T18:03:47+00:00\",\"role\":{\"id\":\"abfbf114-5190-4d39-a968-3a0147e31897\",\"name\":\"user\",\"description\":\"Logged in user\",\"created\":\"2012-07-04T13:39:25+00:00\",\"modified\":\"2012-07-04T13:39:25+00:00\"},\"profile\":{\"id\":\"421df68b-12d4-43fb-9946-1fca61b01663\",\"user_id\":\"77bc0450-c784-4636-a333-6117e784d1df\",\"first_name\":\"John \",\"last_name\":\"Adoyi\",\"created\":\"2023-07-24T18:03:47+00:00\",\"modified\":\"2023-07-24T18:03:47+00:00\",\"avatar\":{\"url\":{\"medium\":\"http:\\/\\/44.202.133.229\\/img\\/avatar\\/user_medium.png\",\"small\":\"http:\\/\\/44.202.133.229\\/img\\/avatar\\/user.png\"}}},\"locale\":\"en-UK\",\"last_logged_in\":null},\"token\":{\"user_id\":\"77bc0450-c784-4636-a333-6117e784d1df\",\"token\":\"cba90a90-1a98-44ef-964a-912138dab129\",\"active\":true,\"type\":\"register\",\"data\":null,\"created\":\"2023-07-24T18:03:47+00:00\",\"modified\":\"2023-07-24T18:03:47+00:00\",\"id\":\"7f7e67f1-06c3-4e49-bdb9-a1d232342ce9\"},\"admin\":{\"id\":\"04100d80-3491-4df1-ad93-2b986fb85950\",\"role_id\":\"95c0e1d1-7dc0-45e3-b8ed-8aa78b60218f\",\"username\":\"samuelekele.bincom@gmail.com\",\"active\":true,\"deleted\":false,\"created\":\"2023-07-23T15:53:28+00:00\",\"modified\":\"2023-07-23T15:57:57+00:00\",\"role\":{\"id\":\"95c0e1d1-7dc0-45e3-b8ed-8aa78b60218f\",\"name\":\"admin\",\"description\":\"Organization administrator\",\"created\":\"2012-07-04T13:39:25+00:00\",\"modified\":\"2012-07-04T13:39:25+00:00\"},\"profile\":{\"id\":\"c9141a1e-5334-4326-a258-923653be4542\",\"user_id\":\"04100d80-3491-4df1-ad93-2b986fb85950\",\"first_name\":\"Sammy\",\"last_name\":\"Ekele\",\"created\":\"2023-07-23T15:53:28+00:00\",\"modified\":\"2023-07-23T15:53:28+00:00\",\"avatar\":{\"url\":{\"medium\":\"http:\\/\\/44.202.133.229\\/img\\/avatar\\/user_medium.png\",\"small\":\"http:\\/\\/44.202.133.229\\/img\\/avatar\\/user.png\"}}},\"locale\":\"en-UK\",\"last_logged_in\":null},\"fullBaseUrl\":\"http:\\/\\/44.202.133.229\"},\"title\":\"Welcome to passbolt, John !\",\"locale\":\"en-UK\"}','{\"Auto-Submitted\":\"auto-generated\"}',0,0,4,'2023-07-24 18:03:47','2023-07-24 18:03:47','2023-07-24 18:03:47','[]','stream_socket_client(): Unable to connect to tcp://localhost:25 (Cannot assign requested address)'),
+(5,'oshopayng@gmail.com',NULL,NULL,'Welcome to passbolt, John !','default','AN/user_register_admin','default','','html','{\"body\":{\"user\":{\"id\":\"77bc0450-c784-4636-a333-6117e784d1df\",\"role_id\":\"abfbf114-5190-4d39-a968-3a0147e31897\",\"username\":\"oshopayng@gmail.com\",\"active\":false,\"deleted\":false,\"created\":\"2023-07-24T18:03:47+00:00\",\"modified\":\"2023-07-24T18:03:47+00:00\",\"role\":{\"id\":\"abfbf114-5190-4d39-a968-3a0147e31897\",\"name\":\"user\",\"description\":\"Logged in user\",\"created\":\"2012-07-04T13:39:25+00:00\",\"modified\":\"2012-07-04T13:39:25+00:00\"},\"profile\":{\"id\":\"421df68b-12d4-43fb-9946-1fca61b01663\",\"user_id\":\"77bc0450-c784-4636-a333-6117e784d1df\",\"first_name\":\"John \",\"last_name\":\"Adoyi\",\"created\":\"2023-07-24T18:03:47+00:00\",\"modified\":\"2023-07-24T18:03:47+00:00\",\"avatar\":{\"url\":{\"medium\":\"http:\\/\\/44.202.133.229\\/img\\/avatar\\/user_medium.png\",\"small\":\"http:\\/\\/44.202.133.229\\/img\\/avatar\\/user.png\"}}},\"locale\":\"en-UK\",\"last_logged_in\":null},\"token\":{\"user_id\":\"77bc0450-c784-4636-a333-6117e784d1df\",\"token\":\"39fc4697-8e63-400c-835e-49c2f78cb837\",\"active\":true,\"type\":\"register\",\"data\":null,\"created\":\"2023-07-24T18:06:30+00:00\",\"modified\":\"2023-07-24T18:06:30+00:00\",\"id\":\"e3c9419c-4a10-4f6c-ad75-8b66ae2848c2\"},\"admin\":{\"id\":\"04100d80-3491-4df1-ad93-2b986fb85950\",\"role_id\":\"95c0e1d1-7dc0-45e3-b8ed-8aa78b60218f\",\"username\":\"samuelekele.bincom@gmail.com\",\"active\":true,\"deleted\":false,\"created\":\"2023-07-23T15:53:28+00:00\",\"modified\":\"2023-07-23T15:57:57+00:00\",\"role\":{\"id\":\"95c0e1d1-7dc0-45e3-b8ed-8aa78b60218f\",\"name\":\"admin\",\"description\":\"Organization administrator\",\"created\":\"2012-07-04T13:39:25+00:00\",\"modified\":\"2012-07-04T13:39:25+00:00\"},\"profile\":{\"id\":\"c9141a1e-5334-4326-a258-923653be4542\",\"user_id\":\"04100d80-3491-4df1-ad93-2b986fb85950\",\"first_name\":\"Sammy\",\"last_name\":\"Ekele\",\"created\":\"2023-07-23T15:53:28+00:00\",\"modified\":\"2023-07-23T15:53:28+00:00\",\"avatar\":{\"url\":{\"medium\":\"http:\\/\\/44.202.133.229\\/img\\/avatar\\/user_medium.png\",\"small\":\"http:\\/\\/44.202.133.229\\/img\\/avatar\\/user.png\"}}},\"locale\":\"en-UK\",\"last_logged_in\":null},\"fullBaseUrl\":\"http:\\/\\/44.202.133.229\"},\"title\":\"Welcome to passbolt, John !\",\"locale\":\"en-UK\"}','{\"Auto-Submitted\":\"auto-generated\"}',0,0,4,'2023-07-24 18:06:30','2023-07-24 18:06:30','2023-07-24 18:06:30','[]','stream_socket_client(): Unable to connect to tcp://localhost:25 (Cannot assign requested address)');
+/*!40000 ALTER TABLE `email_queue` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `entities_history`
+--
+
+DROP TABLE IF EXISTS `entities_history`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `entities_history` (
+  `id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `action_log_id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `foreign_model` varchar(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `foreign_key` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `crud` char(1) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `created` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id` (`id`),
+  KEY `action_log_id` (`action_log_id`,`foreign_model`,`foreign_key`,`crud`),
+  KEY `foreign_key` (`foreign_key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `entities_history`
+--
+
+LOCK TABLES `entities_history` WRITE;
+/*!40000 ALTER TABLE `entities_history` DISABLE KEYS */;
+INSERT INTO `entities_history` VALUES
+('44d9df9b-c13a-42d8-9d63-50015c6c3636','2777d246-e7f3-4f56-b5de-b8211d153cbb','Users','77bc0450-c784-4636-a333-6117e784d1df','c','2023-07-24 18:03:47');
+/*!40000 ALTER TABLE `entities_history` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `favorites`
+--
+
+DROP TABLE IF EXISTS `favorites`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `favorites` (
+  `id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `user_id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci DEFAULT NULL,
+  `foreign_key` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `foreign_model` varchar(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `foreign_key` (`foreign_key`,`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `favorites`
+--
+
+LOCK TABLES `favorites` WRITE;
+/*!40000 ALTER TABLE `favorites` DISABLE KEYS */;
+/*!40000 ALTER TABLE `favorites` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `folders`
+--
+
+DROP TABLE IF EXISTS `folders`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `folders` (
+  `id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `name` varchar(256) NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  `created_by` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `modified_by` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `folders`
+--
+
+LOCK TABLES `folders` WRITE;
+/*!40000 ALTER TABLE `folders` DISABLE KEYS */;
+/*!40000 ALTER TABLE `folders` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `folders_history`
+--
+
+DROP TABLE IF EXISTS `folders_history`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `folders_history` (
+  `id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `folder_id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `name` varchar(256) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `folders_history`
+--
+
+LOCK TABLES `folders_history` WRITE;
+/*!40000 ALTER TABLE `folders_history` DISABLE KEYS */;
+/*!40000 ALTER TABLE `folders_history` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `folders_relations`
+--
+
+DROP TABLE IF EXISTS `folders_relations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `folders_relations` (
+  `id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `foreign_model` varchar(30) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `foreign_id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `user_id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `folder_parent_id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci DEFAULT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `folder_parent_id` (`folder_parent_id`),
+  KEY `foreign_model_2` (`foreign_model`,`foreign_id`,`user_id`),
+  KEY `user_id_2` (`user_id`,`foreign_id`),
+  KEY `foreign_id` (`foreign_id`,`folder_parent_id`,`created`),
+  KEY `foreign_model` (`foreign_model`,`folder_parent_id`,`user_id`),
+  KEY `foreign_model_3` (`foreign_model`,`folder_parent_id`,`foreign_id`,`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `folders_relations`
+--
+
+LOCK TABLES `folders_relations` WRITE;
+/*!40000 ALTER TABLE `folders_relations` DISABLE KEYS */;
+/*!40000 ALTER TABLE `folders_relations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `folders_relations_history`
+--
+
+DROP TABLE IF EXISTS `folders_relations_history`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `folders_relations_history` (
+  `id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `foreign_model` varchar(30) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `foreign_id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `user_id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `folder_parent_id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `folders_relations_history`
+--
+
+LOCK TABLES `folders_relations_history` WRITE;
+/*!40000 ALTER TABLE `folders_relations_history` DISABLE KEYS */;
+/*!40000 ALTER TABLE `folders_relations_history` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `gpgkeys`
+--
+
+DROP TABLE IF EXISTS `gpgkeys`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `gpgkeys` (
+  `id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `user_id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `armored_key` text NOT NULL,
+  `bits` int(11) DEFAULT 2048,
+  `uid` varchar(128) NOT NULL,
+  `key_id` varchar(16) NOT NULL,
+  `fingerprint` varchar(51) NOT NULL,
+  `type` varchar(16) DEFAULT NULL,
+  `expires` datetime DEFAULT NULL,
+  `key_created` datetime DEFAULT NULL,
+  `deleted` tinyint(1) NOT NULL DEFAULT 0,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fingerprint` (`fingerprint`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `gpgkeys`
+--
+
+LOCK TABLES `gpgkeys` WRITE;
+/*!40000 ALTER TABLE `gpgkeys` DISABLE KEYS */;
+INSERT INTO `gpgkeys` VALUES
+('679222dd-4d46-4fa8-bd4e-8f2319252d0d','04100d80-3491-4df1-ad93-2b986fb85950','-----BEGIN PGP PUBLIC KEY BLOCK-----\n\nxsDNBGS9TXcBDACWWz0yNjW93MApl3cTFma8ZaNwkIYvkhSqqP+amiu5m0RP\nZrlfsMmQ+B+q4fW8plmSVY8L8Lwm1UpCEEZVWvNU7zE+X90s6jYvf+XZteDQ\nsLhTwYKjYcJfS0kHP+9eLnS4xdqE+u3GgKAdx+3TNOeX1S+3GPRoQ7N+0ET1\nhXGZ7dmvsb5a5LhkM71LurLjzWsQRlab1cqPMLb0JffcCvnJC1uFYqY3l3QJ\nZJAX7692VOGPSq4GAhZZcI3rRpf9bFNG1PYlqW6fc0cbTQPdX6FkuWHJ/UA2\nDQBQxM20E07L9NB8KfCvQscLhGKzyOn5AXiYuvJToJSYa5YHqUoa+a+VfEiP\ngvzi3w9MtOhCnxjlQUzSP3IIYCV+ViNicg2xUGoKCc7W/FG/3dI0feJo8IWf\nVl2Vs20poeDE2looZmU//E8109aCsAo86t65P70vHqN2jwbuzPauw/CCwymd\ntMghDxC6kRfW1ZQuLF4dGvFbIxU9IE/WGX3zcjrVpH6QbaMAEQEAAc0qU2Ft\nbXkgRWtlbGUgPHNhbXVlbGVrZWxlLmJpbmNvbUBnbWFpbC5jb20+wsEKBBAB\nCAAdBQJkvU13BAsJBwgDFQgKBBYAAgECGQECGwMCHgEAIQkQOOEQn+MEw58W\nIQQtEliUwmMO67Sfass44RCf4wTDnz07C/0eEXaG0kAZIxR5jcPgi5Hz426l\nbssdl99ZEqGyELxDC4DKDaZ3XCLJQ1fgTfJAkwNhJ5FMbPIJnJPyvayf1ZbX\n3Z9mW9nj8fQ5wR6m+02xy3kVBp4CBGeG1JnORaCIaEcxxClwPlXXpHqSu/PT\nOkt1iosLklzdW0M0ax7Enp9Dp2hxCcDwVVeh81LwtO6diqZ83rE1QHw2U1Vp\nZcMaK4IDAKM+2MGZWQYP7auE/4IOXkRHrooAYliKCebIwn7BbCVMUG6b/+9O\nUU/FS4O/FxSWdlnJRpnz0Rzjhu0uoX1+IIkEU5vzXwLRIQ3fpOlw8KwC6KQR\njXHw+eGceq7Lnse5hiAM0MrsWq6XMI04Z8I8Fu84HlUurrE5cPL9Tkf7m2pN\nrQDUQVucwbTq1OWCZpOK9Vu4JKgP7xv2FhIYxJDkAR/MAHxxe8t76VGjIanW\noP6cZrnb+qRLTlQ8G4ceYS8UdSxO0qQuy/k19VqkowF6BRRvuhCETNMZbfM9\nmEmA5PfOwM0EZL1NdwEMANWEb2VK5L2Cxw8OCbbkHncpxL0asrhiu8gf3xm1\nRQiTMs0nmL51o5cQMIVeh8DhE8oC0jTA3ptcDCAafEZa7SFL7G9nPCk2GCLB\nB0GApV/URLMRUeHqfAwXazZYQtnDOtENZg3fbn6KZHqljawZfUMPMyNeCknq\nqW1L6BW/r/tr+CE8x8rDe75HKnCMMIxMreOLBtKCMIMFWgUXOZjZj8ONROaD\nXquMskIp8bJlvmsafT5wcQWKqFwOK3EwlkVuNd+UbS+JBb+f4pF67a79kxqq\nEN/HKdt8E6+00QCshhZOPEO3DGiWAeyNwHDIh0RSZUH5xncisOaufmJBX6tT\nVXNMo1JzHs92wYayTLAhHviI6PkcrEFb3jVaL6+8kXNZToJXzKhEWMtRGu3i\nHvAmLgDets1nCA+9Nc/ICMis9Ae5sqVVnL5qPzACYdTapFMDpZRFC1McwlgL\nk5Am3LseiNBh4uvXKxzm3OagXymZGhobD9AIW/RhudlDzlaBWwwSdwARAQAB\nwsD2BBgBCAAJBQJkvU13AhsMACEJEDjhEJ/jBMOfFiEELRJYlMJjDuu0n2rL\nOOEQn+MEw5++4wwAle4NJwpFrgAQ5KvVakS8S3XxlqZ5MevqDmv3PLPwr+ru\napbyjntYYy1US8/CxDQ6RST446CK/52vaXbr8jiknnFFVSy2+H9EC6rT6S17\nhYwhUTyrnsYhbOhzI2WbYQxRtKS8l+/qol9H6gc0aH6S/NrEbsVNywMEq1zc\nkwq2HAOWWro9ZNODkQqEl+oPZfnioIMAyLG6Nd841irADLfOkGam7L+UlU0d\nbCI9ULpyXJ01V82ezgl+qzX7ThTjKkUUo1mnLwb1KA3p0dtevLtGAQU9ZFE0\n1paz/aO5QwNVRjSwzQ+9XbzITG3Ejp2Wtpwep/8W/w4mHysHTsCtDhBSqWdu\n30/p8I8qLz8opGHe8Loyo8FnnBFWUuQsaYM65eSwecAbLV7GxnTUNiqcydq8\n17MsZLd61PjsRxcQhrhxMwlOTJNCG6smzTklZGeyjFjn5yx0mum/TyVz2KTR\n91uhk4mGCaaj8IBA+4dWlLnkM8bPgSHGJHTjsOlMVtT9Bdio\n=/pIk\n-----END PGP PUBLIC KEY BLOCK-----\n',3072,'Sammy Ekele <samuelekele.bincom@gmail.com>','38E1109FE304C39F','2D125894C2630EEBB49F6ACB38E1109FE304C39F','RSA',NULL,'2023-07-23 15:55:35',0,'2023-07-23 15:57:57','2023-07-23 15:57:57');
+/*!40000 ALTER TABLE `gpgkeys` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `groups`
+--
+
+DROP TABLE IF EXISTS `groups`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `groups` (
+  `id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `deleted` tinyint(1) NOT NULL DEFAULT 0,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  `created_by` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `modified_by` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `deleted` (`deleted`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `groups`
+--
+
+LOCK TABLES `groups` WRITE;
+/*!40000 ALTER TABLE `groups` DISABLE KEYS */;
+/*!40000 ALTER TABLE `groups` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `groups_users`
+--
+
+DROP TABLE IF EXISTS `groups_users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `groups_users` (
+  `id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `group_id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci DEFAULT NULL,
+  `user_id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci DEFAULT NULL,
+  `is_admin` tinyint(1) NOT NULL DEFAULT 0,
+  `created` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`,`group_id`),
+  KEY `group_id` (`group_id`),
+  KEY `user_id_2` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `groups_users`
+--
+
+LOCK TABLES `groups_users` WRITE;
+/*!40000 ALTER TABLE `groups_users` DISABLE KEYS */;
+/*!40000 ALTER TABLE `groups_users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `organization_settings`
+--
+
+DROP TABLE IF EXISTS `organization_settings`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `organization_settings` (
+  `id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `property_id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `property` varchar(256) NOT NULL,
+  `value` text NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  `created_by` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `modified_by` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `property_id` (`property_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `organization_settings`
+--
+
+LOCK TABLES `organization_settings` WRITE;
+/*!40000 ALTER TABLE `organization_settings` DISABLE KEYS */;
+/*!40000 ALTER TABLE `organization_settings` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `permissions`
+--
+
+DROP TABLE IF EXISTS `permissions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `permissions` (
+  `id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `aco` varchar(30) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `aco_foreign_key` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `aro` varchar(30) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `aro_foreign_key` char(36) CHARACTER SET ascii COLLATE ascii_general_ci DEFAULT NULL,
+  `type` int(11) NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `aco_foreign_key` (`aco_foreign_key`),
+  KEY `aro_foreign_key` (`aro_foreign_key`),
+  KEY `aco_foreign_key_2` (`aco_foreign_key`,`aro_foreign_key`,`aco`,`type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `permissions`
+--
+
+LOCK TABLES `permissions` WRITE;
+/*!40000 ALTER TABLE `permissions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `permissions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `permissions_history`
+--
+
+DROP TABLE IF EXISTS `permissions_history`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `permissions_history` (
+  `id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `aco` varchar(30) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `aco_foreign_key` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `aro` varchar(30) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `aro_foreign_key` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `type` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `aco_foreign_key` (`aco_foreign_key`),
+  KEY `aro_foreign_key` (`aro_foreign_key`),
+  KEY `aco` (`aco`,`aro`),
+  KEY `type` (`type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `permissions_history`
+--
+
+LOCK TABLES `permissions_history` WRITE;
+/*!40000 ALTER TABLE `permissions_history` DISABLE KEYS */;
+/*!40000 ALTER TABLE `permissions_history` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `phinxlog`
+--
+
+DROP TABLE IF EXISTS `phinxlog`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `phinxlog` (
+  `version` bigint(20) NOT NULL,
+  `migration_name` varchar(100) DEFAULT NULL,
+  `start_time` timestamp NULL DEFAULT NULL,
+  `end_time` timestamp NULL DEFAULT NULL,
+  `breakpoint` tinyint(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`version`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `phinxlog`
+--
+
+LOCK TABLES `phinxlog` WRITE;
+/*!40000 ALTER TABLE `phinxlog` DISABLE KEYS */;
+INSERT INTO `phinxlog` VALUES
+(20170830064410,'V162InitialMigration','2023-07-23 14:48:27','2023-07-23 14:48:27',0),
+(20170830065037,'V200ActiveMustBeBoolean','2023-07-23 14:48:27','2023-07-23 14:48:27',0),
+(20170830065038,'V200DropUnusedProfileFields','2023-07-23 14:48:27','2023-07-23 14:48:27',0),
+(20170830065039,'V200IncreaseEmailSize','2023-07-23 14:48:27','2023-07-23 14:48:27',0),
+(20170830065040,'V200DropUnusedCreatedBy','2023-07-23 14:48:27','2023-07-23 14:48:27',0),
+(20170830065041,'V200MigrateUUID','2023-07-23 14:48:27','2023-07-23 14:48:28',0),
+(20170830065042,'V200MigrateKeyField','2023-07-23 14:48:28','2023-07-23 14:48:28',0),
+(20171002061834,'V200DropUnusedResourceFields','2023-07-23 14:48:28','2023-07-23 14:48:28',0),
+(20171006141922,'V200AddFavoriteModifiedField','2023-07-23 14:48:28','2023-07-23 14:48:28',0),
+(20171009093000,'V200DropUnusedPermissionTypesTable','2023-07-23 14:48:28','2023-07-23 14:48:28',0),
+(20171009093001,'V200MigrateEmailsTable','2023-07-23 14:48:28','2023-07-23 14:48:28',0),
+(20171009093002,'V200MigrateFileStorageTable','2023-07-23 14:48:28','2023-07-23 14:48:28',0),
+(20171025154754,'V200AddCommentsUserIdField','2023-07-23 14:48:28','2023-07-23 14:48:28',0),
+(20180102065042,'V200MigrateForeignIdField','2023-07-23 14:48:28','2023-07-23 14:48:28',0),
+(20180102180000,'V200DropUnusedTables','2023-07-23 14:48:28','2023-07-23 14:48:28',0),
+(20180102221500,'V200AddMissingTablesIndexes','2023-07-23 14:48:28','2023-07-23 14:48:28',0),
+(20180413171600,'V202ForceColumnsCharset','2023-07-23 14:48:28','2023-07-23 14:48:28',0),
+(20180503135810,'V210InstallAccountSettingsPlugin','2023-07-23 14:48:28','2023-07-23 14:48:28',0),
+(20180930151500,'V240AddAuthenticationTokenType','2023-07-23 14:48:28','2023-07-23 14:48:28',0),
+(20181002171600,'V240ExtendAccountSettingsPlugin','2023-07-23 14:48:28','2023-07-23 14:48:28',0),
+(20181024124300,'V250ChangeMfaAccountSettingsDataFormat','2023-07-23 14:48:28','2023-07-23 14:48:28',0),
+(20181210170000,'V270AddMissingIndexes','2023-07-23 14:48:28','2023-07-23 14:48:29',0),
+(20190106170300,'V280AdditionalEmailMigration','2023-07-23 14:48:29','2023-07-23 14:48:29',0),
+(20190106170301,'V280AdditionalFileStorageMigration','2023-07-23 14:48:29','2023-07-23 14:48:29',0),
+(20190106170302,'V280FileDirectoryPathsMigrations','2023-07-23 14:48:29','2023-07-23 14:48:29',0),
+(20190112124290,'V270AddActionsTable','2023-07-23 14:48:29','2023-07-23 14:48:29',0),
+(20190112124300,'V270AddActionLogsTable','2023-07-23 14:48:29','2023-07-23 14:48:29',0),
+(20190121111100,'V270AddEntitiesHistoryTable','2023-07-23 14:48:29','2023-07-23 14:48:29',0),
+(20190121121100,'V270AddPermissionsHistoryTable','2023-07-23 14:48:29','2023-07-23 14:48:29',0),
+(20190211124300,'V270AddSecretsHistoryTable','2023-07-23 14:48:29','2023-07-23 14:48:29',0),
+(20190221124300,'V270AddSecretAccessesTable','2023-07-23 14:48:29','2023-07-23 14:48:29',0),
+(20190512115400,'V2100AddOrganizationSettingsTable','2023-07-23 14:48:29','2023-07-23 14:48:29',0),
+(20190623143400,'V2110ExtendKeyIdSizeField','2023-07-23 14:48:29','2023-07-23 14:48:29',0),
+(20190923103000,'V2120UpdateEmailQueue','2023-07-23 14:48:29','2023-07-23 14:48:29',0),
+(20191119092944,'V2130AddFoldersTable','2023-07-23 14:48:29','2023-07-23 14:48:29',0),
+(20191119092945,'V2130AddFoldersHistoryTable','2023-07-23 14:48:29','2023-07-23 14:48:29',0),
+(20191119160000,'V2120DropUnusedTables','2023-07-23 14:48:29','2023-07-23 14:48:29',0),
+(20191216092944,'V2130AddFoldersRelationsTable','2023-07-23 14:48:29','2023-07-23 14:48:29',0),
+(20191216092945,'V2130AddFoldersRelationsHistoryTable','2023-07-23 14:48:29','2023-07-23 14:48:29',0),
+(20200108135000,'V2130DropLegacyAnonymousUser','2023-07-23 14:48:29','2023-07-23 14:48:29',0),
+(20200205135000,'V2130AddResourcesFoldersRelations','2023-07-23 14:48:29','2023-07-23 14:48:29',0),
+(20200319135000,'V2130SoftDeleteGpgKeysForSoftDeletedUsers','2023-07-23 14:48:29','2023-07-23 14:48:29',0),
+(20200501182000,'V2130ReconcileLoginHistory','2023-07-23 14:48:29','2023-07-23 14:48:29',0),
+(20200609192000,'V2130AddMissingFoldersIndexes','2023-07-23 14:48:29','2023-07-23 14:48:29',0),
+(20200806110200,'V300ExtendSecretsDataField','2023-07-23 14:48:29','2023-07-23 14:48:29',0),
+(20200806110201,'V300AddResourceTypeIdField','2023-07-23 14:48:29','2023-07-23 14:48:29',0),
+(20200806110202,'V300AddResourceTypesTable','2023-07-23 14:48:29','2023-07-23 14:48:29',0),
+(20200806110203,'V300AddResourceTypesDefaultData','2023-07-23 14:48:29','2023-07-23 14:48:29',0),
+(20200806110204,'V300AddResourceTypesToResources','2023-07-23 14:48:29','2023-07-23 14:48:29',0),
+(20200824191900,'V2136CleanupUnusedActionLogs','2023-07-23 14:48:29','2023-07-23 14:48:29',0),
+(20200824191901,'V2136AddActionLogsRelatedIndexes','2023-07-23 14:48:29','2023-07-23 14:48:29',0),
+(20201221093528,'V300DeleteMetadataOfSoftDeletedResources','2023-07-23 14:48:29','2023-07-23 14:48:29',0),
+(20210111163200,'V300AddActionLogsExtraIndex','2023-07-23 14:48:29','2023-07-23 14:48:29',0),
+(20210121141742,'V320AddAvatarsTable','2023-07-23 14:48:29','2023-07-23 14:48:29',0),
+(20210125212543,'V320TransferFileStorageToAvatars','2023-07-23 14:48:29','2023-07-23 14:48:29',0),
+(20210206521254,'V320DropFileStorage','2023-07-23 14:48:29','2023-07-23 14:48:29',0),
+(20210329110000,'V320FixResourceTypesDefaultData','2023-07-23 14:48:29','2023-07-23 14:48:29',0),
+(20210427124200,'V330AddMobileTransferTable','2023-07-23 14:48:29','2023-07-23 14:48:29',0),
+(20211027202137,'V331ConvertEmailVariablesToJson','2023-07-23 14:48:29','2023-07-23 14:48:29',0),
+(20211121231000,'V3120MigrateASCIIFieldsEncodingFolders','2023-07-23 14:48:29','2023-07-23 14:48:29',0),
+(20211121231300,'V340MigrateASCIIFieldsEncoding','2023-07-23 14:48:29','2023-07-23 14:48:30',0),
+(20211121232400,'V340AddFoldersRelationsExtraIndexes','2023-07-23 14:48:30','2023-07-23 14:48:30',0),
+(20211122732400,'V350ConvertIdFieldsToUuidFields','2023-07-23 14:48:30','2023-07-23 14:48:30',0),
+(20211215180000,'V350RemovePermissionsTypeIndex','2023-07-23 14:48:30','2023-07-23 14:48:30',0),
+(20211215180001,'V350AddPermissionsCombinedIndex','2023-07-23 14:48:30','2023-07-23 14:48:30',0),
+(20220103180000,'V350IncreaseResourcesNameUsernameColumnsSize','2023-07-23 14:48:30','2023-07-23 14:48:30',0),
+(20220103180001,'V350IncreaseResourcesNameUsernameLengthInResourceTypes','2023-07-23 14:48:30','2023-07-23 14:48:30',0),
+(20220405232411,'V360RemoveAuthLoginLoginGetActionFromLogs','2023-07-23 14:48:30','2023-07-23 14:48:30',0),
+(20220405234003,'V360RemoveAuthCheckSessionCheckSessionGetFromLogs','2023-07-23 14:48:30','2023-07-23 14:48:30',0),
+(20220405234359,'V360RemoveAuthIsAuthenticatedIsAuthenticatedFromLogs','2023-07-23 14:48:30','2023-07-23 14:48:30',0),
+(20220802151030,'V380AlterNameAndSlugOnResourceTypes','2023-07-23 14:48:30','2023-07-23 14:48:30',0),
+(20220802151740,'V380TrimSpacesOnResourceTypesNameAndSlug','2023-07-23 14:48:30','2023-07-23 14:48:30',0),
+(20220809190030,'V372ImproveFoldersRelationsIndexesAddItemsToUserTreePerformance','2023-07-23 14:48:30','2023-07-23 14:48:30',0),
+(20220824081645,'V380AlterNameLengthOnFolders','2023-07-23 14:48:30','2023-07-23 14:48:31',0),
+(20220913233909,'V380SaveSmtpSettingsInDb','2023-07-23 14:48:31','2023-07-23 14:48:31',0),
+(20220915150002,'V380AlterNameLengthOnFoldersHistory','2023-07-23 14:48:31','2023-07-23 14:48:31',0),
+(20220922082044,'V380SaveMfaOrganizationSettingsInDb','2023-07-23 14:48:31','2023-07-23 14:48:31',0),
+(20230202094451,'V3110SaveMfaOrganizationSettingsInDbInDuoV4Format','2023-07-23 14:48:31','2023-07-23 14:48:31',0),
+(20230308124720,'V3120DropActionLogsDuplicateIndexes','2023-07-23 14:48:31','2023-07-23 14:48:31',0),
+(20230414124720,'V3122DeleteDescriptionForResourceOfTypePasswordAndDescription','2023-07-23 14:48:31','2023-07-23 14:48:31',0),
+(20230418103007,'V400AddTotpResourceTypes','2023-07-23 14:48:31','2023-07-23 14:48:31',0),
+(20230512220600,'V410ImproveFoldersRelationsIndexesShareFoldersPerformance','2023-07-23 14:48:31','2023-07-23 14:48:31',0),
+(20230601101058,'V410RemoveTypeFromTotpResourceTypes','2023-07-23 14:48:31','2023-07-23 14:48:31',0),
+(20230607174200,'V410DeleteRootRole','2023-07-23 14:48:31','2023-07-23 14:48:31',0),
+(20230607174300,'V410AddRbacsTables','2023-07-23 14:48:31','2023-07-23 14:48:31',0),
+(20230607174301,'V410InsertUiActions','2023-07-23 14:48:31','2023-07-23 14:48:31',0),
+(20230607174302,'V410InsertDefaultRbacsUiActions','2023-07-23 14:48:31','2023-07-23 14:48:31',0);
+/*!40000 ALTER TABLE `phinxlog` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `profiles`
+--
+
+DROP TABLE IF EXISTS `profiles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `profiles` (
+  `id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `user_id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `first_name` varchar(255) NOT NULL,
+  `last_name` varchar(255) NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `profiles`
+--
+
+LOCK TABLES `profiles` WRITE;
+/*!40000 ALTER TABLE `profiles` DISABLE KEYS */;
+INSERT INTO `profiles` VALUES
+('421df68b-12d4-43fb-9946-1fca61b01663','77bc0450-c784-4636-a333-6117e784d1df','John ','Adoyi','2023-07-24 18:03:47','2023-07-24 18:03:47'),
+('6d393b5d-43f3-487d-80e7-196fec62d16f','0a0e3a7e-1c9b-4ca8-9777-efffe81ac3af','Samuel','Ekele','2023-07-23 15:21:05','2023-07-23 15:21:05'),
+('c9141a1e-5334-4326-a258-923653be4542','04100d80-3491-4df1-ad93-2b986fb85950','Sammy','Ekele','2023-07-23 15:53:28','2023-07-23 15:53:28');
+/*!40000 ALTER TABLE `profiles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `rbacs`
+--
+
+DROP TABLE IF EXISTS `rbacs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rbacs` (
+  `id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `role_id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `control_function` varchar(255) CHARACTER SET ascii COLLATE ascii_general_ci DEFAULT NULL,
+  `foreign_model` varchar(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `foreign_id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  `created_by` char(36) CHARACTER SET ascii COLLATE ascii_general_ci DEFAULT NULL,
+  `modified_by` char(36) CHARACTER SET ascii COLLATE ascii_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `role_id` (`role_id`,`foreign_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rbacs`
+--
+
+LOCK TABLES `rbacs` WRITE;
+/*!40000 ALTER TABLE `rbacs` DISABLE KEYS */;
+INSERT INTO `rbacs` VALUES
+('0466a1d0-79fd-457c-bf79-e59ffbd8e97f','abfbf114-5190-4d39-a968-3a0147e31897','Allow','UiAction','6dcc8a5e-459a-42a7-a84a-1886caf78ec6','2023-07-23 14:48:31','2023-07-23 14:48:31',NULL,NULL),
+('048a42f7-1ab4-41b0-b298-87b9004591ab','abfbf114-5190-4d39-a968-3a0147e31897','Allow','UiAction','c3e3588b-2586-4c4b-89a0-0a4e1bce2a03','2023-07-23 14:48:31','2023-07-23 14:48:31',NULL,NULL),
+('16e93d47-ba48-4009-a6a4-d5f33696272b','abfbf114-5190-4d39-a968-3a0147e31897','Allow','UiAction','ece114e3-54fc-4177-92e8-e610e0bf7591','2023-07-23 14:48:31','2023-07-23 14:48:31',NULL,NULL),
+('17b7ae24-4e2f-4dcc-a703-b22633b3129d','abfbf114-5190-4d39-a968-3a0147e31897','Allow','UiAction','ec25014a-807a-4e09-8011-a4e4f3d6824d','2023-07-23 14:48:31','2023-07-23 14:48:31',NULL,NULL),
+('248c812e-93bb-4fad-bb82-f768e7bdb063','abfbf114-5190-4d39-a968-3a0147e31897','Allow','UiAction','5b6fd682-d99c-41d0-b291-654a3e2134c3','2023-07-23 14:48:31','2023-07-23 14:48:31',NULL,NULL),
+('52ba9a57-6bc6-47cc-8c6e-e09a0099fccb','abfbf114-5190-4d39-a968-3a0147e31897','Allow','UiAction','2f4cd7e2-0705-4b51-9fe5-d77490dc56d9','2023-07-23 14:48:31','2023-07-23 14:48:31',NULL,NULL),
+('5525aa3a-b919-45c1-9e7b-84d304aaad75','abfbf114-5190-4d39-a968-3a0147e31897','Allow','UiAction','395e17fc-9e77-4450-9112-cc0cee72f689','2023-07-23 14:48:31','2023-07-23 14:48:31',NULL,NULL),
+('5b391864-94c6-462e-bb58-40bb0fd3c252','abfbf114-5190-4d39-a968-3a0147e31897','Allow','UiAction','6518457f-dab6-4409-bfa7-275ccbba9fe3','2023-07-23 14:48:31','2023-07-23 14:48:31',NULL,NULL),
+('751efe0f-1d67-46d5-9285-372f8549d899','abfbf114-5190-4d39-a968-3a0147e31897','Allow','UiAction','fba91122-96bc-4ad5-936d-97a0ea715c62','2023-07-23 14:48:31','2023-07-23 14:48:31',NULL,NULL),
+('87f25409-592b-4c30-add3-92e3831ef32c','abfbf114-5190-4d39-a968-3a0147e31897','Allow','UiAction','1c536319-4033-40e9-9a12-c4f51d530072','2023-07-23 14:48:31','2023-07-23 14:48:31',NULL,NULL),
+('a15a29b3-d4d2-4b0e-b8b6-794485fc7cc2','abfbf114-5190-4d39-a968-3a0147e31897','Allow','UiAction','65869b8b-13f9-47af-a6eb-fff3fa4838a1','2023-07-23 14:48:31','2023-07-23 14:48:31',NULL,NULL),
+('abcd884b-80f6-4337-9858-b8090cf163d4','abfbf114-5190-4d39-a968-3a0147e31897','Allow','UiAction','9028a7d1-694f-431f-b666-29549639f9e5','2023-07-23 14:48:31','2023-07-23 14:48:31',NULL,NULL),
+('b202c496-45fb-4cf5-8eef-9500deaff3df','abfbf114-5190-4d39-a968-3a0147e31897','Allow','UiAction','61ed2ff1-f992-45cb-a685-9684b83ddecf','2023-07-23 14:48:31','2023-07-23 14:48:31',NULL,NULL),
+('cd4803bd-afdf-4574-b2b8-72c080cda8e0','abfbf114-5190-4d39-a968-3a0147e31897','Allow','UiAction','6c2bc165-b252-48d3-bd9d-efff1182f8be','2023-07-23 14:48:31','2023-07-23 14:48:31',NULL,NULL),
+('de8529cc-d75c-4393-a28a-c3a2f3143e6d','abfbf114-5190-4d39-a968-3a0147e31897','Allow','UiAction','63b502c7-923a-45c5-83d3-c40efb35cb9b','2023-07-23 14:48:31','2023-07-23 14:48:31',NULL,NULL),
+('e1e3cb5f-8713-4c4b-99d0-2b33054c8573','abfbf114-5190-4d39-a968-3a0147e31897','Allow','UiAction','a16cd4c0-aacf-49d4-9f7e-ca14ad361d92','2023-07-23 14:48:31','2023-07-23 14:48:31',NULL,NULL),
+('fa763832-093a-472f-9482-77b3f1955a33','abfbf114-5190-4d39-a968-3a0147e31897','Allow','UiAction','e24e5a96-6603-4d3e-a00f-2d7dd711d7ce','2023-07-23 14:48:31','2023-07-23 14:48:31',NULL,NULL);
+/*!40000 ALTER TABLE `rbacs` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `resource_types`
+--
+
+DROP TABLE IF EXISTS `resource_types`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `resource_types` (
+  `id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `slug` varchar(64) NOT NULL,
+  `name` varchar(64) NOT NULL,
+  `description` char(255) DEFAULT NULL,
+  `definition` text DEFAULT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `slug` (`slug`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `resource_types`
+--
+
+LOCK TABLES `resource_types` WRITE;
+/*!40000 ALTER TABLE `resource_types` DISABLE KEYS */;
+INSERT INTO `resource_types` VALUES
+('05ba5c75-504d-5ad6-819a-83af68867d86','totp','Standalone TOTP','A resource with standalone TOTP fields.','{\"resource\":{\"type\":\"object\",\"required\":[\"name\"],\"properties\":{\"name\":{\"type\":\"string\",\"maxLength\":255},\"uri\":{\"anyOf\":[{\"type\":\"string\",\"maxLength\":1024},{\"type\":\"null\"}]}}},\"secret\":{\"type\":\"object\",\"required\":[\"totp\"],\"properties\":{\"totp\":{\"type\":\"object\",\"required\":[\"secret_key\",\"digits\",\"algorithm\"],\"properties\":{\"algorithm\":{\"type\":\"string\",\"minLength\":4,\"maxLength\":6},\"secret_key\":{\"type\":\"string\",\"maxLength\":1024},\"digits\":{\"type\":\"number\",\"minimum\":6,\"exclusiveMaximum\":9},\"period\":{\"type\":\"number\"}}}}}}','2023-07-23 14:48:31','2023-07-23 14:48:31'),
+('669f8c64-242a-59fb-92fc-81f660975fd3','password-string','Simple password','The original passbolt resource type, where the secret is a non empty string.','{\"resource\":{\"type\":\"object\",\"required\":[\"name\"],\"properties\":{\"name\":{\"type\":\"string\",\"maxLength\":255},\"username\":{\"anyOf\":[{\"type\":\"string\",\"maxLength\":255},{\"type\":\"null\"}]},\"uri\":{\"anyOf\":[{\"type\":\"string\",\"maxLength\":1024},{\"type\":\"null\"}]},\"description\":{\"anyOf\":[{\"type\":\"string\",\"maxLength\":10000},{\"type\":\"null\"}]}}},\"secret\":{\"type\":\"string\",\"maxLength\":4096}}','2023-07-23 14:48:29','2023-07-23 14:48:29'),
+('8cca88d9-a3f6-56df-b860-3ef08de5c5c4','password-description-totp','Password, Description and TOTP','A resource with encrypted password, description and TOTP fields.','{\"resource\":{\"type\":\"object\",\"required\":[\"name\"],\"properties\":{\"name\":{\"type\":\"string\",\"maxLength\":255},\"username\":{\"anyOf\":[{\"type\":\"string\",\"maxLength\":255},{\"type\":\"null\"}]},\"uri\":{\"anyOf\":[{\"type\":\"string\",\"maxLength\":1024},{\"type\":\"null\"}]}}},\"secret\":{\"type\":\"object\",\"required\":[\"password\",\"totp\"],\"properties\":{\"password\":{\"type\":\"string\",\"maxLength\":4096},\"description\":{\"anyOf\":[{\"type\":\"string\",\"maxLength\":10000},{\"type\":\"null\"}]},\"totp\":{\"type\":\"object\",\"required\":[\"secret_key\",\"digits\",\"algorithm\"],\"properties\":{\"algorithm\":{\"type\":\"string\",\"minLength\":4,\"maxLength\":6},\"secret_key\":{\"type\":\"string\",\"maxLength\":1024},\"digits\":{\"type\":\"number\",\"minimum\":6,\"exclusiveMaximum\":9},\"period\":{\"type\":\"number\"}}}}}}','2023-07-23 14:48:31','2023-07-23 14:48:31'),
+('a28a04cd-6f53-518a-967c-9963bf9cec51','password-and-description','Password with description','A resource with the password and the description encrypted.','{\"resource\":{\"type\":\"object\",\"required\":[\"name\"],\"properties\":{\"name\":{\"type\":\"string\",\"maxLength\":255},\"username\":{\"anyOf\":[{\"type\":\"string\",\"maxLength\":255},{\"type\":\"null\"}]},\"uri\":{\"anyOf\":[{\"type\":\"string\",\"maxLength\":1024},{\"type\":\"null\"}]}}},\"secret\":{\"type\":\"object\",\"required\":[\"password\"],\"properties\":{\"password\":{\"type\":\"string\",\"maxLength\":4096},\"description\":{\"anyOf\":[{\"type\":\"string\",\"maxLength\":10000},{\"type\":\"null\"}]}}}}','2023-07-23 14:48:29','2023-07-23 14:48:29');
+/*!40000 ALTER TABLE `resource_types` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `resources`
+--
+
+DROP TABLE IF EXISTS `resources`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `resources` (
+  `id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  `uri` varchar(1024) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `deleted` tinyint(1) NOT NULL DEFAULT 0,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  `created_by` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `modified_by` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `resource_type_id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `deleted` (`deleted`),
+  KEY `resource_type_id` (`resource_type_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `resources`
+--
+
+LOCK TABLES `resources` WRITE;
+/*!40000 ALTER TABLE `resources` DISABLE KEYS */;
+/*!40000 ALTER TABLE `resources` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `roles`
+--
+
+DROP TABLE IF EXISTS `roles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `roles` (
+  `id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `roles`
+--
+
+LOCK TABLES `roles` WRITE;
+/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
+INSERT INTO `roles` VALUES
+('95c0e1d1-7dc0-45e3-b8ed-8aa78b60218f','admin','Organization administrator','2012-07-04 13:39:25','2012-07-04 13:39:25'),
+('abfbf114-5190-4d39-a968-3a0147e31897','user','Logged in user','2012-07-04 13:39:25','2012-07-04 13:39:25'),
+('be3a3bd7-9f4b-400b-8073-98ac542cf4a8','guest','Non logged in user','2012-07-04 13:39:25','2012-07-04 13:39:25');
+/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `secret_accesses`
+--
+
+DROP TABLE IF EXISTS `secret_accesses`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `secret_accesses` (
+  `id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `user_id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `resource_id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `secret_id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `created` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id` (`id`),
+  KEY `secret_id` (`secret_id`),
+  KEY `user_id` (`user_id`,`resource_id`),
+  KEY `resource_id` (`resource_id`),
+  KEY `user_id_2` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `secret_accesses`
+--
+
+LOCK TABLES `secret_accesses` WRITE;
+/*!40000 ALTER TABLE `secret_accesses` DISABLE KEYS */;
+/*!40000 ALTER TABLE `secret_accesses` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `secrets`
+--
+
+DROP TABLE IF EXISTS `secrets`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `secrets` (
+  `id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `user_id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `resource_id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `data` mediumtext NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `resource_id` (`resource_id`),
+  KEY `user_id` (`user_id`,`resource_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `secrets`
+--
+
+LOCK TABLES `secrets` WRITE;
+/*!40000 ALTER TABLE `secrets` DISABLE KEYS */;
+/*!40000 ALTER TABLE `secrets` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `secrets_history`
+--
+
+DROP TABLE IF EXISTS `secrets_history`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `secrets_history` (
+  `id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `user_id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `resource_id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id` (`id`),
+  KEY `user_id` (`user_id`,`resource_id`),
+  KEY `resource_id` (`resource_id`),
+  KEY `user_id_2` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `secrets_history`
+--
+
+LOCK TABLES `secrets_history` WRITE;
+/*!40000 ALTER TABLE `secrets_history` DISABLE KEYS */;
+/*!40000 ALTER TABLE `secrets_history` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `transfers`
+--
+
+DROP TABLE IF EXISTS `transfers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `transfers` (
+  `id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `user_id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `authentication_token_id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `current_page` smallint(6) NOT NULL,
+  `total_pages` smallint(6) NOT NULL,
+  `status` varchar(16) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `hash` char(128) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `transfers`
+--
+
+LOCK TABLES `transfers` WRITE;
+/*!40000 ALTER TABLE `transfers` DISABLE KEYS */;
+/*!40000 ALTER TABLE `transfers` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ui_actions`
+--
+
+DROP TABLE IF EXISTS `ui_actions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ui_actions` (
+  `id` char(36) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=ascii COLLATE=ascii_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ui_actions`
+--
+
+LOCK TABLES `ui_actions` WRITE;
+/*!40000 ALTER TABLE `ui_actions` DISABLE KEYS */;
+INSERT INTO `ui_actions` VALUES
+('1c536319-4033-40e9-9a12-c4f51d530072','Resources.filterByGroups'),
+('2f4cd7e2-0705-4b51-9fe5-d77490dc56d9','Secrets.preview'),
+('395e17fc-9e77-4450-9112-cc0cee72f689','InFormMenu.use'),
+('5b6fd682-d99c-41d0-b291-654a3e2134c3','Resources.editPasswordGeneratorSettings'),
+('61ed2ff1-f992-45cb-a685-9684b83ddecf','Resources.seeActivities'),
+('63b502c7-923a-45c5-83d3-c40efb35cb9b','Folders.use'),
+('6518457f-dab6-4409-bfa7-275ccbba9fe3','Resources.toggleDescription'),
+('65869b8b-13f9-47af-a6eb-fff3fa4838a1','Tags.use'),
+('6c2bc165-b252-48d3-bd9d-efff1182f8be','Share.viewUsersInAutocomplete'),
+('6dcc8a5e-459a-42a7-a84a-1886caf78ec6','Share.viewGroupsInAutocomplete'),
+('9028a7d1-694f-431f-b666-29549639f9e5','Users.viewGroups'),
+('a16cd4c0-aacf-49d4-9f7e-ca14ad361d92','Resources.export'),
+('c3e3588b-2586-4c4b-89a0-0a4e1bce2a03','Secrets.copy'),
+('e24e5a96-6603-4d3e-a00f-2d7dd711d7ce','Resources.seeComments'),
+('ec25014a-807a-4e09-8011-a4e4f3d6824d','Users.viewWorkspace'),
+('ece114e3-54fc-4177-92e8-e610e0bf7591','Share.viewList'),
+('fba91122-96bc-4ad5-936d-97a0ea715c62','Resources.import');
+/*!40000 ALTER TABLE `ui_actions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user_agents`
+--
+
+DROP TABLE IF EXISTS `user_agents`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_agents` (
+  `id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `name` varchar(512) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_agents`
+--
+
+LOCK TABLES `user_agents` WRITE;
+/*!40000 ALTER TABLE `user_agents` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_agents` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users` (
+  `id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `role_id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 0,
+  `deleted` tinyint(1) NOT NULL DEFAULT 0,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `deleted` (`deleted`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES
+('04100d80-3491-4df1-ad93-2b986fb85950','95c0e1d1-7dc0-45e3-b8ed-8aa78b60218f','samuelekele.bincom@gmail.com',1,0,'2023-07-23 15:53:28','2023-07-23 15:57:57'),
+('0a0e3a7e-1c9b-4ca8-9777-efffe81ac3af','95c0e1d1-7dc0-45e3-b8ed-8aa78b60218f','realsammy86@gmail.com',0,0,'2023-07-23 15:21:05','2023-07-23 15:21:05'),
+('77bc0450-c784-4636-a333-6117e784d1df','abfbf114-5190-4d39-a968-3a0147e31897','oshopayng@gmail.com',0,0,'2023-07-24 18:03:47','2023-07-24 18:03:47');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2023-07-26 12:17:05
